@@ -6,7 +6,7 @@
 /*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:17:04 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/03/12 00:29:18 by asanotomoki      ###   ########.fr       */
+/*   Updated: 2022/11/17 22:54:28 by asanotomoki      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	ft_putnbr_loop(int n, int fd)
 {
 	if (n == 0)
-	{
 		return ;
-	}
 	ft_putnbr_loop (n / 10, fd);
 	ft_putchar_fd ((n % 10) * -1 + '0', fd);
 }

@@ -6,7 +6,7 @@
 /*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 04:17:38 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/10/29 07:15:52 by asanotomoki      ###   ########.fr       */
+/*   Updated: 2022/11/18 15:18:54 by asanotomoki      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	charmap(int c, int base)
 	return (-1);
 }
 
-int	set_base(const char **str, int base)
+int	set_base(const char **str, char **endptr, int base)
 {
 	char	*ptr;
 
@@ -45,15 +45,12 @@ int	set_base(const char **str, int base)
 	if (base == 0 || ((base == 8 || base == 16) && *ptr == '0'))
 	{
 		if ((base == 0 || base == 8) && ft_isbase(ptr[1], 8))
-		{
-			ptr++;
-			base = 8;
-		}
+			ft_strtol(ptr++, endptr, 8);
 		else if ((base == 0 || base == 16) && \
 			(ptr[1] == 'x' || ptr[1] == 'X') && ft_isbase(ptr[2], 16))
 		{
 			ptr += 2;
-			base = 16;
+			ft_strtol(ptr, endptr, 16);
 		}
 	}
 	*str = ptr;
@@ -77,7 +74,7 @@ long	ft_strtol(const char *str, char **endptr, int base)
 		return (set_endptr(0, &endptr, str));
 	while (ft_isspace(*str))
 		str++;
-	base = set_base(&str, base);
+	base = set_base(&str, endptr, base);
 	sign = -1;
 	if ((*str == '+' || *str == '-') && ft_isbase(str[1], base))
 		sign = -(44 - *str++);

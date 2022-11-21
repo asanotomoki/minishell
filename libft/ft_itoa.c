@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: test <test@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 03:00:26 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/07/25 15:41:09 by test             ###   ########.fr       */
+/*   Updated: 2022/11/18 14:07:20 by asanotomoki      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	ft_loop(int n, char *num, int index)
 {
 	if (n == 0)
-	{
 		return ;
-	}
 	ft_loop (n / 10, num, --index);
 	num[index] = (n % 10) * -1 + '0';
 }
@@ -33,7 +31,7 @@ char	*ft_itoa(int n)
 	else if (n == 0)
 		return (ft_strdup("0"));
 	num = ft_calloc(digit + 1, sizeof(char));
-	if (num == NULL)
+	if (!num)
 		return (NULL);
 	if (n < 0)
 		num[0] = '-';

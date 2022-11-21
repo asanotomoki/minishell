@@ -6,11 +6,15 @@
 /*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/11/17 16:01:30 by asanotomoki      ###   ########.fr       */
+/*   Updated: 2022/11/19 18:23:12 by asanotomoki      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main()
+#include "minishell.h"
+
+int	main(int argc, int **argv)
 {
-	
+	if (argc < 1)
+		return (1);
+	return (0);
 }
