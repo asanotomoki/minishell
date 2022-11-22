@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:43:45 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/11/19 14:39:30 by asanotomoki      ###   ########.fr       */
+/*   Updated: 2022/11/22 12:17:31 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,14 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include "err.h"
+# include "libft.h"
+
+char	*get_cmdfile(char *cmd, char **envp);
+int		basic_cmd(char *cmd, char **envp);
+
+//utils
+int		perr_msg(char *msg);
+int		err_msg(char *msg);
+void free_args(char **cmd_paths);
 
 #endif

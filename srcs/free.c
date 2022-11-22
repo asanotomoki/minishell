@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/15 19:57:58 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/10/31 04:08:57 by asanotomoki      ###   ########.fr       */
+/*   Created: 2022/11/22 12:15:57 by tasano            #+#    #+#             */
+/*   Updated: 2022/11/22 12:17:23 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "minishell.h"
 
-# include "libft.h"
+void free_args(char **cmd_paths)
+{
+	size_t	i;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
-
-char	*ft_strjoin_free(char *s1, char const *s2);
-void	gnl_perror_exit(char *msg, int status);
-
-#endif
+	i = 0;
+	while (cmd_paths[i])
+	{
+		free(cmd_paths[i]);
+		i++;
+	}
+	free(cmd_paths);
+}
