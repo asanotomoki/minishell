@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basic_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 16:52:32 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/11/22 12:18:03 by tasano           ###   ########.fr       */
+/*   Created: 2022/11/22 17:22:12 by asanotomoki       #+#    #+#             */
+/*   Updated: 2022/11/22 17:27:51 by asanotomoki      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,14 @@ int	basic_cmd(char *cmd, char **envp)
 	pid_t pid;
 	t_cmds cmds;
 
-	get_cmd(cmd, envp, &cmds);
+	if (get_cmd(cmd, envp, &cmds))
+		return (1);
 	pid = fork();
 	if (pid == 0)
 	{
 		if (execve(cmds.cmd_file, cmds.cmds, envp) == -1)
-		return (perr_msg("execve"));
+			return (perr_msg("execve"));
 	}
-	free(cmds.cmd_file);
-	free_args(cmds.cmds);
 	if (waitpid(pid, NULL, 0) == -1)
 		return (perr_msg("waitpid"));
 	return (0);
