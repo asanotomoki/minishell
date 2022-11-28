@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:43:45 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/11/22 12:17:31 by tasano           ###   ########.fr       */
+/*   Updated: 2022/11/25 16:04:17 by asanotomoki      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 # include <sys/time.h>
 # include "err.h"
 # include "libft.h"
+
+typedef struct s_cmds
+{
+	char *cmd_file;
+	char **cmds;
+} t_cmds;
+
 
 char	*get_cmdfile(char *cmd, char **envp);
 int		basic_cmd(char *cmd, char **envp);

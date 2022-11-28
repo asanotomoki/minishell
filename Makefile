@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
+#    By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2022/11/22 12:16:38 by tasano           ###   ########.fr        #
+#    Updated: 2022/11/26 01:40:06 by asanotomoki      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,4 +58,4 @@ fclean:	clean
 
 re: fclean all
 
-.PHONY: all bonus fclean clean re
+.PHONY: all bonus fclean clean re 

@@ -6,7 +6,7 @@
 /*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:55:49 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/11/22 17:23:02 by asanotomoki      ###   ########.fr       */
+/*   Updated: 2022/11/22 21:37:05 by asanotomoki      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static char	**get_paths(char **envp)
 	while (*envp && (ft_strncmp(*envp, "PATH=", 5) != 0))
 		envp++;
 	if (!*envp)
-		err_msg("ENVP ERR");
+		return (NULL);
 	*envp += 5;
 	paths = ft_split(*envp, ':');
 	if (!paths)
-		perr_msg("ft_split");
+		return (NULL);
 	return (paths);
 }
 
@@ -38,10 +38,10 @@ static	char	*find_cmdfile(char *cmd, char **cmd_paths)
 	{
 		tmp = ft_strjoin(cmd_paths[i], "/");
 		if (!tmp)
-			perr_msg("ft_strjoin");
+			return (NULL);
 		cmd_path = ft_strjoin(tmp, cmd);
 		if (!cmd_path)
-			perr_msg("ft_strjoin");
+			return (NULL);
 		free(tmp);
 		if (access(cmd_path, X_OK) == 0)
 			return (cmd_path);
@@ -51,18 +51,39 @@ static	char	*find_cmdfile(char *cmd, char **cmd_paths)
 	return (NULL);
 }
 
-char	*get_cmdfile(char *cmd, char **envp)
+static	char *relative_path(char *cmd)
+{
+	if (!access(cmd, X_OK))
+		return (ft_strdup(cmd));
+	else
+	{
+		err_msg("command not found");
+		return (NULL);
+	}
+}
+
+static	char *absolute_path(char *cmd, char **envp)
 {
 	char	**cmd_paths;
 	char	*cmd_file;
 
-	if (ft_strchr(cmd, '/') && !access(cmd, X_OK))
-		return (ft_strdup(cmd));
-	else
+	cmd_paths = get_paths(envp);
+	if (!cmd_paths)
+		return (NULL);
+	cmd_file = find_cmdfile(cmd, cmd_paths);
+	if (!cmd_file)
 	{
-		cmd_paths = get_paths(envp);
-		cmd_file = find_cmdfile(cmd, cmd_paths);
 		free_args(cmd_paths);
-		return (cmd_file);
+		return (NULL);
 	}
+	free_args(cmd_paths);
+	return (cmd_file);
+}
+
+char	*get_cmdfile(char *cmd, char **envp)
+{
+	if (ft_strchr(cmd, '/'))
+		return (relative_path(cmd));
+	else
+		return (absolute_path(cmd, envp));
 }

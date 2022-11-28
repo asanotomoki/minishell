@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: test <test@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/11/22 10:59:56 by tasano            ###   ########.fr       */
+/*   Created: 2022/11/25 15:55:18 by asanotomoki       #+#    #+#             */
+/*   Updated: 2022/11/26 01:36:08 by asanotomoki      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int make_fork()
 {
-	if (argc < 1)
-		return (1);
-	basic_cmd(argv[1], envp);
+
+}
+
+int	pipe_cmd()
+{
 	return (0);
 }

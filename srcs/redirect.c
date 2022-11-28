@@ -1,21 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: test <test@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/11/22 10:59:56 by tasano            ###   ########.fr       */
+/*   Created: 2022/11/25 15:49:00 by asanotomoki       #+#    #+#             */
+/*   Updated: 2022/11/25 16:04:58 by asanotomoki      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int main(int argc, char **argv, char **envp)
-{
-	if (argc < 1)
-		return (1);
-	basic_cmd(argv[1], envp);
-	return (0);
-}
