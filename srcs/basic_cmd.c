@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basic_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:22:12 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/11/28 00:24:14 by asanotomoki      ###   ########.fr       */
+/*   Updated: 2022/12/07 14:07:01 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int get_cmd(char *cmd, char **envp, t_cmds *cmds)
 	if (!cmds->cmd_file)
 	{
 		free_args(cmds->cmds);
-		return (1);
+		return (err_msg("command not found"));
 	}
 	return (0);
 }
@@ -35,12 +35,12 @@ int basic_cmd(char *cmd, char **envp)
 	if (pid == 0)
 	{
 		if (get_cmd(cmd, envp, &cmds))
-			return (1);
+			exit (1);
 		if (execve(cmds.cmd_file, cmds.cmds, envp) == -1)
 		{
 			free_args(cmds.cmds);
 			free(cmds.cmd_file);
-			return (perr_msg("execve"));
+			exit (perr_msg("execve"));
 		}
 		free_args(cmds.cmds);
 		free(cmds.cmd_file);

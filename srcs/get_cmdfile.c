@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmdfile.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:55:49 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/11/22 21:37:05 by asanotomoki      ###   ########.fr       */
+/*   Updated: 2022/12/07 13:59:49 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ static char	**get_paths(char **envp)
 		envp++;
 	if (!*envp)
 		return (NULL);
-	*envp += 5;
-	paths = ft_split(*envp, ':');
+	paths = ft_split(*envp + 5, ':');
 	if (!paths)
 		return (NULL);
 	return (paths);

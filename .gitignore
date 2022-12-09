@@ -1,4 +1,6 @@
 .vscode
-obj/*.o
-libft/obj/*
+libft/libft.a
+libft/obj
+srcs/*/obj
+srcs/*/*.a
 minishell
