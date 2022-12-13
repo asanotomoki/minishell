@@ -6,7 +6,7 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2022/12/13 15:39:51 by tasano           ###   ########.fr        #
+#    Updated: 2022/12/13 16:17:34 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,3 +56,8 @@ fclean:	clean
 
 .PHONY: re
 re: fclean all
+
+.PHONY: test
+test: all
+	$(CC) $(CFLAGS) -o test $(NAME) test.c 
+	./test

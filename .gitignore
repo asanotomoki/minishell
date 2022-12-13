@@ -3,5 +3,6 @@ libft/libft.a
 libft/obj
 srcs/*/obj
 srcs/*/*.a
+srcs/*/test
 minishell
 obj

@@ -44,3 +44,8 @@ fclean:	clean
 
 .PHONY: re
 re: fclean all
+
+.PHONY: test
+test: all
+	$(CC) $(CFLAGS) -o test $(NAME) test.c 
+	./test
