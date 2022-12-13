@@ -1,14 +1,16 @@
-NAME	:=	lexer.a
-CC		:=	cc
-CFLAGS	:=	-Wall -Wextra -Werror
-SRCDIR	:=	./
-AR		:=	ar
-ARFLAFS	:=	-rcs
-RM		:=	rm -rf
-SOURCES	:=	lexer.c
-OBJDIR	:=	./obj
-OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
-DEPENDS	:=	$(OBJECTS:.o:=.d)
+NAME	:= util.a
+LIBFT	:= ../../libft/libf.a
+CC		:= cc
+CFLAGS	:= -Wall -Wextra -Werror
+SRCDIR	:= ./
+AR		:= ar
+ARFLAFS	:= -rcs
+RM		:= rm -rf
+INCLUDE	:= util.h
+SOURCES	:= error.c free.c
+OBJDIR	:= ./obj
+OBJECTS	:= $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
+DEPENDS	:= $(OBJECTS:.o:=.d)
 INCLUDE	:=	-I ../../libft/includes
 #Message
 RED		:= \033[1;31m
@@ -17,7 +19,7 @@ YELLOW	:= \033[1;33m
 DEFAULT	:= \033[0m
 
 NAME_MSG := " $(GREEN)Compile $(NAME)$(DEFAULT)"
-CLEAN_MSG := " $(YELLOW)Delete ./srcs/lexer/obj$(DEFAULT)"
+CLEAN_MSG := " $(YELLOW)Delete ./srcs/util/obj$(DEFAULT)"
 FCLEAN_MSG := " $(RED)Delete $(NAME)$(DEFAULT)"
 
 $(NAME): $(OBJECTS) 

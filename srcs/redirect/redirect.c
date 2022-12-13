@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 12:15:57 by tasano            #+#    #+#             */
-/*   Updated: 2022/11/22 17:23:00 by asanotomoki      ###   ########.fr       */
+/*   Created: 2022/11/25 15:49:00 by asanotomoki       #+#    #+#             */
+/*   Updated: 2022/12/13 16:00:07 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-void free_args(char **cmd_paths)
+int	redirect()
 {
-	size_t	i;
-
-	i = 0;
-	while (cmd_paths[i])
-	{
-		free(cmd_paths[i]);
-		i++;
-	}
-	free(cmd_paths);
+	return (0);
 }

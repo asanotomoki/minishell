@@ -6,11 +6,15 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:24:39 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/09 17:25:58 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/09 23:57:10 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int cd_cmd()
+//#include "builtin_cmd.h"
+#include <stdio.h>
+
+int cd_cmd(char *args)
 {
+	printf("%s", args);
 	return (0);
 }

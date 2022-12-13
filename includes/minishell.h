@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:43:45 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/12/06 18:17:10 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/13 15:31:16 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <readline/history.h>
 # include "err.h"
 # include "libft.h"
+# include "util.h"
 
 typedef struct s_cmds
 {

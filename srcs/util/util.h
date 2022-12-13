@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cmds.h                                     :+:      :+:    :+:   */
+/*   util.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/13 15:25:03 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/13 16:03:36 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_CMDS_H
-# define BUILTIN_CMDS_H
+#ifndef UTIL_H
+# define UTIL_H
 
-# define  N_OPTION 1
 #include <stdio.h>
-#include "libft.h"
-
-int echo_cmd(char **argv, int option);
+int		err_msg(char *msg);
+int		perr_msg(char *msg);
+void	 free_args(char **cmd_paths);
 #endif

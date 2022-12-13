@@ -1,11 +1,12 @@
-NAME	:=	lexer.a
+NAME	:=	pipe.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-SOURCES	:=	lexer.c
+INCLUDE	:=	pipe.h
+SOURCES	:=	pipe.c
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
@@ -17,7 +18,7 @@ YELLOW	:= \033[1;33m
 DEFAULT	:= \033[0m
 
 NAME_MSG := " $(GREEN)Compile $(NAME)$(DEFAULT)"
-CLEAN_MSG := " $(YELLOW)Delete ./srcs/lexer/obj$(DEFAULT)"
+CLEAN_MSG := " $(YELLOW)Delete ./srcs/pipe/obj$(DEFAULT)"
 FCLEAN_MSG := " $(RED)Delete $(NAME)$(DEFAULT)"
 
 $(NAME): $(OBJECTS) 

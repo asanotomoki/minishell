@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   redirect.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 17:10:17 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/11/22 17:26:25 by asanotomoki      ###   ########.fr       */
+/*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
+/*   Updated: 2022/12/13 13:52:39 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef REDIRECT_H
+# define REDIRECT_H
 
-int	perr_msg(char *msg)
-{
-	perror(msg);
-	return (1);
-}
+#include <stdio.h>
 
-int	err_msg(char *msg)
-{
-	ft_putendl_fd(msg, 2);
-	return (1);
-}
+#endif

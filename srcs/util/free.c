@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cmds.h                                     :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/13 15:25:03 by tasano           ###   ########.fr       */
+/*   Created: 2022/11/22 12:15:57 by tasano            #+#    #+#             */
+/*   Updated: 2022/12/13 16:03:47 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_CMDS_H
-# define BUILTIN_CMDS_H
-
-# define  N_OPTION 1
-#include <stdio.h>
 #include "libft.h"
 
-int echo_cmd(char **argv, int option);
-#endif
+void free_args(char **cmd_paths)
+{
+	size_t	i;
+
+	i = 0;
+	while (cmd_paths[i])
+	{
+		free(cmd_paths[i]);
+		i++;
+	}
+	free(cmd_paths);
+}

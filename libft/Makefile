@@ -23,13 +23,19 @@ gnl/get_next_line.c gnl/get_next_line_utils.c
 OBJDIR    := ./obj
 OBJECTS   := $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS   := $(OBJECTS:.o:=.d)
-MSG := Compile $(NAME) 
-CLEAN_MSG := Delete libft obj file
-FCLEAN_MSG := Delete $(NAME)
+#Message
+RED 	:= \033[1;31m
+GREEN	:= \033[1;32m
+YELLOW	:= \033[1;33m
+DEFAULT	:= \033[0m
+
+NAME_MSG	:=	"$(GREEN) Compile $(NAME)$(DEFAULT)"
+CLEAN_MSG	:=	"$(YELLOW) Delete ./libft/obj$(DEFAULT)"
+FCLEAN_MSG	:=	"$(RED) Delete $(NAME)$(DEFAULT)"
 
 $(NAME): $(OBJECTS) 
 	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
-	@echo $(MSG)
+	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@-mkdir -p $(OBJDIR)

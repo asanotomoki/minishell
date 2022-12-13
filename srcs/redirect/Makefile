@@ -1,15 +1,15 @@
-NAME	:=	parser.a
-CC		:=	cc
-CFLAGS	:=	-Wall -Wextra -Werror
-SRCDIR	:=	./
-AR		:=	ar
-ARFLAFS	:=	-rcs
-RM		:=	rm -rf
-INCLUDE	:=	parser.h
-SOURCES	:=	parser.c
-OBJDIR	:=	./obj
-OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
-DEPENDS	:=	$(OBJECTS:.o:=.d)
+NAME	:= redirect.a
+CC		:= cc
+CFLAGS	:= -Wall -Wextra -Werror
+SRCDIR	:= ./
+AR		:= ar
+ARFLAFS	:= -rcs
+RM		:= rm -rf
+INCLUDE	:= pipe.h 
+SOURCES	:= redirect.c
+OBJDIR	:= ./obj
+OBJECTS	:= $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
+DEPENDS	:= $(OBJECTS:.o:=.d)
 INCLUDE	:=	-I ../../libft/includes
 #Message
 RED		:=	\033[1;31m
@@ -17,9 +17,9 @@ GREEN	:=	\033[1;32m
 YELLOW	:=	\033[1;33m
 DEFAULT	:=	\033[0m
 
-NAME_MSG := " $(GREEN)Compile $(NAME)$(DEFAULT)"
-CLEAN_MSG := " $(YELLOW)Delete ./srcs/parser/obj$(DEFAULT)"
-FCLEAN_MSG := " $(RED)Delete $(NAME)$(DEFAULT)"
+NAME_MSG	:= " $(GREEN)Compile $(NAME)$(DEFAULT)"
+CLEAN_MSG	:= " $(YELLOW)Delete ./srcs/redirect/obj$(DEFAULT)"
+FCLEAN_MSG	:= " $(RED)Delete $(NAME)$(DEFAULT)"
 
 $(NAME): $(OBJECTS) 
 	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
