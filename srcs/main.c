@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 #include "builtin_cmds.h"
+#include <readline/history.h>
 
 static void shell_exit(char *line)
 {
@@ -32,13 +33,8 @@ int parser(char *line, char **envp)
 int shell_system(char *line, char **envp)
 {
 	int	status;
-	char **argv;
 
-	argv = malloc(sizeof(argv) * 2);
-	argv[1] = NULL;
-	argv[0] = ft_strdup("test");
 	status = parser(line, envp);
-	free_args(argv);
 	return (status);
 }
 
@@ -64,7 +60,11 @@ int main(int argc, char **argv, char **envp)
 			shell_exit(line);
 			break ;
 		}
-		shell_system(line, envp);
+		if (*line)
+		{
+			add_history(line);
+			//shell_system(line, envp);
+		}
 		free(line);
 	}
 	return (status);

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/13 13:51:35 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/13 16:56:05 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 # define LEXER_H
 
 #include <stdio.h>
+
+char *lexer(char *line);
 
 #endif

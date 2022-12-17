@@ -6,7 +6,7 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2022/12/13 16:17:34 by tasano           ###   ########.fr        #
+#    Updated: 2022/12/13 16:46:36 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,9 @@ GREEN	:= \033[1;32m
 YELLOW	:= \033[1;33m
 DEFAULT	:= \033[0m
 
-NAME_MSG := "$(GREEN) Compile $(NAME)$(DEFAULT)"
-CLEAN_MSG := "$(YELLOW) Delete ./srcs/builtin_cmds/obj$(DEFAULT)"
-FCLEAN_MSG := "$(RED) Delete $(NAME)$(DEFAULT)"
+NAME_MSG	:= "$(GREEN) Compile $(NAME)$(DEFAULT)"
+CLEAN_MSG	:= "$(YELLOW) Delete ./srcs/builtin_cmds/obj$(DEFAULT)"
+FCLEAN_MSG	:= "$(RED) Delete $(NAME)$(DEFAULT)"
 
 $(NAME): $(OBJECTS) 
 	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)

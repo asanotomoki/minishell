@@ -6,16 +6,16 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2022/12/13 16:07:17 by tasano           ###   ########.fr        #
+#    Updated: 2022/12/17 16:15:49 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:=	minishell
-OBJDIR	:=	./obj
-SRC_DIR	:=	./srcs
-CC		:=	cc
-CFLAGS	:=	-Wall -Werror -Wextra -g -fsanitize=address 
-
+NAME		:=	minishell
+OBJDIR		:=	./obj
+SRC_DIR		:=	./srcs
+CC			:=	cc
+CFLAGS		:=	-Wall -Werror -Wextra
+CFLAGS		+=	-g -fsanitize=address 
 HEADERS			:=  ./includes
 LIBFT_DIR		:=	./libft
 LIBFT			:=	$(LIBFT_DIR)/libft.a
@@ -51,11 +51,11 @@ RED		:= \033[1;31m
 GREEN	:= \033[1;32m
 YELLOW	:= \033[1;33m
 DEFAULT	:= \033[0m
-NAME_MSG := "$(GREEN) Compile $(NAME)$(DEFAULT)"
-CLEAN_MSG := "$(YELLOW) Delete $(OBJDIR)$(DEFAULT)"
-FCLEAN_MSG := "$(RED) Delete $(NAME)$(DEFAULT)"
+NAME_MSG	:=	"$(GREEN) Compile $(NAME)$(DEFAULT)"
+CLEAN_MSG	:=	"$(YELLOW) Delete $(OBJDIR)$(DEFAULT)"
+FCLEAN_MSG	:=	"$(RED) Delete $(NAME)$(DEFAULT)"
 
-.PHONY: all fclean clean re src_clean
+.PHONY: all fclean clean re
 
 $(NAME): $(LIBFT) \
 		  $(BUILTIN)\
@@ -107,7 +107,7 @@ clean:
 	@make clean -C $(UTIL_DIR)
 	@echo $(CLEAN_MSG)
 
-fclean: src_clean
+fclean: 
 	@make fclean -C $(LIBFT_DIR)
 	@make fclean -C $(BUILTIN_DIR)
 	@make fclean -C $(LEXER_DIR)

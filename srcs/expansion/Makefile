@@ -1,4 +1,4 @@
-NAME	:=	parser.a
+NAME	:=	expansion.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
 SRCDIR	:=	./

@@ -6,7 +6,6 @@ SRCDIR	:= ./
 AR		:= ar
 ARFLAFS	:= -rcs
 RM		:= rm -rf
-INCLUDE	:= util.h
 SOURCES	:= error.c free.c
 OBJDIR	:= ./obj
 OBJECTS	:= $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))

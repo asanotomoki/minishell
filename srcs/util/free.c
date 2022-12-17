@@ -6,21 +6,26 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 12:15:57 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/13 16:03:47 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/14 12:35:19 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
 
 void free_args(char **cmd_paths)
 {
 	size_t	i;
 
-	i = 0;
-	while (cmd_paths[i])
+	i = -1;
+	if (!cmd_paths)
+		return ;
+	while (cmd_paths[++i])
 	{
 		free(cmd_paths[i]);
-		i++;
+		cmd_paths = NULL;
 	}
+	cmd_paths = NULL;
 	free(cmd_paths);
 }

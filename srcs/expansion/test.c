@@ -6,15 +6,14 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/13 16:48:43 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/17 16:24:39 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "expansion.h"
 #include <stdio.h>
 
 int main()
 {
-	lexer();
 	return (0);	
 }
