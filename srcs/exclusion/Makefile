@@ -1,11 +1,11 @@
-NAME	:=	expansion.a
+NAME	:=	exclusion.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-SOURCES	:=	parameter.c
+SOURCES	:=	
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
