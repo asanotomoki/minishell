@@ -46,7 +46,7 @@ int main(int argc, char **argv, char **envp)
 	if (argc < 1)
 		return (1);
 	status = 0;
-	basic_cmd(argv[1], envp);
+	(void *)argv;
 	while (1)
 	{
 		line = readline("minishell$ ");
