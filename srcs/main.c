@@ -67,5 +67,6 @@ int main(int argc, char **argv, char **envp)
 		}
 		free(line);
 	}
+	printf("test");
 	return (status);
 }
