@@ -1,12 +1,12 @@
 NAME	:=	lexer.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
-CFLAGS	+=	-g -fsanitize=address 
+CFLAGS	+=	 -fsanitize=address -fno-omit-frame-pointer -g 
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-SOURCES	:=	lexer.c lexer_util.c
+SOURCES	:=	lexer.c lst_util.c token_util.c
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
