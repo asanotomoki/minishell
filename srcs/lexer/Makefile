@@ -1,11 +1,12 @@
 NAME	:=	lexer.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
+CFLAGS	+=	 -fsanitize=address -fno-omit-frame-pointer -g 
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-SOURCES	:=	lexer.c
+SOURCES	:=	lexer.c lst_util.c token_util.c
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
@@ -26,7 +27,7 @@ $(NAME): $(OBJECTS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@-mkdir -p $(OBJDIR)
-	@$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
 .PHONY: all
 all: $(NAME)
@@ -47,5 +48,5 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) -o test $(NAME) test.c 
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) test.c 
 	./test
