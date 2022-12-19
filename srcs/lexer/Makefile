@@ -6,11 +6,13 @@ SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-SOURCES	:=	lexer.c lst_util.c token_util.c
+SOURCES	:=	lexer.c lst_util.c 
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
-INCLUDE	:=	-I ../../libft/includes
+LIB_DIR := 	../../libft
+LIBFT	:=	$(LIB_DIR)/libft.a
+INCLUDE	:=	-I $(LIB_DIR)/includes
 #Message
 RED		:= \033[1;31m
 GREEN	:= \033[1;32m
@@ -22,7 +24,7 @@ CLEAN_MSG := " $(YELLOW)Delete ./srcs/lexer/obj$(DEFAULT)"
 FCLEAN_MSG := " $(RED)Delete $(NAME)$(DEFAULT)"
 
 $(NAME): $(OBJECTS) 
-	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
+	$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
@@ -48,5 +50,5 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) test.c 
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(LIBFT) $(NAME) test.c 
 	./test
