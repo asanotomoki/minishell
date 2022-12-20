@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/19 14:30:13 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/20 15:42:14 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,11 @@ int main()
 	t_token_lst	*content;
 	t_token_lst	*tmp;
 
-	content = token_lstnew(strdup("ls"), DABLEQUATE);
-	token_lstadd_back(&content, token_lstnew(strdup("-l"), DABLEQUATE));
-	token_lstadd_back(&content, token_lstnew(strdup("./srcs"), DABLEQUATE));
-	token_lstadd_back(&content, token_lstnew(strdup(""), DABLEQUATE));
-	//output -> ls -l ./srcs \0
+	content = lexer("ls -l | grep lexer | wc -l");
 	tmp = content;
 	while (content)
 	{
-		printf("%s ", content->token);
+		printf("%s\n", content->token);
 		content = content->next;
 	}
 	token_lstfree(tmp);

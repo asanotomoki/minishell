@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/19 13:17:11 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/19 16:00:43 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,8 @@
 
 typedef	enum e_token_type
 {
-	DABLEQUATE,
-	SINGLEQUATE,
-	PIPE,
-	INPUT_REDIRECTION,
-	HEREDOCUMENT,
-	OUTPUT_REDIRECTION,
-	OUTPUT_APPENDING,
-	NEWLINE,
-	SPACE
+	WORD,
+	PIPE
 } t_token_type;
 
 typedef struct s_token_lst
@@ -36,7 +29,7 @@ typedef struct s_token_lst
 } t_token_lst;
 
 
-char *lexer(char *line);
+t_token_lst *lexer(char *line);
 
 
 //token lst operation
