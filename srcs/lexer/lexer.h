@@ -6,12 +6,12 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/19 16:00:43 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/20 18:15:06 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#ifndef	LEXER_H
+# define	LEXER_H
 
 #include <stdio.h>
 

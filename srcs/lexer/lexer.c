@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:15 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/20 15:42:24 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/21 15:58:29 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,28 @@
 
 //static t_token_lst	*split_token(t_token_lst **lst, char *sep)
 //{
-//	t_token_lst	*tmp;
-//	size_t		i;
-	
-//	tmp = *lst;
-//	while (tmp)
-//	{
-//		i = 0;
-//		while (tmp->token[i])
-//		{
-//			if (ft_strchr(sep, tmp->token[i]))
-//			{
-//				;
-//			}
-//			printf("%s\n", ft_strchr(tmp->token, '|'));
-//			i++;
-//		}
-//		tmp = tmp->next;
-//	}
+
 //	return (*lst);
 //}
 
-t_token_lst	*split_space(char *line)
+static	t_token_lst *set_token(t_token_lst *lst, t_token_type type, size_t p, size_t size)
+{
+	t_token_lst	*tmp;
+
+	tmp = token_lstnew(ft_substr(lst->token, 0, p), WORD);
+	lst->token = lst->token + p;
+	token_lstadd_back(&tmp, token_lstnew(ft_substr(lst->token, 0, size), type));
+	lst->token = lst->token + size;
+	if (ft_strlen(lst->token))
+		token_lstadd_back(&tmp, token_lstnew(ft_strdup(lst->token), WORD));
+	token_lstlast(tmp)->next = lst->next;
+	//free(lst->token);
+	free(lst);
+	lst = tmp;
+	return (lst);
+}
+
+static	t_token_lst	*split_space(char *line)
 {
 	t_token_lst	*lst;
 	size_t	i;
@@ -63,5 +63,6 @@ t_token_lst *lexer(char *line)
 	if (!line)
 		return (NULL);
 	lst = split_space(line);
+	lst->next = set_token(lst->next, PIPE, 2, 1);
 	return (lst);
 }

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/20 15:42:14 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/21 15:55:40 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main()
 	t_token_lst	*content;
 	t_token_lst	*tmp;
 
-	content = lexer("ls -l | grep lexer | wc -l");
+	content = lexer("ls -l|grep lexer|wc -l");
 	tmp = content;
 	while (content)
 	{
