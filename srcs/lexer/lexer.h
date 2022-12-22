@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/20 18:15:06 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/23 01:02:22 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,21 @@
 
 typedef	enum e_token_type
 {
-	WORD,
-	PIPE
+	EXPANDABLE,
+	NON_EXPANDABLE,
+	PIPE,
+	OUTREDIRECT,
+	OUTADDITION,
+	INREDIRECT,
+	HEREDOCU
 } t_token_type;
+
+typedef	enum e_stat
+{
+	DOUBLEQUOATE,
+	SINGLEQUOATE,
+	NOMAL
+} t_stat;
 
 typedef struct s_token_lst
 {
@@ -28,14 +40,11 @@ typedef struct s_token_lst
 	struct s_token_lst *next;
 } t_token_lst;
 
-
 t_token_lst *lexer(char *line);
 
-
-//token lst operation
 t_token_lst	*token_lstnew(char *word, t_token_type type);
 void		token_lstadd_back(t_token_lst **lst, t_token_lst	*new);
 t_token_lst	*token_lstlast(t_token_lst *lst);
-void		token_lstadd(t_token_lst *lst, t_token_lst	*new);
+size_t 		add_lst(t_token_lst **lst, char *line, size_t size, t_token_type type);
 void		token_lstfree(t_token_lst	*token);
 #endif
