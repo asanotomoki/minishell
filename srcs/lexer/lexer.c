@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:15 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/23 00:56:18 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/24 12:00:41 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,11 @@ t_token_lst *lexer(char *line)
 		stat = set_stat(*line, stat);
 		if (stat == NOMAL)
 			line = nomal_tokenizer(&lst, line);
-		else
-		{ 
-			if (stat == DOUBLEQUOATE)
+		else if (stat == DOUBLEQUOATE)
 				line = quote_tokenizer(&lst, line, '\"', EXPANDABLE);
-			else
+		else if (stat == SINGLEQUOATE)
 				line = quote_tokenizer(&lst, line, '\'', NON_EXPANDABLE);
-			stat = NOMAL;
-		}
+		stat = NOMAL;
 	}
 	return (lst);
 }
