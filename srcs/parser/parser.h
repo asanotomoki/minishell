@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/28 17:24:53 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/28 17:40:21 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include "lexer.h"
 
-#define SYNTAX minishell: syntax error near unexpected token `
+#define SYNTAXERR "minishell: syntax error near unexpected token `"
 
 typedef struct s_redirect
 {
