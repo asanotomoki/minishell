@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/26 11:39:57 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/27 22:24:47 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_redirection
 {
 	char                    *filename;
     t_token_type             type;
+    t_token_type            expnad_type;
     struct s_redirection    *next;
 } t_redirection;
 

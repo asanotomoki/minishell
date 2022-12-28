@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/26 17:27:57 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/28 09:31:09 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	put_ans(t_cmd *cmd)
 		}
 		i = 0;
 		printf("\ncommand : [");
-		while (i < cmd->argc)
+		while (cmd->argc!=0 && cmd->cmd[i])
 		{
 			printf("[%s]", cmd->cmd[i]);
 			i++;
@@ -66,12 +66,16 @@ int main()
 	input = strdup("ls");
 	put_ans(parser(lexer(input)));
 	free(input);
+	//error test
 	printf("\n-----test4------\n");
 	input = strdup("ls -l |||");
 	put_ans(parser(lexer(input)));
 	free(input);
 	printf("\n-----test5------\n");
 	input = strdup("ls -l <<");
+	put_ans(parser(lexer(input)));
+	printf("\n-----test6------\n");
+	input = strdup("ls -l << <");
 	put_ans(parser(lexer(input)));
 	free(input);
 	return (0);	
