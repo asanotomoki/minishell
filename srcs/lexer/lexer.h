@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/23 01:02:22 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/28 09:27:32 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,5 @@ t_token_lst	*token_lstnew(char *word, t_token_type type);
 void		token_lstadd_back(t_token_lst **lst, t_token_lst	*new);
 t_token_lst	*token_lstlast(t_token_lst *lst);
 size_t 		add_lst(t_token_lst **lst, char *line, size_t size, t_token_type type);
-void		token_lstfree(t_token_lst	*token);
+void		token_lstfree(t_token_lst	**lst);
 #endif

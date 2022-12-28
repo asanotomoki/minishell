@@ -6,11 +6,12 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:58:36 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/23 00:54:38 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/28 09:27:12 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "libft.h"
 #include <stdlib.h>
 
 t_token_lst	*token_lstnew(char *word, t_token_type type)
@@ -28,20 +29,20 @@ t_token_lst	*token_lstnew(char *word, t_token_type type)
 	return (content);
 }
 
-void	token_lstfree(t_token_lst	*token)
+void	token_lstfree(t_token_lst	**lst)
 {
 	t_token_lst	*tmp;
 
-	while (token)
+	tmp = *lst;
+	while (tmp)
 	{
-		tmp = token->next;
-		free(token->token);
-		token->token = NULL;
-		free(token);
-		token = NULL;
-		token = tmp;
+		*lst = tmp->next;
+		free(tmp->token);
+		tmp->token = NULL;
+		free(tmp);
+		tmp = NULL;
+		tmp = *lst;
 	}
-	token = NULL;
 }
 
 size_t add_lst(t_token_lst **lst, char *line, size_t size, t_token_type type)
