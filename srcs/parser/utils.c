@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:02:16 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/28 10:04:45 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/28 17:25:11 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void all_free(t_cmd **cmd, t_token_lst **lst)
 
 static	int	put_parse_error(char *msg)
 {
-	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+	ft_putstr_fd(SYNTAX, 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("'", 2);
 	return (258);
