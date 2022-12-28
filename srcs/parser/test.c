@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/28 09:31:09 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/28 17:46:12 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	put_ans(t_cmd *cmd)
 int main()
 {
 	printf("\n-----test1------\n");
-	char *input = strdup("ls -l < test1|\'|||||grep lexer\' > test2 >> test3 | wc -l | cat");
+	char *input = strdup("ls -l < test1|\">|||||grep lexer\" > test2 >> test3 | wc -l | cat");
 	put_ans(parser(lexer(input)));
 	free (input);
 	printf("\n-----test2------\n");
@@ -68,7 +68,7 @@ int main()
 	free(input);
 	//error test
 	printf("\n-----test4------\n");
-	input = strdup("ls -l |||");
+	input = strdup("ls -l ||");
 	put_ans(parser(lexer(input)));
 	free(input);
 	printf("\n-----test5------\n");
