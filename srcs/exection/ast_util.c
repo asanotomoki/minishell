@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:59:00 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/02 17:44:50 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/10 23:40:31 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,38 @@ t_parse_ast *execlst_new(t_cmd *cmd)
 	return (content);
 }
 
-void *execlst_addback(t_parse_ast **lst, t_parse_ast *new)
+void execlst_addback(t_parse_ast **lst, t_parse_ast *new)
 {
 	t_parse_ast *tmp;
 
 	if (!new)
-		return (NULL);
+		return ;
+	if (!*lst)
+		*lst = new;
+	else
+	{
+		tmp = *lst;
+		while (tmp->next_pipe)
+			tmp = tmp->next_pipe;
+		tmp->next_pipe = new;
+		new->prev_pipe = tmp;
+	}
+}
+
+t_parse_ast *execlst_addfront(t_parse_ast **lst, t_parse_ast *new)
+{
+	t_parse_ast *tmp;
+
+	if (!new)
+		return (*lst);
 	if (!*lst)
 		return (new);
 	else
 	{
-		while (tmp->next_pipe)
-			lst = tmp->next_pipe;
-		tmp->next_pipe = new;
-		new->prev_pipe = tmp;
+		tmp = *lst;
+		tmp->prev_pipe = new;
+		new->next_pipe = tmp;
+		return (new);
 	}
 }
 

@@ -6,77 +6,68 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/01 21:01:55 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/10 23:44:47 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "exec.h"
 #include "lexer.h"
 #include <stdio.h>
+#include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
-int	put_ans(t_cmd *cmd)
+ int	put_ans(int stat)
 {
-	size_t	i;
-	while (cmd)
-	{
-		printf("\noutput : ");
-		while (cmd->output)
-		{
-			if (cmd->output->type == OUTREDIRECT)
-				printf (" > %s", cmd->output->filename);
-			else
-				printf (" >> %s", cmd->output->filename);
-			cmd->output = cmd->output->next;
-		}
-		printf("\ninput : ");
-		while (cmd->input)
-		{
-			if (cmd->input->type == INREDIRECT)
-				printf (" < %s", cmd->input->filename);
-			else
-				printf (" << %s", cmd->input->filename);
-			cmd->input = cmd->input->next;
-		}
-		i = 0;
-		printf("\ncommand : [");
-		while (cmd->argc!=0 && cmd->cmd[i])
-		{
-			printf("[%s]", cmd->cmd[i]);
-			i++;
-		}
-		printf("]\n");
-		cmd = cmd->piped_cmd;
-	}
-	return (0);
-}
+	//printf("\n%d\n", stat);
+	stat += 1;
+	return (stat);
+ }
 
-int main()
+ int main(int argc, char **argv, char **envp)
 {
-	printf("\n-----test1------\n");
-	char *input = strdup("ls -l < test1|\">|||||grep lexer\" > test2 >> test3 | wc -l | cat");
-	put_ans(parser(lexer(input)));
-	free (input);
-	printf("\n-----test2------\n");
-	input = strdup("ls -l | wc -l | cat >> test");
-	put_ans(parser(lexer(input)));
+	char *input;
+	argc++;
+	argv[0] = "test";
+	printf("\n-----");
+	input = strdup("wc -l > test1 < result.log");
+	printf(" [ %s ] ------\n", input);
+	put_ans(exection(parser(lexer(input)), envp));
 	free(input);
-	printf("\n-----test3------\n");
-	input = strdup("ls");
-	put_ans(parser(lexer(input)));
+	printf("\n-----");
+	input = strdup("> test2 < result.log");
+	printf(" [ %s ] ------\n", input);
+	put_ans(exection(parser(lexer(input)), envp));
 	free(input);
+	printf("\n-----");
+	input = strdup("ls -l | wc");
+	printf(" [ %s ] ------\n", input);
+	put_ans(exection(parser(lexer(input)), envp));
+	free(input);
+	printf("\n-----");
+	int fd = open("test4", O_WRONLY);
+	write (fd, "\n--------test4 result--------\n", 30);
+	close(fd);
+	input = strdup("ls -l >> test4");
+	printf(" [ %s ] ------\n", input);
+	put_ans(exection(parser(lexer(input)), envp));
+	free(input);
+
 	//error test
-	printf("\n-----test4------\n");
-	input = strdup("ls -l ||");
-	put_ans(parser(lexer(input)));
-	free(input);
-	printf("\n-----test5------\n");
-	input = strdup("ls -l <<");
-	put_ans(parser(lexer(input)));
-	printf("\n-----test6------\n");
-	input = strdup("ls -l << <");
-	put_ans(parser(lexer(input)));
-	free(input);
-	return (0);	
+	//printf("\n-----");
+	//input = strdup("ls -l ||");
+	//printf(" [ %s ] ------\n", input);
+	//put_ans(exection(parser(lexer(input)), envp));
+	//free(input);
+	//printf("\n-----");
+	//input = strdup("ls -l <<");
+	//printf(" [ %s ] ------\n", input);
+	//put_ans(exection(parser(lexer(input)), envp));
+	//printf("\n-----");
+	//input = strdup("ls -l << <");
+	//printf(" [ %s ] ------\n", input);
+	//put_ans(exection(parser(lexer(input)), envp));
+	//free(input);
+	return (0);
 }

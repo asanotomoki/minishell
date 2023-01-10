@@ -7,6 +7,7 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include <sys/types.h>
+# include <parser.h>
 
 typedef enum e_redir_kind {
 	IN_REDIR,
@@ -38,7 +39,8 @@ typedef struct s_parse_ast {
 //}	t_exec_data;
 
 t_parse_ast	*execlst_new(t_cmd *cmd);
-void 		*execlst_addback(t_parse_ast **lst, t_parse_ast *new);
+void 		execlst_addback(t_parse_ast **lst, t_parse_ast *new);
 void		execlst_free(t_parse_ast **cmd);
-
+int	exection(t_cmd *cmd, char **envp);
+t_parse_ast *execlst_addfront(t_parse_ast **lst, t_parse_ast *new);
 #endif

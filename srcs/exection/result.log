@@ -1,0 +1,12 @@
+total 208
+-rwxr-xr-x  1 tasano  staff   1334  1  1 21:59 Makefile
+-rw-r--r--  1 tasano  staff   1788  1  2 18:00 ast_util.c
+-rw-r--r--  1 tasano  staff    885  1  4 15:20 exec.h
+-rw-r--r--  1 tasano  staff  23368  1 10 15:27 exection.a
+-rw-r--r--  1 tasano  staff   3615  1 10 15:27 exection.c
+drwxr-xr-x  5 tasano  staff    160  1 10 15:27 obj
+-rw-r--r--  1 tasano  staff      0  1 10 15:26 result
+-rw-r--r--  1 tasano  staff      0  1 10 15:27 result.log
+-rwxr-xr-x  1 tasano  staff  57665  1 10 15:27 test
+-rw-r--r--  1 tasano  staff   1974  1 10 15:27 test.c
+drwxr-xr-x  3 tasano  staff     96  1 10 14:55 test.dSYM
