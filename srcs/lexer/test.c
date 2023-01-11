@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/23 00:41:39 by tasano           ###   ########.fr       */
+/*   Updated: 2022/12/29 16:11:35 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main()
 {
 	t_token_lst	*content;
 	t_token_lst	*tmp;
-	char input[] = "ls -l < test|\'|||||grep lexer\' > test >> test1 | wc -l | cat <<";
+	char input[] = "ls -l < test|\'|||||grep lexer\'> $test >>test$test1 | wc -l | cat <<\"test";
  
 	content = lexer(input);
 	tmp = content;
@@ -44,7 +44,7 @@ int main()
 		printf("%s\n", content->token);
 		content = content->next;
 	}
-	token_lstfree(tmp);
+	token_lstfree(&tmp);
 	
 	return (0);	
 }

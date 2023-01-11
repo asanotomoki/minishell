@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:15 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/24 12:00:41 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/11 22:12:22 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ char	*quote_tokenizer(t_token_lst **lst, char *line, char quote, t_token_type ty
 {
 	size_t	i;
 
-	i = 0;
+	i = 1;
 	while (line[i])
 	{
-		if (i != 0 && line[i] == quote )
+		if (i != 0 && line[i] == quote)
 			break ;
 		i++;
 	}
@@ -90,9 +90,9 @@ t_token_lst *lexer(char *line)
 	if (!line)
 		return (NULL);
 	lst = NULL;
-	stat = NOMAL;
 	while (*line)
 	{
+		stat = NOMAL;
 		stat = set_stat(*line, stat);
 		if (stat == NOMAL)
 			line = nomal_tokenizer(&lst, line);
@@ -100,7 +100,6 @@ t_token_lst *lexer(char *line)
 				line = quote_tokenizer(&lst, line, '\"', EXPANDABLE);
 		else if (stat == SINGLEQUOATE)
 				line = quote_tokenizer(&lst, line, '\'', NON_EXPANDABLE);
-		stat = NOMAL;
 	}
 	return (lst);
 }
