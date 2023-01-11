@@ -6,16 +6,13 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 16:58:30 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 01:03:49 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmds.h"
-#include "libft.h"
-#include "leakdetect.h"
- #include <stdlib.h>
 #include <stdio.h>
-#include "leakdetect.h"
+
 
 int echo_test(char *input)
 {
@@ -52,10 +49,14 @@ int init_env(char ***environ)
 	return (0);
 }
 
+int echo_test(char *input)
+{
+	builtin_echo(ft_split(input, ' '));
+	return (0);
+}
+
 int main()
 {
-	leak_detect_init();
-
 	extern char **environ;
 	char **val;
 	val = (char **)environ;
