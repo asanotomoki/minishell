@@ -6,7 +6,7 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2022/12/17 16:15:49 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/11 22:13:58 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,12 +29,6 @@ HEADERS			+=	$(LEXER_DIR)
 PARSER_DIR		:=	$(SRC_DIR)/parser
 PARSER			:=	$(PARSER_DIR)/parser.a
 HEADERS			+=	$(PARSER_DIR)
-PIPE_DIR		:=	$(SRC_DIR)/pipe
-PIPE			:=	$(PIPE_DIR)/pipe.a
-HEADERS			+=	$(PIPE_DIR)
-REDIRECT_DIR	:=	$(SRC_DIR)/redirect
-REDIRECT		:=	$(REDIRECT_DIR)/redirect.a
-HEADERS			+=	$(REDIRECT_DIR)
 UTIL_DIR		:=	$(SRC_DIR)/util
 UTIL			:=	$(UTIL_DIR)/util.a
 HEADERS			+=	$(UTIL_DIR)
