@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/11 16:40:42 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/11 21:42:43 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@ void execve_test(char *test_command, char **envp)
 	argv[0] = "test";
 
 	/*****---------basic test----------*****/
-	execve_test("ls -l | wc", envp);
-	execve_test("ls -l | grep exec |  wc -l", envp);
-	execve_test("cat test1", envp);
-	execve_test("./bash.sh", envp);
+	execve_test(" wc -l > test1 < noting.log", envp);
+	//execve_test("ls -l | wc", envp);
+	//execve_test("ls -l > test2 | wc -l", envp);
+	//execve_test("ls -l | grep exec |  wc -l", envp);
+	//execve_test("cat test1", envp);
+	//execve_test("./bash.sh", envp);
 
 	/*****---------addition test----------*****/
 	int fd = open("test4",  O_WRONLY);
@@ -48,19 +50,19 @@ void execve_test(char *test_command, char **envp)
 	execve_test("ls -l >> test4", envp);
 
 	/*****---------special test----------*****/
-	execve_test("wc -l > test1 < result.log", envp);
-	execve_test("> test2 < result.log", envp);
+	//execve_test("wc -l > test1 < result.log", envp);
+	//execve_test("> test2 < result.log", envp);
 
 	/*****---------builtins test----------*****/
-	execve_test("cd ../", envp);
+	//execve_test("cd ../", envp);
 
 	/*****---------error test----------*****/
-	printf("\n--------error test----------\n");
-	execve_test("bash.sh", envp);
-	execve_test("cat nosuchfile", envp);
-	execve_test("wc -l < nosuchfile", envp);
-	execve_test("wc -l < permissionfile", envp);
-	execve_test("wc -l > permissionfile", envp);
-	execve_test("nocommand | nocommand", envp);
+	//printf("\n--------error test----------\n");
+	//execve_test("bash.sh", envp);
+	//execve_test("cat nosuchfile", envp);
+	//execve_test("wc -l < nosuchfile", envp);
+	//execve_test("wc -l < permissionfile", envp);
+	//execve_test("wc -l > permissionfile", envp);
+	//execve_test("nocommand | nocommand", envp);
 	return (0);
 }

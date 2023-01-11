@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/11 16:40:03 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/11 21:16:38 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void basic_command(t_cmd *exec, char **envp)
 	char *path;
 
 	path = getenv("PATH");
-	// error改善
 	if (!path)
 		error_exit(EXIT_FAILURE, "Don't get Path");
 	cmdfile = get_cmdfile(exec->cmd[0], path);
@@ -87,7 +86,7 @@ int exection(t_cmd *cmd, char **envp)
 	if (!cmd)
 		return (1);
 	cmd = convert_cmd(cmd);
-	// if (!cmd->piped_cmd && check_builtins)
+	// if (!cmd->piped_cmd && check_builtins())
 	//	execve_main(cmd, envp);
 	// else
 	//{

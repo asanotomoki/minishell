@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:42:52 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/11 16:19:25 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/11 21:38:26 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,10 @@ void set_outredirect(t_redirect *redirect)
 		redirect = redirect->next;
 	}
 }
+
+/*
+wc -l test1 < test2 > test3 < test1 < test2 < test3 | 
+cmd : [[wc] [-l]]
+out : test1 > test3
+in  : test2 < test1 < test2 < test3
+*/
