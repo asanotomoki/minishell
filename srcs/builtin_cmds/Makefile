@@ -6,13 +6,14 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2022/12/13 16:46:36 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/12 00:15:43 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:=	builtin_cmds.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
+CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
@@ -22,6 +23,12 @@ SOURCES	:=	builtin_cd.c builtin_echo.c builtin_pwd.c builtin_export.c builtin_un
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
+
+#test
+LIBFT_DIR		:=	../../libft
+LIBFT			:=	$(LIBFT_DIR)/libft.a
+INCLUDE			+=	-I $(LIBFT_DIR)/includes
+
 #Message
 RED		:= \033[1;31m
 GREEN	:= \033[1;32m
@@ -59,5 +66,8 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) -o test $(NAME) test.c 
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME)  $(LIBFT) ../../libft/libft.a test.c 
 	./test
+
+$(LIBFT): 
+	@make -C $(LIBFT_DIR)

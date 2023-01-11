@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/13 16:28:08 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/12 00:13:05 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,5 @@
 
 # define  N_OPTION 1
 #include <stdio.h>
-
-int echo_cmd(char **argv, int option);
+int builtin_echo(char **argv);
 #endif
