@@ -1,12 +1,14 @@
-total 208
--rwxr-xr-x  1 tasano  staff   1334  1  1 21:59 Makefile
--rw-r--r--  1 tasano  staff   1788  1  2 18:00 ast_util.c
--rw-r--r--  1 tasano  staff    885  1  4 15:20 exec.h
--rw-r--r--  1 tasano  staff  23368  1 10 15:27 exection.a
--rw-r--r--  1 tasano  staff   3615  1 10 15:27 exection.c
-drwxr-xr-x  5 tasano  staff    160  1 10 15:27 obj
--rw-r--r--  1 tasano  staff      0  1 10 15:26 result
--rw-r--r--  1 tasano  staff      0  1 10 15:27 result.log
--rwxr-xr-x  1 tasano  staff  57665  1 10 15:27 test
--rw-r--r--  1 tasano  staff   1974  1 10 15:27 test.c
-drwxr-xr-x  3 tasano  staff     96  1 10 14:55 test.dSYM
+total 288
+-rwxr-xr-x  1 tasano  staff   1361  1 11 00:44 Makefile
+-rw-r--r--  1 tasano  staff   1413  1 11 13:12 ast_util.c
+-rw-r--r--  1 tasano  staff    427  1 11 02:46 exec.h
+-rw-r--r--  1 tasano  staff   1864  1 11 13:13 exec_utils.c
+-rw-r--r--  1 tasano  staff  32376  1 11 13:28 exection.a
+-rw-r--r--  1 tasano  staff   2522  1 11 13:28 exection.c
+-rw-r--r--  1 tasano  staff   2019  1 11 01:52 get_cmdfile.c
+drwxr-xr-x  6 tasano  staff    192  1 11 13:28 obj
+-rw-r--r--  1 tasano  staff      0  1 11 13:29 result.log
+-rwxr-xr-x  1 tasano  staff  78209  1 11 13:28 test
+-rw-r--r--  1 tasano  staff   2724  1 11 13:28 test.c
+drwxr-xr-x  3 tasano  staff     96  1 11 01:52 test.dSYM
+-rw-r--r--  1 tasano  staff   1364  1 11 13:28 test4
