@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/11 15:38:40 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/11 16:40:42 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void execve_test(char *test_command, char **envp)
 
 	/*****---------error test----------*****/
 	printf("\n--------error test----------\n");
-	execve_test("./bash.sh", envp);
+	execve_test("bash.sh", envp);
 	execve_test("cat nosuchfile", envp);
 	execve_test("wc -l < nosuchfile", envp);
 	execve_test("wc -l < permissionfile", envp);

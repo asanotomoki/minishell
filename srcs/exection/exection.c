@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/11 15:37:51 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/11 16:40:03 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void basic_command(t_cmd *exec, char **envp)
 	path = getenv("PATH");
 	// error改善
 	if (!path)
-		exit(1);
+		error_exit(EXIT_FAILURE, "Don't get Path");
 	cmdfile = get_cmdfile(exec->cmd[0], path);
 	if (!cmdfile)
-		perror(exec->cmd[0]);
+		error_exit(COMMAND_NOT_FOUND, "command not found");
 	free(exec->cmd[0]);
 	exec->cmd[0] = cmdfile;
 	if (execve(exec->cmd[0], exec->cmd, envp) == -1)
-		perror("execve");
+		perror_exit(EXIT_FAILURE, "execve");
 }
 
 void execve_command(t_cmd *exec, char **envp)
@@ -63,7 +63,7 @@ int execve_system(t_cmd *exec, char **envp)
 		set_pipe(pp);
 		pid = fork();
 		if (pid == -1)
-			exit(1);
+			perror_exit(EXIT_FAILURE, "fork");
 		else if (pid == 0)
 		{
 			set_dup2(pp[1], STDOUT_FILENO);
@@ -96,7 +96,7 @@ int exection(t_cmd *cmd, char **envp)
 		execve_system(cmd, envp);
 	// exitしたらダメかも？
 	else if (pid == -1)
-		exit(1);
+		perror_exit(EXIT_FAILURE, "fork");
 	else
 		set_waitpid(pid);
 	//}

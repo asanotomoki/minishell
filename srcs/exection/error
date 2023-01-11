@@ -1,0 +1,7 @@
+minish: command not found
+cat: nosuchfile: No such file or directory
+minish: nosuchfile: No such file or directory
+minish: permissionfile: Permission denied
+minish: permissionfile: Permission denied
+minish: command not found
+minish: command not found

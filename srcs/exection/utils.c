@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_util.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:59:00 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/11 13:37:18 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/11 16:25:31 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 #include "exec.h"
 #include <stdlib.h>
 #include "libft.h"
+
+void perror_exit(int status, char *msg)
+{
+	ft_putstr_fd(SHELL, 2);
+	ft_putstr_fd(": " , 2);
+	perror(msg);
+	exit (status);
+}
+
+void error_exit(int status, char *msg)
+{
+	ft_putstr_fd(SHELL, 2);
+	ft_putstr_fd(": " , 2);
+	ft_putendl_fd(msg, 2);
+	exit (status);
+}
 
 t_cmd *convert_cmd(t_cmd *lst)
 {
