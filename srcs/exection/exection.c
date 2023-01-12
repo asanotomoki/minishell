@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/11 21:16:38 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/12 12:29:03 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ void execve_command(t_cmd *exec, char **envp)
 
 void execve_main(t_cmd *exec, char **envp)
 {
-	set_inredirect(exec->input);
-	set_outredirect(exec->output);
+	set_redirect(exec->redirect);
 	if (exec->cmd)
 		execve_command(exec, envp);
 	else
