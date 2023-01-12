@@ -6,11 +6,11 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/09 17:26:22 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/12 01:51:47 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int export_cmd()
+int builtin_export(char **argv)
 {
 	return (0);
 }

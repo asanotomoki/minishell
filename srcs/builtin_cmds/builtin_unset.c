@@ -6,11 +6,11 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:24 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/09 17:26:32 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/12 01:52:17 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int unset_cmd()
+int builtin_unset(char **argv)
 {
 	return (0);
 }
