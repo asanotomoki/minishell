@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 01:12:35 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 01:38:49 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,4 @@ int		builtin_export(char **argv);
 int		builtin_pwd();
 int		builtin_unset(char **argv);
 int		builtin_cd(char **argv);
-
-int echo_cmd(char **argv, int option);
 #endif
