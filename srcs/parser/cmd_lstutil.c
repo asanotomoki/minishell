@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 09:35:13 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/28 11:07:38 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/12 11:40:43 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ t_cmd *cmd_new()
 	if (!content)
 		return (NULL);
 	content->cmd = NULL;
-	content->input = NULL;
-	content->output = NULL;
+	content->redirect = NULL;
 	content->piped_cmd = NULL;
 	content->argc = 0;
 	return (content);
@@ -51,8 +50,7 @@ void	cmd_lstfree(t_cmd **cmd)
 	while (tmp)
 	{
 		*cmd = tmp->piped_cmd;
-		redirect_lstfree(&tmp->input);
-		redirect_lstfree(&tmp->output);
+		redirect_lstfree(&tmp->redirect);
 		if (tmp->cmd)
 			free(tmp->cmd);
 		tmp->cmd = NULL;
