@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/28 17:46:12 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/12 11:37:08 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,22 @@ int	put_ans(t_cmd *cmd)
 	size_t	i;
 	while (cmd)
 	{
-		printf("\noutput : ");
-		while (cmd->output)
+		printf("\nredirect : ");
+		while (cmd->redirect)
 		{
-			if (cmd->output->type == OUTREDIRECT)
-				printf (" > %s", cmd->output->filename);
+			if (cmd->redirect->type == OUTREDIRECT)
+				printf (" > %s", cmd->redirect->filename);
+			else if (cmd->redirect->type == INREDIRECT)
+				printf (" < %s", cmd->redirect->filename);
+			else if (cmd->redirect->type == OUTADDITION)
+				printf (" >> %s", cmd->redirect->filename);
 			else
-				printf (" >> %s", cmd->output->filename);
-			cmd->output = cmd->output->next;
-		}
-		printf("\ninput : ");
-		while (cmd->input)
-		{
-			if (cmd->input->type == INREDIRECT)
-				printf (" < %s", cmd->input->filename);
-			else
-				printf (" << %s", cmd->input->filename);
-			cmd->input = cmd->input->next;
+				printf (" << %s", cmd->redirect->filename);
+			cmd->redirect = cmd->redirect->next;
 		}
 		i = 0;
 		printf("\ncommand : [");
-		while (cmd->argc!=0 && cmd->cmd[i])
+		while (cmd->argc != 0 && cmd->cmd[i])
 		{
 			printf("[%s]", cmd->cmd[i]);
 			i++;
@@ -52,31 +47,26 @@ int	put_ans(t_cmd *cmd)
 	return (0);
 }
 
+int parser_test(char *input)
+{
+	char *cmd;
+
+	printf ("-----[ %s ]------", input);
+	cmd = strdup(input);
+	put_ans(parser(lexer(cmd)));
+	free(cmd);
+	return (0);
+}
+
 int main()
 {
-	printf("\n-----test1------\n");
-	char *input = strdup("ls -l < test1|\">|||||grep lexer\" > test2 >> test3 | wc -l | cat");
-	put_ans(parser(lexer(input)));
-	free (input);
-	printf("\n-----test2------\n");
-	input = strdup("ls -l | wc -l | cat >> test");
-	put_ans(parser(lexer(input)));
-	free(input);
-	printf("\n-----test3------\n");
-	input = strdup("ls");
-	put_ans(parser(lexer(input)));
-	free(input);
+	parser_test("ls -l < test1|\">|||||grep lexer\" > test2 >> test3 | wc -l | cat");
+	parser_test("ls -l | wc -l | cat >> test");
+	parser_test("ls");
+	parser_test("ls > test > test1 << EOF << EOT < test3 > test1 < test");
 	//error test
-	printf("\n-----test4------\n");
-	input = strdup("ls -l ||");
-	put_ans(parser(lexer(input)));
-	free(input);
-	printf("\n-----test5------\n");
-	input = strdup("ls -l <<");
-	put_ans(parser(lexer(input)));
-	printf("\n-----test6------\n");
-	input = strdup("ls -l << <");
-	put_ans(parser(lexer(input)));
-	free(input);
+	printf("\n\n\n--------- error test ---------\n\n\n");
+	parser_test("ls -l ||");
+	parser_test("ls -l <<");
 	return (0);	
 }
