@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/13 18:40:19 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/13 23:17:04 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,35 @@ char *set_parameter(char *str, size_t i)
 	return (str);
 }
 
+#define	SINGLE 1;
+#define DOUBLE 2;
+#define NOMAL  0;
 char *expand(char *str)
 {
-	size_t i;
-	char *tmp;
+	size_t	i;
+	//int		mode;
 
 	i = 0;
-	tmp = ft_strtrim(str, "\"");
-	free_strval(&str);
-	str = tmp;
+	//mode = 0;
+	while (str[i])
+	{
+		//if (mode == 0 && str[i] == '\'')
+		//	mode = SINGLE;
+		if (str[i] == '$')
+			str = set_parameter(str, i);
+		else
+			i++;
+	}
+	if (str && !str[0])
+		return (NULL);
+	return (str);
+}
+
+char *heredoc_expand(char *str)
+{
+	size_t i;
+
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -65,6 +85,11 @@ char *expand(char *str)
 		return (NULL);
 	return (str);
 }
+
+//char *remove_quote()
+//{
+	
+//}
 
 int expansion(t_cmd *cmd)
 {

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:19:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/13 18:49:50 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/13 23:17:51 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int put_test(char *input)
 
 	printf("\n------- [ %s ] -------\n", input);
 	cmd = parser(lexer(input));
-	//expansion(cmd);
+	expansion(cmd);
 	return (put_ans(cmd));
 }
 
@@ -92,10 +92,10 @@ int main()
 	put_test("ls > $USER");
 	put_test("ls > $para");
 	put_test("ls > $$USER");
-	put_test("ls  $nothing");
+	put_test("ls  $nothing test");
 	put_test("ls  \'$nothing\'");
 	put_test("ls  test$nothing$USER");
-	put_test("echo \'\"\'$PATH\'\"\'");
+	put_test("echo \'\"\'\'$PATH\'\'\"\'");
 	////error test
 	//put_test("ls -l ||");	
 	//put_test("ls -l <<");
