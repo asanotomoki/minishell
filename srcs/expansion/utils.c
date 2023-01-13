@@ -6,21 +6,42 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 18:19:04 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/14 02:04:03 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/14 02:23:27 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "libft.h"
 
-char *get_parameter(char *str)
+char **swap_cmd_null(char **cmd, size_t i)
 {
-	size_t i;
-
-	i = 1;
-	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+	char *tmp;
+	while (cmd[i + 1])
+	{
+		tmp = cmd[i];
+		cmd[i] = cmd[i + 1];
+		cmd[i + 1] = tmp;
 		i++;
-	return (ft_substr(str, 0, i));
+	}
+	return (cmd);
+}
+
+char *set_return_val(char *str)
+{
+	if (!str)
+		return (NULL);
+	else if (!str[0])
+	{
+		free_strval(&str);
+		return (NULL);
+	}
+	else
+	{
+		str = remove_quote(str);
+		if (!str || !str[0])
+			set_return_val(str);
+		return (str);
+	}
 }
 
 void free_strval(char **str)
@@ -30,24 +51,17 @@ void free_strval(char **str)
 	*str = NULL;
 }
 
-
-char *get_before(char *str, size_t len)
+int set_mode(char c, int mode)
 {
-	if (0 < len)
-		return (ft_substr(str, 0, len));
-	else
-		return (NULL);
-}
-
-char *get_after(char *str, size_t len)
-{
-	if (*str + len)
-		return (ft_strdup(str + len));
-	else
-		return (NULL);
-}
-
-int is_expandble(char *str)
-{
-	return (str && str[0] == '\'');
+	if (mode == 0)
+	{
+		if (c == '\'')
+			return (1);
+		if (c == '\"')
+			return (2);
+	}
+	if ((mode == 1 && c == '\'') ||
+		(mode == 2 && c == '\"'))
+		return (0);
+	return (mode);
 }

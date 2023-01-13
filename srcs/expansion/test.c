@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:19:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/14 02:08:59 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/14 02:16:18 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int put_test(char *input)
 }
 
 int main()
-{
-	put_test("ls -l < test1|\">|||||grep lexer\" > test2 >> test3 | wc -l | cat");	
-	put_test("ls -l | wc -l | cat >> test");	
+{	
 	put_test("ls $USER");
+	put_test("ls $_");
+	put_test("ls $_ test test $nothing test test test");
 	put_test("ls \"test\"\"test1\"test2");
 	put_test("ls \"$USER\"");
 	put_test("ls tests$USER");
