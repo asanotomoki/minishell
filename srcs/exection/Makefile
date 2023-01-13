@@ -1,12 +1,12 @@
 NAME	:=	exection.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
-CFLAGS	+=	 -fsanitize=address -fno-omit-frame-pointer -g 
+CFLAGS	+=	 -fsanitize=address -fno-omit-frame-pointer -g
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-SOURCES	:=	exection.c get_cmdfile.c exec_utils.c set_redirect.c utils.c
+SOURCES	:=	exection.c get_cmdfile.c exec_utils.c set_redirect.c set_heredoc.c utils.c
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
@@ -29,7 +29,7 @@ NAME_MSG := " $(GREEN)Compile $(NAME)$(DEFAULT)"
 CLEAN_MSG := " $(YELLOW)Delete ./srcs/parser/obj$(DEFAULT)"
 FCLEAN_MSG := " $(RED)Delete $(NAME)$(DEFAULT)"
 
-$(NAME): $(OBJECTS) 
+$(NAME): $(OBJECTS)
 	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
 	@echo $(NAME_MSG)
 
@@ -56,11 +56,11 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(LEXER) $(PARSER) ../../libft/libft.a test.c 
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(LEXER) $(PARSER) ../../libft/libft.a test.c
 	./test
 
-$(LEXER): 
+$(LEXER):
 	@make -C $(LEXER_DIR)
 
-$(PARSER): 
+$(PARSER):
 	@make -C $(PARSER_DIR)
