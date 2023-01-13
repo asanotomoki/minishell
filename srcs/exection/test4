@@ -1,0 +1,14 @@
+total 272
+-rwxr-xr-x  1 hiroaki  staff   1373  1 11 22:43 Makefile
+-rw-r--r--  1 hiroaki  staff    632  1 11 22:43 exec.h
+-rw-r--r--  1 hiroaki  staff   1317  1 11 22:43 exec_utils.c
+-rw-r--r--  1 hiroaki  staff  37592  1 12 00:22 exection.a
+-rw-r--r--  1 hiroaki  staff   2561  1 11 22:43 exection.c
+-rw-r--r--  1 hiroaki  staff   1984  1 11 22:43 get_cmdfile.c
+drwxr-xr-x  7 hiroaki  staff    224  1 12 00:22 obj
+-rw-r--r--  1 hiroaki  staff   1886  1 11 22:43 set_redirect.c
+-rwxr-xr-x  1 hiroaki  staff  62160  1 12 00:24 test
+-rw-r--r--  1 hiroaki  staff   2391  1 11 22:43 test.c
+drwxr-xr-x  3 hiroaki  staff     96  1 12 00:24 test.dSYM
+-rw-r--r--  1 hiroaki  staff      0  1 12 00:24 test4
+-rw-r--r--  1 hiroaki  staff   1493  1 11 22:43 utils.c

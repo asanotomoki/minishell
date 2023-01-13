@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exection.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/11 21:16:38 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/13 12:45:50 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int execve_system(t_cmd *exec, char **envp)
 
 int exection(t_cmd *cmd, char **envp)
 {
-	pid_t pid;
+	pid_t	pid;
 
 	if (!cmd)
 		return (1);
