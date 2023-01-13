@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:22:15 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/17 16:22:46 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/13 15:05:24 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define EXPANSION_H
 
 #include <stdio.h>
+#include "parser.h"
 
 
 #endif
