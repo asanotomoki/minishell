@@ -12,60 +12,45 @@
 
 #include "minishell.h"
 #include "builtin_cmds.h"
+#include "lexer.h"
+#include "parser.h"
+#include "expansion.h"
+#include "exec.h"
 #include <readline/history.h>
-
-static void shell_exit(char *line)
-{
-	printf("exit\n");
-	free(line);
-	exit(0);
-}
-
-int parser(char *line, char **envp)
-{
-	int	status;
-
-	status = basic_cmd(line, envp);
-	return (status);
-}
 
 int shell_system(char *line, char **envp)
 {
-	int	status;
+	t_token_lst *lexer_lst;
+	t_cmd 		*cmd_lst;
 
-	status = parser(line, envp);
-	return (status);
+	lexer_lst = lexer(line);
+	if (!lexer_lst)
+		return (1);
+	cmd_lst = parser(lexer_lst);
+	if (!cmd_lst)
+		return (1);
+	if (expansion(cmd_lst))
+		return (1);
+	return (exection(cmd_lst, envp));
 }
 
 int main(int argc, char **argv, char **envp)
 {
 	char *line;
-	int status;
-
-	if (argc < 1)
-		return (1);
-	status = 0;
-	(void *)argv;
+	
+	argc++;
+	(void)argv;
 	while (1)
 	{
 		line = readline("minishell$ ");
 		if (!line)
-		{
-			status = 1;
-			break;
-		}
-		if (!ft_strncmp("exit", line, 5))
-		{
-			shell_exit(line);
-			break ;
-		}
+			return (1);
 		if (*line)
 		{
 			add_history(line);
-			//shell_system(line, envp);
+			shell_system(line, envp);
 		}
 		free(line);
 	}
-	printf("test");
-	return (status);
+	return (0);
 }

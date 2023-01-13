@@ -6,7 +6,7 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2023/01/11 22:13:58 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/13 23:42:42 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,14 +29,19 @@ HEADERS			+=	$(LEXER_DIR)
 PARSER_DIR		:=	$(SRC_DIR)/parser
 PARSER			:=	$(PARSER_DIR)/parser.a
 HEADERS			+=	$(PARSER_DIR)
+EXPANSION_DIR		:=	$(SRC_DIR)/expansion
+EXPANSION			:=	$(EXPANSION_DIR)/expansion.a
+HEADERS			+=	$(EXPANSION_DIR)
+EXEC_DIR		:=	$(SRC_DIR)/exection
+EXEC			:=	$(EXEC_DIR)/exection.a
+HEADERS			+=	$(EXEC_DIR)
 UTIL_DIR		:=	$(SRC_DIR)/util
 UTIL			:=	$(UTIL_DIR)/util.a
 HEADERS			+=	$(UTIL_DIR)
 
 INCLUDES	:=	$(addprefix -I , $(HEADERS))
 
-SRC_FILE :=	main.c \
-			basic_cmd.c get_cmdfile.c 
+SRC_FILE :=	main.c
 OBJECTS	:= $(addprefix $(OBJDIR)/, $(notdir $(SRC_FILE:.c=.o)))
 RM := rm -f
 
@@ -55,12 +60,11 @@ $(NAME): $(LIBFT) \
 		  $(BUILTIN)\
 		  $(LEXER) \
 		  $(PARSER) \
-		  $(PIPE) \
-		  $(REDIRECT) \
-		  $(UTIL) \
+		  $(EXPANSION) \
+		  $(EXEC) \
 		  $(OBJECTS)
 		  
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(BUILTIN) $(LEXER) $(PARSER) $(PIPE) $(REDIRECT) $(UTIL) $(OBJECTS) -lreadline
+	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c
@@ -79,11 +83,11 @@ $(LEXER):
 $(PARSER): 
 	@make -C $(PARSER_DIR)
 
-$(PIPE): 
-	@make -C $(PIPE_DIR)
+$(EXPANSION): 
+	@make -C $(EXPANSION_DIR)
 
-$(REDIRECT): 
-	@make -C $(REDIRECT_DIR)
+$(EXEC): 
+	@make -C $(EXEC_DIR)
 
 $(UTIL): 
 	@make -C $(UTIL_DIR)
@@ -96,9 +100,8 @@ clean:
 	@make clean -C $(BUILTIN_DIR)
 	@make clean -C $(LEXER_DIR)
 	@make clean -C $(PARSER_DIR)
-	@make clean -C $(PIPE_DIR)
-	@make clean -C $(REDIRECT_DIR)
-	@make clean -C $(UTIL_DIR)
+	@make clean -C $(EXEC_DIR)
+	@make clean -C $(EXPANSION_DIR)
 	@echo $(CLEAN_MSG)
 
 fclean: 
@@ -106,8 +109,8 @@ fclean:
 	@make fclean -C $(BUILTIN_DIR)
 	@make fclean -C $(LEXER_DIR)
 	@make fclean -C $(PARSER_DIR)
-	@make fclean -C $(PIPE_DIR)
-	@make fclean -C $(REDIRECT_DIR)
+	@make fclean -C $(EXEC_DIR)
+	@make fclean -C $(EXPANSION_DIR)
 	@make fclean -C $(UTIL_DIR)
 	@rm -rf $(OBJDIR)
 	@echo $(CLEAN_MSG)
