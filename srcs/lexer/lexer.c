@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:15 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/11 22:12:22 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/14 00:10:02 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ size_t add_lst_token(t_token_lst **lst, char *line)
 	}
 	else if (!ft_strncmp(line, "<<", 2))
 	{
-		type = HEREDOCU;
+		type = HEREDOC;
 		size = 2;
 	}
 	else if (*line == '>')

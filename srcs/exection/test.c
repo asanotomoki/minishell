@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/13 22:07:46 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/14 00:03:24 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-void execve_test(char *test_command, char **envp)
- {
-	char *input;
+void	execve_test(char *test_command, char **envp)
+{
+	char	*input;
 
 	printf("\n-----");
 	input = strdup(test_command);
@@ -28,7 +28,7 @@ void execve_test(char *test_command, char **envp)
 	exection(parser(lexer(input)), envp);
 	free(input);
 
- }
+}
 
  int main(int argc, char **argv, char **envp)
 {

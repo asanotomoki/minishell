@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: test <test@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 17:01:59 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/07/26 17:27:19 by test             ###   ########.fr       */
+/*   Updated: 2023/01/14 02:13:42 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar_fd(const char c, int fd)
+size_t	ft_putchar_fd(const char c, int fd)
 {
-	write(fd, &c, sizeof(char));
+	return (write(fd, &c, sizeof(char)));
 }

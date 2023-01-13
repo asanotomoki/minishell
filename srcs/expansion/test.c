@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 15:19:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/13 18:49:50 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/14 00:08:44 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,18 @@ int put_test(char *input)
 
 	printf("\n------- [ %s ] -------\n", input);
 	cmd = parser(lexer(input));
+<<<<<<< .merge_file_A1td1q
 	//expansion(cmd);
+=======
+	expansion(cmd);
+>>>>>>> .merge_file_J570wC
 	return (put_ans(cmd));
 }
 
 int main()
 {
-	//put_test("ls -l < test1|\">|||||grep lexer\" > test2 >> test3 | wc -l | cat");	
-	//put_test("ls -l | wc -l | cat >> test");	
+	//put_test("ls -l < test1|\">|||||grep lexer\" > test2 >> test3 | wc -l | cat");
+	//put_test("ls -l | wc -l | cat >> test");
 	put_test("ls $USER");
 	put_test("ls \"test\"\"test1\"test2");
 	put_token_lst (lexer("ls \"test\"\"test1\"test2"));
@@ -92,13 +96,20 @@ int main()
 	put_test("ls > $USER");
 	put_test("ls > $para");
 	put_test("ls > $$USER");
+<<<<<<< .merge_file_A1td1q
 	put_test("ls  $nothing");
 	put_test("ls  \'$nothing\'");
 	put_test("ls  test$nothing$USER");
 	put_test("echo \'\"\'$PATH\'\"\'");
+=======
+	put_test("ls  $nothing test");
+	put_test("ls  \'$nothing\'");
+	put_test("ls  test$nothing$USER");
+	put_test("echo \'\"\'\'$PATH\'\'\"\'");
+>>>>>>> .merge_file_J570wC
 	////error test
-	//put_test("ls -l ||");	
+	//put_test("ls -l ||");
 	//put_test("ls -l <<");
 	//put_test("ls -l << <");
-	return (0);	
+	return (0);
 }
