@@ -5,36 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/13 15:18:08 by tasano           ###   ########.fr       */
+/*   Created: 2023/01/13 15:19:06 by tasano            #+#    #+#             */
+/*   Updated: 2023/01/13 18:49:50 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "expansion.h"
+#include "parser.h"
+#include "lexer.h"
 
 int	put_ans(t_cmd *cmd)
 {
 	size_t	i;
 	while (cmd)
 	{
-		printf("\noutput : ");
-		while (cmd->output)
+		printf("\nredirect : ");
+		while (cmd->redirect)
 		{
-			if (cmd->output->type == OUTREDIRECT)
-				printf (" > %s", cmd->output->filename);
-			else
-				printf (" >> %s", cmd->output->filename);
-			cmd->output = cmd->output->next;
+			if (cmd->redirect->type == OUTREDIRECT)
+				printf (" > %s", cmd->redirect->filename);
+			else if (cmd->redirect->type == OUTADDITION)
+				printf (" >> %s", cmd->redirect->filename);
+			else if (cmd->redirect->type == INREDIRECT)
+				printf (" < %s", cmd->redirect->filename);
+			else if (cmd->redirect->type == HEREDOCU)
+				printf (" << %s", cmd->redirect->filename);
+			cmd->redirect = cmd->redirect->next;
 		}
-		printf("\ninput : ");
-		while (cmd->input)
-		{
-			if (cmd->input->type == INREDIRECT)
-				printf (" < %s", cmd->input->filename);
-			else
-				printf (" << %s", cmd->input->filename);
-			cmd->input = cmd->input->next;
-		}
-		i = 0;
 		printf("\ncommand : [");
+		i = 0;
 		while (cmd->argc!=0 && cmd->cmd[i])
 		{
 			printf("[%s]", cmd->cmd[i]);
@@ -46,31 +45,60 @@ int	put_ans(t_cmd *cmd)
 	return (0);
 }
 
+void put_token_lst(t_token_lst *content)
+{
+	while (content)
+	{
+		if (content->type == PIPE)
+			printf ("PIPE : ");
+		else if (content->type == OUTREDIRECT)
+			printf ("OUTREDIRECT : ");
+		else if (content->type == OUTADDITION)
+			printf ("OUTADDITION : ");
+		else if (content->type == INREDIRECT)
+			printf ("INREDIRECT : ");
+		else if (content->type == HEREDOCU)
+			printf ("HEREDOCU : ");
+		else if (content->type == EXPANDABLE)
+			printf ("EXPANDABLE : ");
+		else if (content->type == NON_EXPANDABLE)
+			printf ("NON_EXPANDABLE : ");
+		printf("%s\n", content->token);
+		content = content->next;
+	}
+}
+
+int put_test(char *input)
+{
+	t_cmd *cmd;
+
+	printf("\n------- [ %s ] -------\n", input);
+	cmd = parser(lexer(input));
+	//expansion(cmd);
+	return (put_ans(cmd));
+}
+
 int main()
 {
-	printf("\n-----test1------\n");
-	char *input = strdup("ls -l < test1|\">|||||grep lexer\" > test2 >> test3 | wc -l | cat");
-	put_ans(parser(lexer(input)));
-	free (input);
-	printf("\n-----test2------\n");
-	input = strdup("ls -l | wc -l | cat >> test");
-	put_ans(parser(lexer(input)));
-	free(input);
-	printf("\n-----test3------\n");
-	input = strdup("ls");
-	put_ans(parser(lexer(input)));
-	free(input);
-	//error test
-	printf("\n-----test4------\n");
-	input = strdup("ls -l ||");
-	put_ans(parser(lexer(input)));
-	free(input);
-	printf("\n-----test5------\n");
-	input = strdup("ls -l <<");
-	put_ans(parser(lexer(input)));
-	printf("\n-----test6------\n");
-	input = strdup("ls -l << <");
-	put_ans(parser(lexer(input)));
-	free(input);
+	//put_test("ls -l < test1|\">|||||grep lexer\" > test2 >> test3 | wc -l | cat");	
+	//put_test("ls -l | wc -l | cat >> test");	
+	put_test("ls $USER");
+	put_test("ls \"test\"\"test1\"test2");
+	put_token_lst (lexer("ls \"test\"\"test1\"test2"));
+	put_test("ls \"$USER\"");
+	put_test("ls tests$USER");
+	put_test("ls tests$USER$USER$USER¥");
+	put_test("ls test$USER$USERtest");
+	put_test("ls > $USER");
+	put_test("ls > $para");
+	put_test("ls > $$USER");
+	put_test("ls  $nothing");
+	put_test("ls  \'$nothing\'");
+	put_test("ls  test$nothing$USER");
+	put_test("echo \'\"\'$PATH\'\"\'");
+	////error test
+	//put_test("ls -l ||");	
+	//put_test("ls -l <<");
+	//put_test("ls -l << <");
 	return (0);	
 }
