@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 18:19:04 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/13 18:22:05 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/14 02:04:03 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char *get_parameter(char *str)
 	size_t i;
 
 	i = 1;
-	while (str[i] && ft_isalnum(str[i]))
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 		i++;
 	return (ft_substr(str, 0, i));
 }

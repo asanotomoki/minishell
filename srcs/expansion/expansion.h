@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:22:15 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/13 22:42:46 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/14 00:51:13 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include <stdlib.h>
 #include "parser.h"
 #include <errno.h>
-
 
 int expansion(t_cmd *cmd);
 char *get_parameter(char *str);
