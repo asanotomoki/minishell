@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/29 22:05:15 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/12 11:27:30 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ typedef struct s_redirect
 
 typedef struct s_cmd
 {
-    t_redirect   *output;
+    t_redirect   *redirect;
     struct s_cmd *piped_cmd;
-    t_redirect   *input;
     char         **cmd;
     size_t       argc;
 }   t_cmd;
