@@ -39,13 +39,14 @@ int shell_system(char *line, char **envp)
 
 int main(int argc, char **argv, char **envp)
 {
+	(void)envp;
 	char *line;
 	int status;
 
 	if (argc < 1)
 		return (1);
 	status = 0;
-	(void *)argv;
+	(void)argv;
 	while (1)
 	{
 		line = readline("minishell$ ");
