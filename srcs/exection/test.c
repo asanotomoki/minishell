@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/12 12:34:42 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/14 04:03:27 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ void execve_test(char *test_command, char **envp)
 
 	/*****---------basic test----------*****/
 	execve_test(" wc -l > test1 < noting.log", envp);
+	execve_test(" wc -l > test1 < result.log", envp);
 	execve_test("ls -l | wc", envp);
 	execve_test("ls -l > test2 | wc -l", envp);
 	execve_test("ls -l | grep exec |  wc -l", envp);
 	execve_test("cat test1", envp);
 	execve_test("./bash.sh", envp);
-	execve_test("ls > test > test1 << EOF << EOT < test3 > test1 < test", envp);
+	execve_test("cat | ls", envp);
+	//execve_test("ls > test > test1 << EOF << EOT < test3 > test1 < test", envp);
 
 	/*****---------addition test----------*****/
 	int fd = open("test4",  O_WRONLY);

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:42:50 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/11 16:32:15 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/14 04:13:35 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,14 @@ void	set_dup2(int new_fd, int old_fd)
 {
 	if (dup2(new_fd, old_fd) == -1)
 		perror_exit(EXIT_FAILURE, "dup2");
+}
+
+int 	create_waitpid(t_cmd *cmd)
+{
+	while (cmd)
+	{
+		set_waitpid(cmd->pid);
+		cmd = cmd->piped_cmd;
+	}
+	return (0);
 }
