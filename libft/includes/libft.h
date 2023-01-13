@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 16:47:08 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/13 18:44:54 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/13 23:31:21 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 typedef struct s_list
 {
-	sizt_t				len;
+	size_t			len;
 	void			*content;
 	struct s_list	*next;
 }	t_list;

@@ -6,13 +6,13 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:42:52 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/13 22:06:47 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/13 23:46:19 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "../exec.h"
-#include "../expansion/expansion.h"
+#include "exec.h"
+//#include "expansion.h"
 #include <fcntl.h>
 #include <string.h>
 #include <readline/readline.h>
@@ -28,7 +28,7 @@ void	write_heredoc(int fd, t_list *heredoc_list, int *heredoc_errno)
 	{
 		w_len = write(fd, heredoc_list->content, heredoc_list->len);
 		*heredoc_errno = errno;
-		if (w_len != heredoc_list->len)
+		if (w_len != (ssize_t)heredoc_list->len)
 		{
 			if (*heredoc_errno == 0)
 				*heredoc_errno = ENOSPC;
@@ -38,9 +38,25 @@ void	write_heredoc(int fd, t_list *heredoc_list, int *heredoc_errno)
 	}
 }
 
-char	*expand_heredoc(char *line)
+char	*heredoc_expand(char *str)
 {
-	return (line);
+	size_t	i;
+	char	*tmp;
+
+	i = 0;
+	tmp = ft_strtrim(str, "\"");
+	free_strval(&str);
+	str = tmp;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			str = set_parameter(str, i);
+		else
+			i++;
+	}
+	if (str && !str[0])
+		return (NULL);
+	return (str);
 }
 
 t_list	*creat_heredoc_list(size_t *len_ptr, char *delimiter)
@@ -57,7 +73,7 @@ t_list	*creat_heredoc_list(size_t *len_ptr, char *delimiter)
 		line = readline("> ");
 		if (ft_strcmp(line, delimiter) == 0)
 			break ;
-		new = ft_lstnew(expand_heredoc(line));
+		new = ft_lstnew(heredoc_expand(line));
 		free(line);
 		if (new == NULL)
 			return (NULL);
@@ -73,7 +89,7 @@ int	use_system_pipe(t_list *heredoc_list, int *heredoc_errno)
 
 	if (pipe(herepipe) < 0)
 		return (-1);
-	write_heredoc(herepipe[1], heredoc_errno);
+	write_heredoc(herepipe[1], heredoc_list, heredoc_errno);
 	if (*heredoc_errno != 0)
 	{
 		close(herepipe[0]);
@@ -88,7 +104,7 @@ int	use_tempfile(t_list *heredoc_list, int *heredoc_errno)
 	int			fd;
 	struct stat	*info;
 
-	if (stat(HEREDOC_FILE, &info) != 0)
+	if (stat(HEREDOC_FILE, info) != 0)
 	{
 		*heredoc_errno = EEXIST;
 		return (-1);
@@ -102,22 +118,22 @@ int	heredoc_to_fd(char *delimiter)
 {
 	int		fd;
 	int		*heredoc_errno;
-	size_t	*len_ptr;
+	size_t	len;
 	t_list	*heredoc_list;
 
-	*len_ptr = 0;
+	len = 0;
 	*heredoc_errno = 0;
-	heredoc_list = creat_heredoc_list(len_ptr, delimiter);
+	heredoc_list = creat_heredoc_list(&len, delimiter);
 	if (heredoc_list == NULL)
 		return (-1);
-	if (*len_ptr == 0)
+	if (len == 0)
 		fd = open("/dev/null", O_RDONLY);
-	else if (*len_ptr > HEREDOC_PIPESIZE)
+	else if (len > HEREDOC_PIPESIZE)
 		fd = use_tempfile(heredoc_list, heredoc_errno);
 	else
 		fd = use_system_pipe(heredoc_list, heredoc_errno);
-	ft_lstclear(heredoc_list, free());
-	errno = heredoc_errno;
+	ft_lstclear(&heredoc_list, free);
+	errno = *heredoc_errno;
 	return (fd);
 }
 
@@ -127,9 +143,8 @@ static void	set_inredirect(t_redirect *redirect)
 
 	if (redirect->type == INREDIRECT)
 		new_fd = open(redirect->filename, O_RDONLY | O_CLOEXEC);
-	else if (redirect->type == HEREDOC)
 	else
-		new_fd = 0;
+		new_fd = heredoc_to_fd(redirect->filename);
 	if (new_fd < 0)
 		perror_exit(EXIT_FAILURE, redirect->filename);
 	set_dup2(new_fd, STDIN_FILENO);
