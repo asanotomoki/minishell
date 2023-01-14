@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/14 04:19:08 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/14 13:12:33 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ int execve_system(t_cmd *exec, size_t len, char **envp)
 			perror_exit(EXIT_FAILURE, "fork");
 		else if (exec->pid == 0)
 		{
-			if (i == 0)
+			if (len == 1)
+				;
+			else if (i == 0)
 				set_stdout(pp[i]);
 			else if (i == len - 1)
 				set_stdin(pp[i - 1]);
@@ -96,23 +98,6 @@ int execve_system(t_cmd *exec, size_t len, char **envp)
 
 int exection(t_cmd *cmd, char **envp)
 {
-	//pid_t pid
-	//cmd = convert_cmd(cmd);
-	//// if (!cmd->piped_cmd && check_builtins())
-	////	execve_main(cmd, envp);
-	//// else
-	////{
-	//pid = fork();
-	//if (pid == 0)
-	//	execve_system(cmd, envp);
-	//// exitしたらダメかも？
-	//else if (pid == -1)
-	//	perror_exit(EXIT_FAILURE, "fork");
-	//else
-	//	set_waitpid(pid);
-	////}
-	//cmd_lstfree(&cmd);
-
 	execve_system(cmd, pipe_cnt(cmd), envp);
 	create_waitpid(cmd);
 	cmd_lstfree(&cmd);

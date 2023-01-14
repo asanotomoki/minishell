@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/14 02:22:42 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/14 11:16:03 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,13 @@ char *expand(char *str)
 
 int redirect_expansion(t_redirect *redirect)
 {
+	char	*filename;
+
 	while (redirect)
 	{
-		if (redirect->expnad_type == EXPANDABLE)
-			redirect->filename = expand(redirect->filename);
+		filename = expand(redirect->filename);
+		//	fprintf(stderr, "minish: $%s: ambiguous redirect", redirect->filename);
+		redirect->filename = filename;
 		redirect = redirect->next;
 	}
 	return (0);
