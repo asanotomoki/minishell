@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:02 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 01:44:10 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 01:52:08 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 #include <stdio.h>
  #include "libft.h"
 #include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <dirent.h>
+ #include <string.h>
+ #include <unistd.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <dirent.h>
+
 
 ino_t get_inode(char *);
 void printpathto(ino_t);
 
 static char *inum_to_name(ino_t inode_to_find)
 {
-	DIR *dirp;
+		DIR *dirp;
 	struct dirent *direntp;
 
 	dirp = opendir(".");
@@ -34,6 +35,8 @@ static char *inum_to_name(ino_t inode_to_find)
 		perror(".");
 		return (NULL);
 	}
+
+	/* 指定されたiノード番号を持つファイル(サブディレクトリ)を探す */
 	while ((direntp = readdir(dirp)) != NULL)
 	{
 		if (get_inode(direntp->d_name) == inode_to_find)
@@ -50,7 +53,7 @@ ino_t get_inode(char *fname)
 	struct stat info;
 
 	if (stat(fname, &info) == -1)
-		;
+	;
 	return info.st_ino;
 }
 
@@ -71,7 +74,7 @@ void printpathto(ino_t this_inode)
 }
 int builtin_pwd()
 {
-		if (get_inode("..") == get_inode("."))
+	if (get_inode("..") == get_inode("."))
 		printf("/");
 	else
 		printpathto(get_inode("."));
