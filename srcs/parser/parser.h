@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/12 11:27:30 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/14 05:04:19 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_redirect
 
 typedef struct s_cmd
 {
+	pid_t		pid;
     t_redirect   *redirect;
     struct s_cmd *piped_cmd;
     char         **cmd;
@@ -45,7 +46,7 @@ void        redirect_lstfree(t_redirect **lst);
 //cmd lst utils
 void	    cmd_lstfree(t_cmd **cmd);
 t_cmd	    *cmd_addback(t_cmd *lst, t_cmd *new);
-t_cmd	    *cmd_new(); 
+t_cmd	    *cmd_new();
 //utils
 char        **append_args(char **args, size_t argc, char *new);
 int         parse_error(t_token_lst *lst, t_cmd *cmd, t_token_lst **tmplst);

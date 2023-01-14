@@ -6,14 +6,20 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:37:10 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/10 22:15:52 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/14 02:54:57 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+//#include "exec.h"
 #include "../parser/parser.h"
 #include <libc.h>
 #include <string.h>
+
+typedef struct s_parse_ast
+{
+	pid_t				pfd[2];
+	struct s_parse_ast	next_pipe;
+} 	t_parse_ast;
 
 void	ft_exit(char *msg, int status)
 {
@@ -54,14 +60,13 @@ t_parse_ast	*init_t_parse_ast(void)
 	new2->next_pipe = NULL;
 
 	ast->cmd = malloc(sizeof(t_parse_ast *) * 2);
-	ast->cmd[0] = strdup("ls");
+	ast->cmd[0] = strdup("cat");
 	ast->cmd[1] = NULL;
-	ast->cmd_path = strdup("/bin/ls");
+	ast->cmd_path = strdup("/bin/cat");
 
-	new->cmd = malloc(sizeof(t_parse_ast *) * 3);
-	new->cmd[0] = strdup("grep");
-	new->cmd[1] = strdup("e");
-	new->cmd[2] = NULL;
+	new->cmd = malloc(sizeof(t_parse_ast *) * 2);
+	new->cmd[0] = strdup("ls");
+	new->cmd[1] = NULL;
 	new->cmd_path = strdup("/usr/bin/grep");
 
 	new2->cmd = malloc(sizeof(t_parse_ast *) * 3);
