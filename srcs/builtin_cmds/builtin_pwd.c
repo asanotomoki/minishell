@@ -10,157 +10,71 @@
 ///*                                                                            */
 ///* ************************************************************************** */
 
- #include <stdio.h>
-// #include "libft.h"
+#include <stdio.h>
+ #include "libft.h"
 #include <stdlib.h>
- #include <string.h>
- #include <unistd.h>
- #include <sys/types.h>
- #include <sys/stat.h>
- #include <dirent.h>
-
-// ino_t get_inode(char *);
-// void printpathto(ino_t);
-
-// static char *inum_to_name(ino_t inode_to_find, int buflen)
-//{
-//	DIR *dir_ptr;
-//	struct dirent *direntp;
-//	char *namebuf;
-
-//	dir_ptr = opendir(".");
-//	if (dir_ptr == NULL)
-//	{
-//		perror(".");
-//		return (NULL);
-//	}
-//	namebuf = (char *)malloc(buflen * sizeof(char));
-//	if (!namebuf)
-//	{
-//		perror("malloc");
-//		return (NULL);
-//	}
-//	while ((direntp = readdir(dir_ptr)) != NULL)
-//	{
-//		if (direntp->d_ino == inode_to_find)
-//		{
-//			strncpy(namebuf, direntp->d_name, buflen);
-//			namebuf[buflen - 1] = '\0';
-//			printf("%s\n", namebuf);
-//			closedir(dir_ptr);
-//			return (namebuf);
-//		}
-//	}
-//	//fprintf(stderr, "error looking for inum %llu\n", inode_to_find);
-//	return (NULL);
-//}
-
-// ino_t get_inode(char *fname)
-//{
-//	struct stat info;
-
-//	if (stat(fname, &info) == -1)
-//		perror(fname);
-//	return info.st_ino;
-//}
-
-// void printpathto(ino_t this_inode)
-//{
-//	char *its_name;
-
-//	if (get_inode("..") != this_inode)
-//	{
-//		chdir("..");
-//		its_name = inum_to_name(this_inode, BUFSIZ);
-//		printpathto(get_inode("."));
-//		printf("/%s", its_name);
-//	}
-//}
-
- int builtin_pwd()
-{
-	//printpathto(get_inode("."));
-	printf("\n");
-	return (0);
- }
-
-/* spwd.c:pwdを単純化したバージョン
- *
- * カレントディレクトリからスタートして再帰的にファイルシステムの
- * ルートまで上り、上のディレクトリから順に名前を出力する
- * readdir()を使って個々のディレクトリについての情報を得る
- * バグ: "/"から実行すると空文字列を出力する
- */
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
 
 ino_t get_inode(char *);
 void printpathto(ino_t);
-void inum_to_name(ino_t, char *, int);
 
-int main()
+static char *inum_to_name(ino_t inode_to_find)
 {
-	printpathto(get_inode(".")); /* ここまでのパスを出力する */
-	putchar('\n');
-	return 0;
-}
+	DIR *dirp;
+	struct dirent *direntp;
 
-void printpathto(ino_t this_inode)
-/*
- * this_inodeに対応するディレクトリまでのパスを出力する再帰関数
- */
-{
-	ino_t my_inode;
-	char its_name[BUFSIZ];
-
-	if (get_inode("..") != this_inode)
-	{
-		chdir(".."); /* 1つ上のディレクトリへ */
-		inum_to_name(this_inode, its_name, BUFSIZ); 
-		my_inode = get_inode("."); /* 再帰的に */
-		printpathto(my_inode);	   /* 1つ上のディレクトリ */
-		printf("/%s", its_name);   /* までを出力 */
-	}							   /* このディレクトリの名前を出力 */
-}
-
-void inum_to_name(ino_t inode_to_find, char *namebuf, int buflen)
-/* カレントディレクトリから引数のiノード番号を持つファイル */
-/* (サブディレクトリ)を探し、名前をnamebufにコピーする */
-{
-	DIR *dir_ptr;			/* ディレクトリ */
-	struct dirent *direntp; /* 各エントリ */
-
-	dir_ptr = opendir(".");
-	if (dir_ptr == NULL)
+	dirp = opendir(".");
+	if (dirp == NULL)
 	{
 		perror(".");
-		exit(1);
+		return (NULL);
 	}
-
-	/* 指定されたiノード番号を持つファイル(サブディレクトリ)を探す */
-	while ((direntp = readdir(dir_ptr)) != NULL)
+	while ((direntp = readdir(dirp)) != NULL)
 	{
-		if (direntp->d_ino == inode_to_find)
+		if (get_inode(direntp->d_name) == inode_to_find)
 		{
-			strncpy(namebuf, direntp->d_name, buflen);
-			namebuf[buflen - 1] = '\0'; /* 念の為 */
-			closedir(dir_ptr);
-			return;
+			closedir(dirp);
+			return (ft_strdup(direntp->d_name));
 		}
 	}
-	fprintf(stderr, "error looking for inum %llu\n", inode_to_find);
-	exit(1);
+	return (NULL);
 }
 
 ino_t get_inode(char *fname)
-/* ファイルのiノード番号を返す */
 {
 	struct stat info;
 
 	if (stat(fname, &info) == -1)
-	{
-		fprintf(stderr, "Cannot stat ");
-		perror(fname);
-		exit(1);
-	}
-
+		;
 	return info.st_ino;
+}
+
+void printpathto(ino_t this_inode)
+{
+	char *its_name;
+
+	if (get_inode("..") != this_inode)
+	{
+		chdir("..");
+		its_name = inum_to_name(this_inode);
+		printpathto(get_inode("."));
+		if (!its_name)
+			return ;
+		printf("/%s", its_name);
+		free(its_name);
+	}
+}
+
+int builtin_pwd()
+{
+	if (get_inode("..") == get_inode("."))
+		printf("/");
+	else
+		printpathto(get_inode("."));
+	printf("\n");
+	return (0);
 }
