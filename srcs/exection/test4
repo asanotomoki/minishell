@@ -33,3 +33,20 @@ drwxr-xr-x  3 tasano  staff     96  1 14 10:50 test.dSYM
 -rw-r--r--  1 tasano  staff    905  1 14 13:10 test2
 -rw-r--r--  1 tasano  staff    905  1 14 13:10 test4
 -rw-r--r--  1 tasano  staff   1618  1 14 10:50 utils.c
+total 360
+-rwxr-xr-x  1 tasano  staff   1373  1 11 22:12 Makefile
+-rw-r--r--  1 tasano  staff    648  1 14 10:50 exec.h
+-rw-r--r--  1 tasano  staff   1436  1 14 10:50 exec_utils.c
+-rw-r--r--  1 tasano  staff  41768  1 14 13:51 exection.a
+-rw-r--r--  1 tasano  staff   2556  1 14 13:51 exection.c
+-rw-r--r--  1 tasano  staff   1985  1 14 10:50 get_cmdfile.c
+drwxr-xr-x  7 tasano  staff    224  1 14 13:51 obj
+-rw-r--r--  1 tasano  staff    967  1 14 10:50 result.log
+-rw-r--r--  1 tasano  staff   2065  1 13 15:18 set_redirect.c
+-rwxr-xr-x  1 tasano  staff  86257  1 14 13:51 test
+-rw-r--r--  1 tasano  staff   2478  1 14 10:50 test.c
+drwxr-xr-x  3 tasano  staff     96  1 14 10:50 test.dSYM
+-rw-r--r--  1 tasano  staff      9  1 14 13:51 test1
+-rw-r--r--  1 tasano  staff    905  1 14 13:51 test2
+-rw-r--r--  1 tasano  staff   1810  1 14 13:51 test4
+-rw-r--r--  1 tasano  staff   1618  1 14 10:50 utils.c

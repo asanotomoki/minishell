@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/14 13:12:33 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/14 13:51:51 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int execve_system(t_cmd *exec, size_t len, char **envp)
 				set_stdout(pp[i]);
 			else if (i == len - 1)
 				set_stdin(pp[i - 1]);
-			else if (i != 0 && i != len - 1)
+			else
 			{
 				set_stdout(pp[i]);
 				set_stdin(pp[i - 1]);
