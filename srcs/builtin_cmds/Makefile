@@ -6,7 +6,7 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2023/01/15 12:46:06 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/15 17:28:34 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,7 @@ SOURCES	:=	builtin_cd.c \
 			builtin_unset.c \
 			builtin_env.c \
 			builtin_exit.c \
-			env_utils.c \
-			leakdetect.c
+			env_utils.c 
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)

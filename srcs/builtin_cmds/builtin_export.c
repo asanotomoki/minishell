@@ -6,16 +6,13 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 12:47:15 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/15 17:28:13 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 #include "builtin_cmds.h"
-#include "leakdetect.h"
-#define malloc(s) leak_detelc_malloc(s, __FILE__, __LINE__)
-#define free leak_detect_free
 
 char *get_param(char *val)
 {

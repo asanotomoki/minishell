@@ -29,8 +29,12 @@ int shell_system(char *line, char **envp)
 	cmd_lst = parser(lexer_lst);
 	if (!cmd_lst)
 		return (1);
-	if (expansion(cmd_lst))
+	g_shell.status = expansion(cmd_lst);
+	if (g_shell.status)
+	{
+		cmd_lstfree(&cmd_lst);
 		return (1);
+	}
 	return (exection(cmd_lst, envp));
 }
 

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:43:45 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/13 23:35:57 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/15 17:18:41 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,12 @@
 # include "err.h"
 # include "libft.h"
 # include "util.h"
+
+typedef struct s_shell
+{
+	int	status;
+} t_shell;
+
+t_shell g_shell;
 
 #endif
