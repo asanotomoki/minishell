@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:02:16 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/28 17:40:31 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/12 11:41:37 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static	int	put_parse_error(char *msg)
 	ft_putstr_fd(SYNTAXERR, 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("'", 2);
+	ft_putchar_fd('\n', 2);
 	return (258);
 }
 

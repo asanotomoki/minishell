@@ -18,12 +18,13 @@ char *get_cmdfile(char *cmd, char *path);
 
 t_cmd *convert_cmd(t_cmd *lst);
 
-void set_outredirect(t_redirect *redirect);
-void set_inredirect(t_redirect *redirect);
+void set_redirect(t_redirect *redirect);
 void close_pipe(int pp[2]);
 void set_dup2(int new_fd, int old_fd);
 void set_pipe(int pp[2]);
 void set_waitpid(pid_t pid);
+int  create_waitpid(t_cmd *cmd);
+size_t	pipe_cnt(t_cmd *cmd);
 
 void perror_exit(int status, char *msg);
 void error_exit(int status, char *msg);

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:43:45 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/12/13 15:31:16 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/13 23:35:57 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,5 @@
 # include "err.h"
 # include "libft.h"
 # include "util.h"
-
-typedef struct s_cmds
-{
-	char *cmd_file;
-	char **cmds;
-} t_cmds;
-
-
-char	*get_cmdfile(char *cmd, char **envp);
-int		basic_cmd(char *cmd, char **envp);
-
-//utils
-int		perr_msg(char *msg);
-int		err_msg(char *msg);
-void free_args(char **cmd_paths);
 
 #endif
