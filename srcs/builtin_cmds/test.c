@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 01:26:28 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 01:45:11 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,10 @@ extern char **environ;
 	//builtin_exit(2, ft_split("exit 213713802", ' '));
 	//builtin_exit(4, ft_split("exit 80 0 1", ' '));
 	//builtin_exit(2, ft_split("exit -10", ' '));
-	builtin_exit(2, ft_split("exit -1000", ' '));
+	//builtin_exit(2, ft_split("exit -1000", ' '));
+
+	//builtin_pwd();
+	builtin_env();
+	//chdir("../");
 	return (0);	
 }
