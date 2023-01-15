@@ -18,30 +18,29 @@
 #include "exec.h"
 #include <readline/history.h>
 
+
 int shell_system(char *line, char **envp)
 {
 	t_token_lst *lexer_lst;
 	t_cmd 		*cmd_lst;
 
-	lexer_lst = lexer(line);
-	if (!lexer_lst)
-		return (1);
+	lexer_lst = NULL;
+	g_shell.status = lexer(line, &lexer_lst);
+	if (g_shell.status)
+		return (g_shell.status);
 	cmd_lst = parser(lexer_lst);
 	if (!cmd_lst)
 		return (1);
-	g_shell.status = expansion(cmd_lst);
-	if (g_shell.status)
-	{
-		cmd_lstfree(&cmd_lst);
+	if (expansion(cmd_lst))
 		return (1);
-	}
 	return (exection(cmd_lst, envp));
 }
 
 int main(int argc, char **argv, char **envp)
 {
+	(void)envp;
 	char *line;
-	
+
 	argc++;
 	(void)argv;
 	while (1)
