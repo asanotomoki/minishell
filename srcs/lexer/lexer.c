@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:15 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 19:56:09 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 02:56:12 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int set_quote_mode(char c, int mode)
 t_token_type get_token_type(char *line)
 {
 	t_token_type type;
-	
+
 	if (*line == '|')
 		type = PIPE;
 	else if (ft_strncmp(line, ">>", 2) == 0)
@@ -56,10 +56,36 @@ size_t get_token_size(char *line)
 	return (size);
 }
 
+char *set_lst(t_token_lst **lst, char *line, size_t i)
+{
+	if (0 < i)
+	{
+		if (add_lst(lst, line, i, EXPANDABLE))
+		{
+			token_lstfree(lst);
+			perror("lexer");
+			return (NULL);
+		}
+		line += i;
+	}
+	if (*line && !ft_isspace(*line))
+	{
+		i = get_token_size(line);
+		if (add_lst(lst, line, i, get_token_type(line)))
+		{
+			token_lstfree(lst);
+			perror("lexer");
+			return (NULL);
+		}
+		line += i;
+	}
+	return (line);
+}
+
 int nomal_tokenizer(t_token_lst **lst, char *line)
 {
-	size_t i;
-	int quote_mode;
+	size_t	i;
+	int		quote_mode;
 
 	while (*line)
 	{
@@ -74,33 +100,16 @@ int nomal_tokenizer(t_token_lst **lst, char *line)
 				break;
 			i++;
 		}
-		if (0 < i)
-		{
-			add_lst(lst, line, i, EXPANDABLE);
-			line += i;
-		}
-		if (*line && !ft_isspace(*line))
-		{
-			i = get_token_size(line);
-			if (add_lst(lst, line, i, get_token_type(line)))
-			{
-				
-			}
-			line += i;
-		}
+		line = set_lst(lst, line, i);
+		if (!line)
+			return (1);
 	}
 	return (0);
 }
 
-t_token_lst *lexer(char *line)
+int lexer(char *line, t_token_lst **lst)
 {
-	t_token_lst *lst;
-	int			status;
-
 	if (!line)
-		return (NULL);
-	lst = NULL;
-	status = nomal_tokenizer(&lst, line);
-	printf("%d", status);
-	return (lst);
+		return (0);
+	return (nomal_tokenizer(lst, line));
 }

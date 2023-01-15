@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 17:26:58 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 02:50:50 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int main()
 	t_token_lst	*content;
 	t_token_lst	*tmp;
 	char input[] = "ls -l < test|\'|||||grep lexer\'> $test >>\"test\"$test1 | wc -l | cat <<\"test";
- 
-	content = lexer(input);
+
+	content = NULL;
+	lexer(input, &content);
 	tmp = content;
 	printf("%s\n", input);
 	while (content)

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:58:36 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 00:51:07 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 02:49:32 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	token_lstadd_back(t_token_lst **lst, t_token_lst	*new)
 {
 	if (!new)
 		return ;
-	if (!*lst)
+	if (!lst || !*lst)
 		*lst = new;
 	else
 		token_lstlast(*lst)->next = new;
