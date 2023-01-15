@@ -18,12 +18,13 @@
 #include "exec.h"
 #include <readline/history.h>
 
+
 int shell_system(char *line, char **envp)
 {
 	t_token_lst *lexer_lst;
 	t_cmd 		*cmd_lst;
 
-	lexer_lst = lexer(line);
+		lexer_lst = lexer(line);
 	if (!lexer_lst)
 		return (1);
 	cmd_lst = parser(lexer_lst);

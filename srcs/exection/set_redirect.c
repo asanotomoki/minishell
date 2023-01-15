@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_redirect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:42:52 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 17:25:34 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 01:19:29 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	set_redirect(t_redirect *redirect)
 }
 
 /*
-wc -l test1 < test2 > test3 < test1 < test2 < test3 |
+wc -l test1 < test2 > test3 < test1 < test2 < test3 | 
 cmd : [[wc] [-l]]
 out : test1 > test3
 in  : test2 < test1 < test2 < test3

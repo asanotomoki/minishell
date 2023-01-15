@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parameter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 02:19:52 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 17:29:01 by hiroaki          ###   ########.fr       */
+/*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
+/*   Updated: 2023/01/16 01:29:53 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "expansion.h"
 #include "libft.h"
 #include "expansion.h"
 

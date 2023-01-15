@@ -6,30 +6,29 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2023/01/16 01:05:16 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/16 01:25:10 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:=	builtin_cmds.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
+CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
 INCLUDE	:=	-I ../../libft/includes
-SOURCES	:=	builtin_cd.c \
-			builtin_echo.c \
-			builtin_pwd.c \
-			builtin_export.c \
-			builtin_unset.c \
-			builtin_env.c \
-			builtin_exit.c \
-			env_utils.c
-			#leakdetect.c
+SOURCES	:=	builtin_cd.c builtin_echo.c builtin_pwd.c builtin_export.c builtin_unset.c builtin_env.c builtin_exit.c
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
+
+#test
+LIBFT_DIR		:=	../../libft
+LIBFT			:=	$(LIBFT_DIR)/libft.a
+INCLUDE			+=	-I $(LIBFT_DIR)/includes
+
 #Message
 RED		:= \033[1;31m
 GREEN	:= \033[1;32m
@@ -69,6 +68,5 @@ re: fclean all
 test: all
 	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME)  $(LIBFT) ../../libft/libft.a test.c
 	./test
-
 $(LIBFT):
 	@make -C $(LIBFT_DIR)

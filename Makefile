@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
+#    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2023/01/15 17:33:50 by hiroaki          ###   ########.fr        #
+#    Updated: 2023/01/16 01:21:01 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ $(NAME): $(LIBFT) \
 		  $(EXPANSION) \
 		  $(EXEC) \
 		  $(OBJECTS)
-
+		  
 	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline
 	@echo $(NAME_MSG)
 
@@ -100,8 +100,9 @@ clean:
 	@make clean -C $(BUILTIN_DIR)
 	@make clean -C $(LEXER_DIR)
 	@make clean -C $(PARSER_DIR)
-	@make clean -C $(EXEC_DIR)
-	@make clean -C $(EXPANSION_DIR)
+	@make clean -C $(PIPE_DIR)
+	@make clean -C $(REDIRECT_DIR)
+	@make clean -C $(UTIL_DIR)
 	@echo $(CLEAN_MSG)
 
 fclean:
@@ -109,8 +110,8 @@ fclean:
 	@make fclean -C $(BUILTIN_DIR)
 	@make fclean -C $(LEXER_DIR)
 	@make fclean -C $(PARSER_DIR)
-	@make fclean -C $(EXEC_DIR)
-	@make fclean -C $(EXPANSION_DIR)
+	@make fclean -C $(PIPE_DIR)
+	@make fclean -C $(REDIRECT_DIR)
 	@make fclean -C $(UTIL_DIR)
 	@rm -rf $(OBJDIR)
 	@echo $(CLEAN_MSG)

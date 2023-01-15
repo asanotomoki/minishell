@@ -6,16 +6,51 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/01/16 01:03:49 by tasano           ###   ########.fr       */
-=======
-/*   Updated: 2023/01/12 01:47:20 by tasano           ###   ########.fr       */
->>>>>>> 816db04 (exit)
+/*   Updated: 2023/01/16 01:26:28 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmds.h"
+#include "libft.h"
+#include "leakdetect.h"
+ #include <stdlib.h>
 #include <stdio.h>
+#include "leakdetect.h"
+
+int echo_test(char *input)
+{
+	builtin_echo(ft_split(input, ' '));
+	return (0);
+}
+
+int export_test(char *input)
+{
+	builtin_export(ft_split(input, ' '));
+	return (0);
+}
+
+int init_env(char ***environ)
+{
+	size_t i;
+	char **val;
+
+	val = *environ;
+	i = 0;
+	while (val[i])
+		i++;
+	i = 0;
+	while (val[i])
+	{
+		val[i] = ft_strdup(val[i]);
+		if (!val[i])
+		{
+			perror("export");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
 
 
 int echo_test(char *input)
@@ -61,8 +96,7 @@ int echo_test(char *input)
 
 int main()
 {
-<<<<<<< HEAD
-	extern char **environ;
+extern char **environ;
 	char **val;
 	val = (char **)environ;
 	init_env(&val);
@@ -75,7 +109,6 @@ int main()
 	builtin_env();
 	leak_detect_check();
 	return (0);
-=======
 	//echo_test("echo test msg");
 	//echo_test("echo");
 	//echo_test("echo -n");
@@ -88,5 +121,4 @@ int main()
 	//builtin_exit(2, ft_split("exit -10", ' '));
 	builtin_exit(2, ft_split("exit -1000", ' '));
 	return (0);	
->>>>>>> 816db04 (exit)
 }

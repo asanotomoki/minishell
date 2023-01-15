@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 22:02:39 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 01:14:24 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 #include "builtin_cmds.h"
-#include "leakdetect.h"
-#define malloc(s) leak_detelc_malloc(s, __FILE__, __LINE__)
-#define free leak_detect_free
 
 char *get_param(char *val)
 {
