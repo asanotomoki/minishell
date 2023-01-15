@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/29 16:11:35 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 02:28:40 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main()
 			printf ("OUTADDITION : ");
 		else if (content->type == INREDIRECT)
 			printf ("INREDIRECT : ");
-		else if (content->type == HEREDOCU)
+		else if (content->type == HEREDOC)
 			printf ("HEREDOCU : ");
 		else if (content->type == EXPANDABLE)
 			printf ("EXPANDABLE : ");

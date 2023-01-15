@@ -6,23 +6,13 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/01/16 01:48:43 by tasano           ###   ########.fr       */
-=======
-/*   Updated: 2023/01/15 12:47:15 by tasano           ###   ########.fr       */
->>>>>>> d6cf5c8 (builtin unset)
+/*   Updated: 2023/01/16 02:17:10 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 #include "builtin_cmds.h"
-<<<<<<< HEAD
-=======
-#include "leakdetect.h"
-#define malloc(s) leak_detelc_malloc(s, __FILE__, __LINE__)
-#define free leak_detect_free
->>>>>>> d6cf5c8 (builtin unset)
 
 char *get_param(char *val)
 {

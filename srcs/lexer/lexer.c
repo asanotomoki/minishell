@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:15 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 01:33:58 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 02:22:11 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_token_type get_token_type(char *line)
 	else if (ft_strncmp(line, ">>", 2) == 0)
 		type = OUTADDITION;
 	else if (ft_strncmp(line, "<<", 2) == 0)
-		type = HEREDOCU;
+		type = HEREDOC;
 	else if (*line == '>')
 		type = OUTREDIRECT;
 	else
@@ -84,7 +84,8 @@ int nomal_tokenizer(t_token_lst **lst, char *line)
 			i = get_token_size(line);
 			if (add_lst(lst, line, i, get_token_type(line)))
 			{
-				token_lstfree()
+				token_lstfree(lst);
+				return (1);
 			}
 			line += i;
 		}
@@ -95,12 +96,10 @@ int nomal_tokenizer(t_token_lst **lst, char *line)
 t_token_lst *lexer(char *line)
 {
 	t_token_lst *lst;
-	int			status;
 
 	if (!line)
 		return (NULL);
 	lst = NULL;
-	status = nomal_tokenizer(&lst, line);
-	printf("%d", status);
+	nomal_tokenizer(&lst, line);
 	return (lst);
 }
