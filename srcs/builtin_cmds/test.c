@@ -6,7 +6,11 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/01/16 01:45:11 by tasano           ###   ########.fr       */
+=======
+/*   Updated: 2023/01/15 16:58:30 by tasano           ###   ########.fr       */
+>>>>>>> d6cf5c8 (builtin unset)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +100,13 @@ int echo_test(char *input)
 
 int main()
 {
+<<<<<<< HEAD
 extern char **environ;
+=======
+	leak_detect_init();
+
+	extern char **environ;
+>>>>>>> d6cf5c8 (builtin unset)
 	char **val;
 	val = (char **)environ;
 	init_env(&val);
