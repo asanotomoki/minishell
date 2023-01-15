@@ -6,100 +6,101 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:15 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/13 18:46:54 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/15 19:56:09 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "libft.h"
+#include "minishell.h"
 
-static t_stat set_stat(char c, t_stat stat)
+static int set_quote_mode(char c, int mode)
 {
-	if (stat == NOMAL && c == '\"')
-		return (DOUBLEQUOATE);
-	else if (stat == DOUBLEQUOATE && c == '\"')
-		return (NOMAL);
-	else if (stat == NOMAL && c == '\'')
-		return (SINGLEQUOATE);
-	else if (stat == SINGLEQUOATE && c == '\'')
-		return (NOMAL);
-	return (NOMAL);
+	if (mode == 0 && c == '\"')
+		return (2);
+	else if (mode == 2 && c == '\"')
+		return (0);
+	else if (mode == 0 && c == '\'')
+		return (1);
+	else if (mode == 1 && c == '\'')
+		return (0);
+	return (mode);
 }
 
-size_t add_lst_token(t_token_lst **lst, char *line)
+t_token_type get_token_type(char *line)
 {
 	t_token_type type;
-	size_t size;
-
-	size = 1;
+	
 	if (*line == '|')
 		type = PIPE;
-	else if (!ft_strncmp(line, ">>", 2))
-	{
+	else if (ft_strncmp(line, ">>", 2) == 0)
 		type = OUTADDITION;
-		size = 2;
-	}
-	else if (!ft_strncmp(line, "<<", 2))
-	{
+	else if (ft_strncmp(line, "<<", 2) == 0)
 		type = HEREDOCU;
-		size = 2;
-	}
 	else if (*line == '>')
 		type = OUTREDIRECT;
 	else
 		type = INREDIRECT;
-	return (add_lst(lst, line, size, type));
+	return (type);
 }
 
-char  *nomal_tokenizer(t_token_lst **lst, char *line)
+size_t get_token_size(char *line)
+{
+	size_t size;
+
+	size = 1;
+	if (ft_strncmp(line, ">>", 2) == 0)
+		size = 2;
+	else if (ft_strncmp(line, "<<", 2) == 0)
+		size = 2;
+	return (size);
+}
+
+int nomal_tokenizer(t_token_lst **lst, char *line)
 {
 	size_t i;
+	int quote_mode;
 
-	i = 0;
-	while (*line && ft_isspace(*line))
-		line++;
-	while (line[i] && !ft_isspace(line[i]) && !ft_strchr("|<>", line[i]))
-		i++;
-	if (0 < i)
-		line += add_lst(lst, line, i, EXPANDABLE);
-	if (*line && !ft_isspace(*line))
-		line += add_lst_token(lst, line);
-	return (line);
-}
-
-char	*quote_tokenizer(t_token_lst **lst, char *line, char quote, t_token_type type)
-{
-	size_t	i;
-
-	i = 1;
-	while (line[i])
+	while (*line)
 	{
-		if (i != 0 && line[i] == quote)
-			break ;
-		i++;
+		while (*line && ft_isspace(*line))
+			line++;
+		quote_mode = 0;
+		i = 0;
+		while (line[i])
+		{
+			quote_mode = set_quote_mode(line[i], quote_mode);
+			if ((ft_isspace(line[i]) || ft_strchr("|<>", line[i])) && quote_mode == 0)
+				break;
+			i++;
+		}
+		if (0 < i)
+		{
+			add_lst(lst, line, i, EXPANDABLE);
+			line += i;
+		}
+		if (*line && !ft_isspace(*line))
+		{
+			i = get_token_size(line);
+			if (add_lst(lst, line, i, get_token_type(line)))
+			{
+				
+			}
+			line += i;
+		}
 	}
-	line += add_lst(lst, line, i + (line[i] == quote), type);
-	return (line);
+	return (0);
 }
 
 t_token_lst *lexer(char *line)
 {
 	t_token_lst *lst;
-	t_stat stat;
+	int			status;
 
 	if (!line)
 		return (NULL);
 	lst = NULL;
-	while (*line)
-	{
-		stat = NOMAL;
-		stat = set_stat(*line, stat);
-		if (stat == NOMAL)
-			line = nomal_tokenizer(&lst, line);
-		else if (stat == DOUBLEQUOATE)
-				line = quote_tokenizer(&lst, line, '\"', EXPANDABLE);
-		else if (stat == SINGLEQUOATE)
-				line = quote_tokenizer(&lst, line, '\'', NON_EXPANDABLE);
-	}
+	status = nomal_tokenizer(&lst, line);
+	printf("%d", status);
 	return (lst);
 }
