@@ -6,13 +6,16 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 06:34:44 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/15 16:58:30 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmds.h"
 #include "libft.h"
+#include "leakdetect.h"
+ #include <stdlib.h>
 #include <stdio.h>
+#include "leakdetect.h"
 
 int echo_test(char *input)
 {
@@ -51,37 +54,19 @@ int init_env(char ***environ)
 
 int main()
 {
-	// echo_test("echo test msg");
-	// echo_test("echo");
-	// echo_test("echo -n");
-	// echo_test("echo -n test msg");
-	// builtin_exit(1, ft_split("exit", ' '));
-	// builtin_exit(2, ft_split("exit 80", ' '));
-	// builtin_exit(2, ft_split("exit 0", ' '));
-	// builtin_exit(2, ft_split("exit 213713802", ' '));
-	// builtin_exit(4, ft_split("exit 80 0 1", ' '));
-	// builtin_exit(2, ft_split("exit -10", ' '));
-	// builtin_exit(2, ft_split("exit -1000", ' '));
+	leak_detect_init();
 
-	builtin_pwd();
-	// builtin_env();
-	//init_env(&val);
-	//export_test("export USER=tomo");
-	//printf("USER %s\n", getenv("USER"));
-	//export_test("export USER+=tomoki");
-	//printf("USER %s\n", getenv("USER"));
-	//export_test("export hoge=");
-	//printf("hoge : %s\n", getenv("hoge"));
-	//export_test("export hey=hehehe");
-	//printf("hoge : %s\n", getenv("hey"));
-	//export_test("export hey!!=hehehe");
-	//printf("hoge : %s\n", getenv("hoge"));
-	//export_test("export");
-	// export_test("export");
-	// export_test("export nothing");
-	// export_test("export nothing=add");
-	// printf("%s\n", getenv("a"));
-	// builtin_env();
-	// chdir("../");
+	extern char **environ;
+	char **val;
+	val = (char **)environ;
+	init_env(&val);
+	leak_detect_check();
+	//export_test("export USER=tomo USER+=tomoki SHELL=minishell =test");
+	//builtin_env();
+	builtin_unset(ft_split("unset USER", ' '));
+	builtin_unset(ft_split("unset tes:t", ' '));
+	printf("%s\n", getenv("USER"));
+	builtin_env();
+	leak_detect_check();
 	return (0);
 }

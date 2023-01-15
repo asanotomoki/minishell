@@ -6,12 +6,16 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 06:34:03 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/15 12:47:15 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
+#include "builtin_cmds.h"
+#include "leakdetect.h"
+#define malloc(s) leak_detelc_malloc(s, __FILE__, __LINE__)
+#define free leak_detect_free
 
 char *get_param(char *val)
 {
@@ -21,12 +25,17 @@ char *get_param(char *val)
 	i = 0;
 	while (val[i] && val[i] != '=')
 	{
-		if (!ft_isalnum(val[i]) &&  val[i] != '_' && ft_strncmp(val + i, "+=", 2))
+		if (!ft_isalnum(val[i]) && val[i] != '_' && ft_strncmp(val + i, "+=", 2))
 		{
 			ft_putendl_fd("not a valid identifier", 2);
 			return (NULL);
 		}
 		i++;
+	}
+	if (i == 0)
+	{
+		ft_putendl_fd("not a valid identifier", 2);
+		return (NULL);
 	}
 	param = ft_substr(val, 0, i + 1);
 	if (!param)
@@ -34,27 +43,11 @@ char *get_param(char *val)
 	return (param);
 }
 
-size_t search_param(char **argv, char *param)
-{
-	size_t param_len;
-	size_t i;
-
-	param_len = ft_strlen(param);
-	i = 0;
-	while (*argv)
-	{
-		if (ft_strncmp(*argv, param, param_len) == 0)
-			break ;
-		argv++;
-		i++;
-	}
-	return (i);
-}
 
 char *set_key(char *param)
 {
 	size_t key_len;
-	char	*key;
+	char *key;
 
 	key_len = ft_strlen(param);
 	key = (char *)malloc(sizeof(char) * key_len);
@@ -71,8 +64,7 @@ int set_env_join(char **environ, char *s, char *param)
 	char *value;
 	char *key;
 	char *tmp;
-	size_t	index;
-
+	size_t index;
 
 	key = set_key(param);
 	value = s + ft_strlen(param);
@@ -97,7 +89,7 @@ int set_env_join(char **environ, char *s, char *param)
 
 int set_env_val(char **environ, char *s, char *param)
 {
-	size_t	index;
+	size_t index;
 
 	index = search_param(environ, param);
 	if (!environ[index])
@@ -123,7 +115,7 @@ int set_env(char **environ, char *s)
 	if (!ft_strchr(s, '='))
 		return (0);
 	if (!param)
-		return(1);
+		return (1);
 	else if (ft_strchr(param, '+'))
 		return (set_env_join(environ, s, param));
 	else
