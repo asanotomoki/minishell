@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:42:52 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/14 05:12:05 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/15 16:26:23 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,11 @@ static void	set_inredirect(t_redirect *redirect)
 	int	new_fd;
 
 	if (redirect->type == INREDIRECT)
-	{
 		new_fd = open(redirect->filename, O_RDONLY | O_CLOEXEC);
-		if (new_fd == -1)
-			perror_exit(EXIT_FAILURE, redirect->filename);
-	}
-	else
-	{
-		new_fd = heredoc_to_fd(redirect->filename);
-		if (new_fd == -1)
-			perror_exit(EXIT_FAILURE, "here document");
-	}
+	if (redirect->type == HEREDOC)
+		new_fd = redirect->heredoc_fd;
+	if (new_fd == -1)
+		perror_exit(EXIT_FAILURE, redirect->filename);
 	set_dup2(new_fd, STDIN_FILENO);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 16:37:16 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/14 16:52:16 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include <fcntl.h>
 #include "libft.h"
 
-void	basic_command(t_cmd *exec, char **envp)
+void basic_command(t_cmd *exec, char **envp)
 {
-	char	*cmdfile;
-	char	*path;
+	char *cmdfile;
+	char *path;
 
 	path = getenv("PATH");
 	if (!path)
@@ -32,7 +32,7 @@ void	basic_command(t_cmd *exec, char **envp)
 		perror_exit(EXIT_FAILURE, "execve");
 }
 
-void	execve_command(t_cmd *exec, char **envp)
+void execve_command(t_cmd *exec, char **envp)
 {
 	// if (check_builtins(exec))
 	//	exec_builtins(exec->cmd);
@@ -40,7 +40,7 @@ void	execve_command(t_cmd *exec, char **envp)
 	basic_command(exec, envp);
 }
 
-void	execve_main(t_cmd *exec, char **envp)
+void execve_main(t_cmd *exec, char **envp)
 {
 	set_redirect(exec->redirect);
 	if (exec->cmd)
@@ -49,18 +49,18 @@ void	execve_main(t_cmd *exec, char **envp)
 		exit(0);
 }
 
-void	set_stdout(int pp[2])
+void set_stdout(int pp[2])
 {
 	set_dup2(pp[1], STDOUT_FILENO);
 	close_pipe(pp);
 }
-void	set_stdin(int pp[2])
+void set_stdin(int pp[2])
 {
 	set_dup2(pp[0], STDIN_FILENO);
 	close_pipe(pp);
 }
 
-int	execve_system(t_cmd *exec, size_t len, char **envp)
+int execve_system(t_cmd *exec, size_t len, char **envp)
 {
 	int		pp[len][2];
 	size_t	i;
@@ -73,9 +73,11 @@ int	execve_system(t_cmd *exec, size_t len, char **envp)
 		exec->pid = fork();
 		if (exec->pid == -1)
 			perror_exit(EXIT_FAILURE, "fork");
-		else if (exec->pid == 0 && len > 1)
+		else if (exec->pid == 0)
 		{
-			if (i == 0)
+			if (len == 1)
+				;
+			else if (i == 0)
 				set_stdout(pp[i]);
 			else if (i == len - 1)
 				set_stdin(pp[i - 1]);
@@ -116,9 +118,8 @@ static void	create_waitpid(t_cmd *cmd)
 	}
 }
 
-int	exection(t_cmd *cmd, char **envp)
+int exection(t_cmd *cmd, char **envp)
 {
-	heredoc_to_fd(cmd);
 	execve_system(cmd, pipe_cnt(cmd), envp);
 	create_waitpid(cmd);
 	cmd_lstfree(&cmd);

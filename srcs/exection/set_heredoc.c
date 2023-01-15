@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 04:48:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/14 04:49:37 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/15 16:45:05 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,109 +16,123 @@
 #include <readline/readline.h>
 #include <sys/stat.h>
 
-static void	write_heredoc(int fd, t_list *heredoc_list, int *heredoc_errno)
+static int	write_heredoc(int fd, t_list *document)
 {
 	ssize_t	p_len;
 
 	errno = 0;
-	while (heredoc_list)
+	while (document)
 	{
-		p_len = ft_putendl_fd(heredoc_list->content, fd);
-		*heredoc_errno = errno;
-		if (p_len != (ssize_t)heredoc_list->len + 1)
+		p_len = ft_putendl_fd(document->content, fd);
+		if (p_len != (ssize_t)document->len + 1)
 		{
-			if (*heredoc_errno == 0)
-				*heredoc_errno = ENOSPC;
-			return ;
+			if (errno == 0)
+				errno = ENOSPC;
+			return (errno);
 		}
-		heredoc_list = heredoc_list->next;
+		document = document->next;
 	}
+	return (0);
 }
 
-static t_list	*creat_heredoc_list(size_t *len_ptr, char *delimiter)
+bool	discontinue(char *line, char *delimiter)
+{
+	//if (g_shell.heredoc_interrupted)
+	//	return (true);
+	if (ft_strcmp(line, delimiter) == 0)
+		return (true);
+	return (false);
+}
+
+static t_list	*creat_document(size_t *len_ptr, char *delimiter)
 {
 	char	*line;
 	t_list	*new;
-	t_list	*heredoc_list;
+	t_list	*document;
 
 	if (delimiter == NULL)
 		return (NULL);
-	heredoc_list = NULL;
+	document = NULL;
 	while (1)
 	{
 		line = readline("> ");
-		if (ft_strcmp(line, delimiter) == 0)
+		if (discontinue(line, delimiter))
 			break ;
 		new = ft_lstnew(heredoc_expand(line));
 		if (new == NULL)
 			return (NULL);
-		ft_lstadd_back(&heredoc_list, new);
+		ft_lstadd_back(&document, new);
 		*len_ptr += new->len;
 	}
-	return (heredoc_list);
+	return (document);
 }
 
-static int	use_system_pipe(t_list *heredoc_list, int *heredoc_errno)
+static int	use_system_pipe(t_list *document)
 {
+	int	e;
 	int	herepipe[2];
 
 	if (pipe(herepipe) < 0)
 		return (-1);
-	write_heredoc(herepipe[1], heredoc_list, heredoc_errno);
-	if (*heredoc_errno != 0)
+	e = write_heredoc(herepipe[1], document);
+	if (e != 0)
 	{
 		close(herepipe[0]);
-		errno = *heredoc_errno;
+		errno = e;
 		return (-1);
 	}
 	close(herepipe[1]);
 	return (herepipe[0]);
 }
 
-static int	use_tempfile(t_list *heredoc_list, int *heredoc_errno)
+static int	use_tempfile(t_list *document)
 {
+	int			e;
 	int			fd;
 	int			fd2;
 	struct stat	info;
 
-	errno = 0;
-	stat(HEREDOC_FILE, &info);
-	if (errno != ENOENT)
+	stat(HEREDOC_TEMPFILE, &info);
+	e = errno;
+	if (e != ENOENT)
 	{
-		*heredoc_errno = EEXIST;
+		errno = EEXIST;
 		return (-1);
 	}
-	fd = open(HEREDOC_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	write_heredoc(fd, heredoc_list, heredoc_errno);
-	fd2 = open (HEREDOC_FILE, O_RDONLY, 0600);
+	fd = open(HEREDOC_TEMPFILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	e = write_heredoc(fd, document);
+	fd2 = open (HEREDOC_TEMPFILE, O_RDONLY, 0600);
 	close(fd);
-	if (unlink(HEREDOC_FILE) < 0)
+	if (e != 0 || unlink(HEREDOC_TEMPFILE) < 0)
 	{
-		*heredoc_errno = errno;
+		if (e != 0)
+			errno = e;
 		close (fd2);
-		errno = *heredoc_errno;
 		return (-1);
 	}
 	return (fd2);
 }
 
-int	heredoc_to_fd(char *delimiter)
+void	heredoc_to_fd(t_cmd *cmd)
 {
-	int		fd;
-	int		heredoc_errno;
-	size_t	len;
-	t_list	*heredoc_list;
+	t_list		*document;
+	t_redirect	*redir;
+	size_t		len;
 
-	len = 0;
-	heredoc_errno = 0;
-	heredoc_list = creat_heredoc_list(&len, delimiter);
-	if (len == 0)
-		fd = open("/dev/null", O_RDONLY);
-	else if (len > HEREDOC_PIPESIZE)
-		fd = use_tempfile(heredoc_list, &heredoc_errno);
-	else
-		fd = use_system_pipe(heredoc_list, &heredoc_errno);
-	ft_lstclear(&heredoc_list, free);
-	errno = heredoc_errno;
-	return (fd);
+	if (cmd == NULL)
+		return ;
+	redir = cmd->redirect;
+	if (redir && redir->type == HEREDOC)
+	{
+		len = 0;
+		document = creat_document(&len, redir->filename);
+		if (len == 0)
+			redir->heredoc_fd = open("/dev/null", O_RDONLY);
+		else if (len > HEREDOC_PIPESIZE)
+			redir->heredoc_fd = use_tempfile(document);
+		else
+			redir->heredoc_fd = use_system_pipe(document);
+		ft_lstclear(&document, free);
+	}
+	heredoc_to_fd(cmd->piped_cmd);
 }

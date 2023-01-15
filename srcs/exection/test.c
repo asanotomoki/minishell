@@ -6,11 +6,15 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
+<<<<<<< .merge_file_k5ZvVC
 <<<<<<< .merge_file_L6KITt
 /*   Updated: 2023/01/14 00:03:24 by hiroaki          ###   ########.fr       */
 =======
 /*   Updated: 2023/01/14 04:03:27 by tasano           ###   ########.fr       */
 >>>>>>> .merge_file_jDuglM
+=======
+/*   Updated: 2023/01/14 04:03:27 by tasano           ###   ########.fr       */
+>>>>>>> .merge_file_IjJZhk
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +45,30 @@ void	execve_test(char *test_command, char **envp)
 
 	/*****---------basic test----------*****/
 	execve_test(" wc -l > test1 < noting.log", envp);
+<<<<<<< .merge_file_k5ZvVC
 <<<<<<< .merge_file_L6KITt
 =======
 	execve_test(" wc -l > test1 < result.log", envp);
 >>>>>>> .merge_file_jDuglM
+=======
+	execve_test(" wc -l > test1 < result.log", envp);
+>>>>>>> .merge_file_IjJZhk
 	execve_test("ls -l | wc", envp);
 	execve_test("ls -l > test2 | wc -l", envp);
 	execve_test("ls -l | grep exec |  wc -l", envp);
 	execve_test("cat test1", envp);
 	execve_test("./bash.sh", envp);
+<<<<<<< .merge_file_k5ZvVC
 <<<<<<< .merge_file_L6KITt
 	execve_test("ls > test > test1 << EOF << EOT < test3 > test1 < test", envp);
 =======
 	execve_test("cat | ls", envp);
 	//execve_test("ls > test > test1 << EOF << EOT < test3 > test1 < test", envp);
 >>>>>>> .merge_file_jDuglM
+=======
+	execve_test("cat | ls", envp);
+	//execve_test("ls > test > test1 << EOF << EOT < test3 > test1 < test", envp);
+>>>>>>> .merge_file_IjJZhk
 
 	/*****---------addition test----------*****/
 	//int fd = open("test4",  O_WRONLY);
