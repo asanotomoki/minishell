@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 16:37:16 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/15 20:59:25 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,11 @@ int	execve_system(t_cmd *exec, size_t len, char **envp)
 		exec->pid = fork();
 		if (exec->pid == -1)
 			perror_exit(EXIT_FAILURE, "fork");
-		else if (exec->pid == 0 && len > 1)
+		else if (exec->pid == 0)
 		{
-			if (i == 0)
+			if (len == 1)
+				;
+			else if (i == 0)
 				set_stdout(pp[i]);
 			else if (i == len - 1)
 				set_stdin(pp[i - 1]);
@@ -94,29 +96,7 @@ int	execve_system(t_cmd *exec, size_t len, char **envp)
 	return (0);
 }
 
-static size_t	pipe_cnt(t_cmd *cmd)
-{
-	size_t	len;
-
-	len = 0;
-	while (cmd)
-	{
-		len++;
-		cmd = cmd->piped_cmd;
-	}
-	return (len);
-}
-
-static void	create_waitpid(t_cmd *cmd)
-{
-	while (cmd)
-	{
-		waitpid(cmd->pid, NULL, 0);
-		cmd = cmd->piped_cmd;
-	}
-}
-
-int	exection(t_cmd *cmd, char **envp)
+int exection(t_cmd *cmd, char **envp)
 {
 	heredoc_to_fd(cmd);
 	execve_system(cmd, pipe_cnt(cmd), envp);

@@ -6,12 +6,11 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:42:52 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 16:26:23 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/15 17:25:34 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-#include "../expansion/expansion.h"
 #include <fcntl.h>
 #include <readline/readline.h>
 #include <sys/stat.h>

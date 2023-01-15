@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cmds.h                                     :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 17:05:54 by tasano           ###   ########.fr       */
+/*   Created: 2023/01/15 12:44:05 by tasano            #+#    #+#             */
+/*   Updated: 2023/01/15 12:49:20 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_CMDS_H
-# define BUILTIN_CMDS_H
+#include "libft.h"
 
-#include <stdio.h>
-#include <stddef.h>
+size_t search_param(char **argv, char *param)
+{
+	size_t param_len;
+	size_t i;
 
-int		builtin_echo(char **argv);
-int		builtin_exit(size_t argc, char **argv);
-int		builtin_env();
-int		builtin_export(char **argv);
-int		builtin_pwd();
-int		builtin_unset(char **argv);
-int		builtin_cd(char **argv);
+	param_len = ft_strlen(param);
+	i = 0;
+	while (*argv)
+	{
+		if (ft_strncmp(*argv, param, param_len) == 0)
+			break;
+		argv++;
+		i++;
+	}
+	return (i);
+}
 
-
-size_t	search_param(char **argv, char *param);
-
-#endif
+char **get_env()
+{
+	extern char **environ;
+	char **val;
+	
+	val = (char **)environ;
+	return (val);
+}

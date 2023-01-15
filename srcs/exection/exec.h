@@ -42,6 +42,8 @@ void	close_pipe(int pp[2]);
 void	set_dup2(int new_fd, int old_fd);
 void	set_pipe(int pp[2]);
 void	set_waitpid(pid_t pid);
+int		create_waitpid(t_cmd *cmd);
+size_t	pipe_cnt(t_cmd *cmd);
 void	heredoc_to_fd(t_cmd *cmd);
 void	perror_exit(int status, char *msg);
 void	error_exit(int status, char *msg);

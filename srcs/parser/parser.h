@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 14:54:26 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/15 17:32:41 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ typedef struct s_redirect
 
 typedef struct s_cmd
 {
-	t_redirect		*redirect;
-	struct s_cmd	*piped_cmd;
-	char			**cmd;
-	size_t			argc;
-	pid_t			pid;
-}	t_cmd;
+    t_redirect   *redirect;
+    struct s_cmd *piped_cmd;
+    char         **cmd;
+    size_t       argc;
+    pid_t        pid;
+}   t_cmd;
 
 t_cmd		*parser(t_token_lst *lst);
 
