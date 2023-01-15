@@ -1,0 +1,11 @@
+{
+	"files.associations": {
+		"unistd.h": "c",
+		"stdio.h": "c",
+		"lexer.h": "c",
+		"__config": "c",
+		"expansion.h": "c",
+		"builtin_cmds.h": "c"
+	},
+	"C_Cpp.errorSquiggles": "disabled"
+}

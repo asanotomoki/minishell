@@ -1,0 +1,9 @@
+{
+	"files.associations": {
+		"builtin_cmds.h": "c",
+		"stddef.h": "c",
+		"dirent.h": "c",
+		"stdio.h": "c",
+		"types.h": "c"
+	}
+}
