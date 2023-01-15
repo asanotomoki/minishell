@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 09:35:13 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/12 11:40:43 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 03:30:30 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,21 @@ t_cmd *cmd_addback(t_cmd *lst, t_cmd *new)
 	}
 }
 
+void	args_free(char ***args)
+{
+	char	**argv;
+	size_t	i;
+
+	argv = *args;
+	i = 0;
+	while (argv)
+	{
+		free(argv[i]);
+		argv[i] = NULL;
+		i++;
+	}
+}
+
 void	cmd_lstfree(t_cmd **cmd)
 {
 	t_cmd	*tmp;
@@ -53,7 +68,9 @@ void	cmd_lstfree(t_cmd **cmd)
 		redirect_lstfree(&tmp->redirect);
 		if (tmp->cmd)
 			free(tmp->cmd);
+		args_free(&tmp->cmd);
 		tmp->cmd = NULL;
+		tmp->piped_cmd = NULL;
 		tmp->argc = 0;
 		tmp = NULL;
 		tmp = *cmd;
