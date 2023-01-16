@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 01:43:59 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 03:20:16 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	free_args(char ***input);
 
 int		get_status(void);
 void	set_status(int status);
+int		set_get_status(int status);
 
 size_t	search_param(char **argv, char *param);
 char	**get_env(void);
