@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 15:36:47 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 16:23:30 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include <stdio.h>
 #include "builtin_cmds.h"
 
-int set_env_join(char **environ, char *s, char *param)
+int	set_env_join(char **environ, char *s, char *param)
 {
-	char *value;
-	char *key;
-	char *tmp;
-	size_t index;
+	char	*value;
+	char	*key;
+	char	*tmp;
+	size_t	index;
 
 	key = get_key(param);
 	value = s + ft_strlen(param);
@@ -42,9 +42,9 @@ int set_env_join(char **environ, char *s, char *param)
 	return (0);
 }
 
-int set_env_val(char **environ, char *s, char *param)
+int	set_env_val(char **environ, char *s, char *param)
 {
-	size_t index;
+	size_t	index;
 
 	index = search_param(environ, param);
 	if (!environ[index])
@@ -62,9 +62,9 @@ int set_env_val(char **environ, char *s, char *param)
 	return (0);
 }
 
-int set_env(char *s)
+int	set_env(char *s)
 {
-	char *param;
+	char	*param;
 
 	if (!ft_strchr(s, '='))
 		return (0);
@@ -78,9 +78,9 @@ int set_env(char *s)
 	return (0);
 }
 
-int put_env_declare()
+int	put_env_declare(void)
 {
-	char **environ;
+	char	**environ;
 
 	environ = get_env();
 	while (*environ)
@@ -91,9 +91,9 @@ int put_env_declare()
 	return (0);
 }
 
-int builtin_export(char **argv)
+int	builtin_export(char **argv)
 {
-	int status;
+	int	status;
 
 	argv++;
 	if (!*argv)

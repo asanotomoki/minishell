@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:24:39 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 15:25:40 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:49:52 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-int cd_error_msg(char *param, char *msg)
+int	cd_error_msg(char *param, char *msg)
 {
 	ft_putstr_fd("bash: cd: ", 2);
 	if (param)
@@ -31,26 +31,26 @@ int cd_error_msg(char *param, char *msg)
 	return (1);
 }
 
-int is_dir(char *path)
+int	is_dir(char *path)
 {
-	struct stat s_st;
-	int		result;
+	struct stat	s_st;
+	int			result;
 
 	result = stat(path, &s_st);
 	if (result == -1)
 		return (cd_error_msg(path, "No such file or directory"));
 	if ((s_st.st_mode & S_IXUSR) == 0)
 		return (cd_error_msg(path, "Permission denied"));
-    if (!S_ISDIR(s_st.st_mode))
+	if (!S_ISDIR(s_st.st_mode))
 		return (cd_error_msg(path, "Not a directory"));
 	return (0);
 }
 
 int	execve_chdir(char *path)
 {
-	int status;
-	char *pwd;
-	char *tmp;
+	int		status;
+	char	*pwd;
+	char	*tmp;
 
 	if (is_dir(path))
 		return (1);
@@ -69,18 +69,18 @@ int	execve_chdir(char *path)
 	return (status);
 }
 
-int cd_home(void)
+int	cd_home(void)
 {
-	char *homedir;
+	char	*homedir;
+
 	homedir = getenv("HOME");
-	
 	if (!homedir)
-		return(cd_error_msg(NULL, "HOME not set"));
+		return (cd_error_msg(NULL, "HOME not set"));
 	execve_chdir(homedir);
 	return (0);
 }
 
-int builtin_cd(char **argv)
+int	builtin_cd(char **argv)
 {
 	if (!argv[0])
 		return (0);
