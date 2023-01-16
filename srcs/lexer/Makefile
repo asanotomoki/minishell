@@ -30,7 +30,7 @@ $(NAME): $(OBJECTS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@-mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
 .PHONY: all
 all: $(NAME)
