@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/15 19:57:58 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/10/31 04:08:57 by asanotomoki      ###   ########.fr       */
+/*   Created: 2022/02/04 20:46:18 by hiroaki           #+#    #+#             */
+/*   Updated: 2022/06/21 18:49:38 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "libft.h"
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
-
-char	*ft_strjoin_free(char *s1, char const *s2);
-void	gnl_perror_exit(char *msg, int status);
-
-#endif
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
+{
+	if (!lst)
+		return ;
+	if (del)
+		del(lst->content);
+	free(lst);
+}

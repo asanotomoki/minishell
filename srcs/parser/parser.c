@@ -6,11 +6,31 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:18 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/28 10:02:53 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 03:25:16 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+int create_cmd(t_token_lst *lst, t_cmd **cmdlst, t_cmd *top, t_token_lst *tmplst)
+{
+	t_cmd *cmd;
+
+	cmd = *cmdlst;
+	if (parse_error(lst, top, &tmplst))
+		return (1);
+	if (lst->type == PIPE)
+		cmd = cmd_addback(cmd, cmd_new());
+	else if (lst->type == OUTREDIRECT || lst->type == OUTADDITION ||
+			 lst->type == INREDIRECT || lst->type == HEREDOCU)
+	{
+		redirection_addback(&cmd->redirect, redirection_new(lst));
+		lst = lst->next;
+	}
+	else
+		cmd->cmd = append_args(cmd->cmd, cmd->argc++, lst->token);
+	return (0);
+}
 
 t_cmd *parser(t_token_lst *lst)
 {
@@ -18,23 +38,19 @@ t_cmd *parser(t_token_lst *lst)
 	t_cmd *tmp;
 	t_token_lst *tmplst;
 
+	tmplst = lst;
 	cmd = cmd_new();
 	tmp = cmd;
-	tmplst = lst;
 	while (lst)
 	{
 		if (parse_error(lst, tmp, &tmplst))
-			break ;
+			break;
 		if (lst->type == PIPE)
 			cmd = cmd_addback(cmd, cmd_new());
-		else if (lst->type == OUTREDIRECT || lst->type == OUTADDITION)
+		else if (lst->type == OUTREDIRECT || lst->type == OUTADDITION ||
+				 lst->type == INREDIRECT || lst->type == HEREDOCU)
 		{
-			redirection_addback(&cmd->output, redirection_new(lst));
-			lst = lst->next;
-		}
-		else if (lst->type == INREDIRECT || lst->type == HEREDOCU)
-		{
-			redirection_addback(&cmd->input, redirection_new(lst));
+			redirection_addback(&cmd->redirect, redirection_new(lst));
 			lst = lst->next;
 		}
 		else

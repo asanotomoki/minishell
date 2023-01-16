@@ -1,23 +1,29 @@
 NAME	:=	exection.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
-CFLAGS	+=	 -fsanitize=address -fno-omit-frame-pointer -g 
+CFLAGS	+=	 -fsanitize=address -fno-omit-frame-pointer -g
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-SOURCES	:=	exection.c get_cmdfile.c exec_utils.c set_redirect.c utils.c
+SOURCES	:=	exection.c get_cmdfile.c exec_utils.c set_redirect.c set_heredoc.c utils.c exec_builtin.c
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
 INCLUDE	:=	-I ../../libft/includes
 #test
-LEXER_DIR	:= ../lexer
-LEXER		:= $(LEXER_DIR)/lexer.a
-INCLUDE		+= -I $(LEXER_DIR)
-PARSER_DIR	:= ../parser
-PARSER		:= $(PARSER_DIR)/parser.a
-INCLUDE		+= -I $(PARSER_DIR)
+LEXER_DIR		:= ../lexer
+LEXER			:= $(LEXER_DIR)/lexer.a
+INCLUDE			+= -I $(LEXER_DIR)
+PARSER_DIR		:= ../parser
+PARSER			:= $(PARSER_DIR)/parser.a
+INCLUDE			+= -I $(PARSER_DIR)
+EXPANSION_DIR	:= ../expansion
+EXPANSION		:= $(EXPANSION_DIR)/expansion.a
+INCLUDE			+= -I $(EXPANSION_DIR)
+BUILTIN_DIR		:= ../builtin_cmds
+BUILTIN			:= $(BUILTIN_DIR)/builtin_cmds.a
+INCLUDE			+= -I $(BUILTIN_DIR)
 
 #Message
 RED		:=	\033[1;31m
@@ -29,7 +35,7 @@ NAME_MSG := " $(GREEN)Compile $(NAME)$(DEFAULT)"
 CLEAN_MSG := " $(YELLOW)Delete ./srcs/parser/obj$(DEFAULT)"
 FCLEAN_MSG := " $(RED)Delete $(NAME)$(DEFAULT)"
 
-$(NAME): $(OBJECTS) 
+$(NAME): $(OBJECTS)
 	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
 	@echo $(NAME_MSG)
 
@@ -56,11 +62,17 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(LEXER) $(PARSER) ../../libft/libft.a test.c 
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(LEXER) $(PARSER) $(EXPANSION) ../../libft/libft.a test.c -lreadline
 	./test
 
-$(LEXER): 
+$(LEXER):
 	@make -C $(LEXER_DIR)
 
-$(PARSER): 
+$(PARSER):
 	@make -C $(PARSER_DIR)
+
+$(EXPANSION):
+	@make -C $(EXPANSION_DIR)
+
+$(BUILTIN):
+	@make -C $(BUILTIN_DIR)

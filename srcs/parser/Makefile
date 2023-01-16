@@ -1,12 +1,12 @@
 NAME	:=	parser.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
-#CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g 
+CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g 
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-SOURCES	:=	parser.c lst_util.c cmd_lstutil.c redirect_lstutil.c utils.c
+SOURCES	:=	parser.c cmd_lstutil.c redirect_lstutil.c utils.c
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)

@@ -1,14 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_util.c                                         :+:      :+:    :+:   */
+/*   status.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 20:14:22 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/28 09:37:44 by tasano           ###   ########.fr       */
+/*   Created: 2023/01/16 19:45:00 by tasano            #+#    #+#             */
+/*   Updated: 2023/01/16 19:46:59 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "parser.h"
+#include "minishell.h"
+
+int	get_status(void)
+{
+	return (g_shell.status);
+}
+
+void	set_status(int status)
+{
+	g_shell.status = status;
+}
