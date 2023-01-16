@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 15:22:47 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:43:03 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int builtin_env();
 
 int builtin_export(char **argv);
 int set_env(char *s);
+char *export_put_error(char *val);
+char *get_param(char *val);
+char *get_key(char *param);
 
 int builtin_pwd();
 int builtin_unset(char **argv);

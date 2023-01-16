@@ -6,7 +6,7 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2023/01/16 13:02:59 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/16 15:43:51 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,11 @@ SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-INCLUDE	:=	-I ../../libft/includes
 SOURCES	:=	builtin_cd.c \
 			builtin_echo.c \
 			builtin_pwd.c \
 			builtin_export.c \
+			builtin_export_utils.c \
 			builtin_unset.c \
 			builtin_env.c \
 			builtin_exit.c \
@@ -30,6 +30,7 @@ SOURCES	:=	builtin_cd.c \
 OBJDIR	:=	./obj
 LIBFT_DIR		:=	../../libft
 LIBFT			:=	$(LIBFT_DIR)/libft.a
+INCLUDE			:=	-I $(LIBFT_DIR)/includes
 INCLUDE			+=	-I ../../includes
 
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
