@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:44:05 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 21:45:32 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 00:57:22 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 char	*env_put_error(char *function, char *val)
 {
-	ft_putstr_fd(PROMPT, 2);
+	ft_putstr_fd(SHELL, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(function, 2);
 	ft_putstr_fd(": `", 2);

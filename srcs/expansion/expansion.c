@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 21:43:23 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 01:08:11 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "libft.h"
+#include "util.h"
 
 char	*heredoc_expand(char *str)
 {
@@ -60,6 +61,8 @@ int	redirect_expansion(t_redirect *redirect)
 	while (redirect)
 	{
 		filename = expand(redirect->filename);
+		if (!filename)
+			return (err_msg(redirect->filename, "ambiguous redirect", 1));
 		redirect->filename = filename;
 		redirect = redirect->next;
 	}

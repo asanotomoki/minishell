@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:25:30 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 00:05:52 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 00:56:43 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static void	exit_put_error(char *str1, char *str2)
 {
-	ft_putstr_fd(PROMPT, 2);
+	ft_putstr_fd(SHELL, 2);
 	ft_putstr_fd(": exit: ", 2);
 	ft_putstr_fd(str1, 2);
 	ft_putstr_fd(": ", 2);

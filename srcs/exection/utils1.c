@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:42:50 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 00:29:21 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 01:38:45 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int	create_waitpid(t_cmd *cmd)
 	}
 	if (waitpid(cmd->pid, &status, 0) == -1)
 		status = 1;
-	set_status(status);
+	set_status(status % 255);
 	return (0);
 }

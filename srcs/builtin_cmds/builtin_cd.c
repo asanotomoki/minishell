@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:24:39 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 22:28:48 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 01:46:35 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
 #include "libft.h"
 #include <sys/types.h>
 #include <sys/stat.h>
+#include "minishell.h"
 
 static int	cd_error_msg(char *param, char *msg)
 {
-	ft_putstr_fd("bash: cd: ", 2);
+	ft_putstr_fd(SHELL, 2);
+	ft_putstr_fd(": cd: ", 2);
 	if (param)
 	{
 		ft_putstr_fd(param, 2);
@@ -39,10 +41,10 @@ static int	is_dir(char *path)
 	result = stat(path, &s_st);
 	if (result == -1)
 		return (cd_error_msg(path, "No such file or directory"));
-	if ((s_st.st_mode & S_IXUSR) == 0)
-		return (cd_error_msg(path, "Permission denied"));
 	if (!S_ISDIR(s_st.st_mode))
 		return (cd_error_msg(path, "Not a directory"));
+	if ((s_st.st_mode & S_IXUSR) == 0)
+		return (cd_error_msg(path, "Permission denied"));
 	return (0);
 }
 
