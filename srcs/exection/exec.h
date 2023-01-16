@@ -43,7 +43,7 @@ void set_dup2(int new_fd, int old_fd);
 void set_pipe(int pp[2]);
 void set_waitpid(pid_t pid);
 
-int		exection(t_cmd *cmd, char **envp);
+int		exection(t_cmd *cmd);
 char	*get_cmdfile(char *cmd, char *path);
 t_cmd	*convert_cmd(t_cmd *lst);
 void	set_redirect(t_redirect *redirect);
