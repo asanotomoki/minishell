@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 17:32:41 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 01:56:20 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_redirect
 
 typedef struct s_cmd
 {
-    t_redirect   *redirect;
+   t_redirect   *redirect;
     struct s_cmd *piped_cmd;
     char         **cmd;
     size_t       argc;

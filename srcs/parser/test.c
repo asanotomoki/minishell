@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/12 11:37:08 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 03:19:55 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,13 @@ int	put_ans(t_cmd *cmd)
 int parser_test(char *input)
 {
 	char *cmd;
+	t_token_lst *lst;
 
+	lst = NULL;
 	printf ("-----[ %s ]------", input);
 	cmd = strdup(input);
-	put_ans(parser(lexer(cmd)));
+	lexer(cmd, &lst);
+	put_ans(parser(lst));
 	free(cmd);
 	return (0);
 }
@@ -68,5 +71,7 @@ int main()
 	printf("\n\n\n--------- error test ---------\n\n\n");
 	parser_test("ls -l ||");
 	parser_test("ls -l <<");
+	parser_test("|");
+	parser_test("| test");
 	return (0);	
 }

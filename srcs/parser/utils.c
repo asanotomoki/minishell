@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:02:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 17:32:49 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 03:41:18 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int parse_error(t_token_lst *lst, t_cmd *cmd, t_token_lst **tmplst)
 	{
 		if (!lst->next)
 			flag = put_parse_error("newline");
-		else if (lst->next->type == OUTREDIRECT || lst->next->type == OUTADDITION || lst->next->type == INREDIRECT || lst->next->type == HEREDOC)
+		else if (lst->next->type != EXPANDABLE)
 			flag = put_parse_error(lst->next->token);
 	}
 	else if (lst->type == PIPE)

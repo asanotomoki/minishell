@@ -6,15 +6,23 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 20:46:02 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 20:56:05 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static void	basic_command(t_cmd *exec)
+char **get_envp()
 {
-	extern char	**environ;
+	extern char **environ;
+	char **val;
+
+	val = (char **)environ;
+	return (val);
+}
+
+void basic_command(t_cmd *exec)
+{
 	char		*cmdfile;
 	char		*path;
 
@@ -26,11 +34,11 @@ static void	basic_command(t_cmd *exec)
 		error_exit(COMMAND_NOT_FOUND, "command not found");
 	free(exec->cmd[0]);
 	exec->cmd[0] = cmdfile;
-	if (execve(exec->cmd[0], exec->cmd, environ) == -1)
+	if (execve(exec->cmd[0], exec->cmd, get_envp()) == -1)
 		perror_exit(EXIT_FAILURE, "execve");
 }
 
-static void	execve_command(t_cmd *exec)
+void execve_command(t_cmd *exec)
 {
 	// if (check_builtins(exec))
 	//	exec_builtins(exec->cmd);
@@ -38,7 +46,7 @@ static void	execve_command(t_cmd *exec)
 	basic_command(exec);
 }
 
-static void	execve_main(t_cmd *exec)
+void execve_main(t_cmd *exec)
 {
 	set_redirect(exec->redirect);
 	if (exec->cmd)

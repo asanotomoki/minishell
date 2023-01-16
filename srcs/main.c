@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/16 16:42:23 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 21:01:32 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ int	shell_system(char *line)
 	t_token_lst	*lexer_lst;
 	t_cmd		*cmd_lst;
 
-	lexer_lst = lexer(line);
-	if (!lexer_lst)
-		return (1);
+	lexer_lst = NULL;
+	g_shell.status = lexer(line, &lexer_lst);
+	if (g_shell.status)
+		return (g_shell.status);
 	cmd_lst = parser(lexer_lst);
 	if (!cmd_lst)
 		return (1);

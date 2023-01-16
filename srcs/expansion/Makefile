@@ -57,7 +57,6 @@ re: fclean all
 test: all
 	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(LEXER) $(PARSER) ../../libft/libft.a test.c
 	./test
-
 $(LEXER):
 	@make -C $(LEXER_DIR)
 
