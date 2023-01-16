@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 16:52:36 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 16:57:56 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int export_test(char *input)
 {
-	builtin_export(ft_split(input, ' '));
+	printf("%d\n", builtin_export(ft_split(input, ' ')));
 	return (0);
 }
 int echo_test(char *input)
@@ -30,15 +30,17 @@ int main()
 {
 	init_env();
 	export_test("export USER=tomo USER+=tomoki SHELL=minishell =test");
+	export_test("export USER=tomo  SHELL=minishell =test USE:R+=tomoki");
+	export_test("export USER=tomo  USER+=tomoki");
 	//builtin_env();
-	builtin_unset(ft_split("unset tes:t", ' '));
-	builtin_unset(ft_split("unset USER HOME", ' '));
-	printf("%s\n", getenv("USER"));
-	printf("%s\n", getenv("HOME"));
-	echo_test("echo test msg");
-	echo_test("echo");
-	echo_test("echo -n");
-	//echo_test("echo -n test msg");
+	//builtin_unset(ft_split("unset tes:t", ' '));
+	//builtin_unset(ft_split("unset USER HOME", ' '));
+	//printf("%s\n", getenv("USER"));
+	//printf("%s\n", getenv("HOME"));
+	//echo_test("echo test msg");
+	//echo_test("echo");
+	//echo_test("echo -n");
+	////echo_test("echo -n test msg");
 	//builtin_exit(1, ft_split("exit", ' '));
 	//builtin_exit(2, ft_split("exit 80", ' '));
 	//builtin_exit(2, ft_split("exit 0", ' '));
