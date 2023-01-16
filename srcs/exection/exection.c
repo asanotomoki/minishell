@@ -6,19 +6,17 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 20:59:25 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 20:46:02 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
 #include "exec.h"
-#include <fcntl.h>
-#include "libft.h"
 
-void	basic_command(t_cmd *exec, char **envp)
+static void	basic_command(t_cmd *exec)
 {
-	char	*cmdfile;
-	char	*path;
+	extern char	**environ;
+	char		*cmdfile;
+	char		*path;
 
 	path = getenv("PATH");
 	if (!path)
@@ -28,65 +26,62 @@ void	basic_command(t_cmd *exec, char **envp)
 		error_exit(COMMAND_NOT_FOUND, "command not found");
 	free(exec->cmd[0]);
 	exec->cmd[0] = cmdfile;
-	if (execve(exec->cmd[0], exec->cmd, envp) == -1)
+	if (execve(exec->cmd[0], exec->cmd, environ) == -1)
 		perror_exit(EXIT_FAILURE, "execve");
 }
 
-void	execve_command(t_cmd *exec, char **envp)
+static void	execve_command(t_cmd *exec)
 {
 	// if (check_builtins(exec))
 	//	exec_builtins(exec->cmd);
 	// else
-	basic_command(exec, envp);
+	basic_command(exec);
 }
 
-void	execve_main(t_cmd *exec, char **envp)
+static void	execve_main(t_cmd *exec)
 {
 	set_redirect(exec->redirect);
 	if (exec->cmd)
-		execve_command(exec, envp);
+		execve_command(exec);
 	else
 		exit(0);
 }
 
-void	set_stdout(int pp[2])
+static void	\
+	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2])
 {
-	set_dup2(pp[1], STDOUT_FILENO);
-	close_pipe(pp);
-}
-void	set_stdin(int pp[2])
-{
-	set_dup2(pp[0], STDIN_FILENO);
-	close_pipe(pp);
+	if (pipe_cnt == 1)
+		return ;
+	if (i == 0)
+		set_stdout(pp[i]);
+	else if (i == pipe_cnt - 1)
+		set_stdin(pp[i - 1]);
+	else
+	{
+		set_stdout(pp[i]);
+		set_stdin(pp[i - 1]);
+	}
 }
 
-int	execve_system(t_cmd *exec, size_t len, char **envp)
+static int	execve_system(t_cmd *exec, size_t cnt)
 {
-	int		pp[len][2];
 	size_t	i;
+	int		pp[OPEN_MAX / 2][2];
 
 	i = 0;
-	while (i < len && len != 0)
+	if (cnt > OPEN_MAX / 2)
+		perror_exit(EXIT_FAILURE, "pipe");
+	while (i < cnt && cnt != 0)
 	{
-		if (i != len)
+		if (i != cnt)
 			set_pipe(pp[i]);
 		exec->pid = fork();
 		if (exec->pid == -1)
 			perror_exit(EXIT_FAILURE, "fork");
-		else if (exec->pid == 0)
+		if (exec->pid == 0)
 		{
-			if (len == 1)
-				;
-			else if (i == 0)
-				set_stdout(pp[i]);
-			else if (i == len - 1)
-				set_stdin(pp[i - 1]);
-			else if (i != 0 && i != len - 1)
-			{
-				set_stdout(pp[i]);
-				set_stdin(pp[i - 1]);
-			}
-			execve_main(exec, envp);
+			connect_io_pipe(i, cnt, pp);
+			execve_main(exec);
 		}
 		if (i > 0)
 			close_pipe(pp[i - 1]);
@@ -96,10 +91,10 @@ int	execve_system(t_cmd *exec, size_t len, char **envp)
 	return (0);
 }
 
-int exection(t_cmd *cmd, char **envp)
+int	exection(t_cmd *cmd)
 {
 	heredoc_to_fd(cmd);
-	execve_system(cmd, pipe_cnt(cmd), envp);
+	execve_system(cmd, pipe_cnt(cmd));
 	create_waitpid(cmd);
 	cmd_lstfree(&cmd);
 	return (0);

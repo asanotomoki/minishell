@@ -6,18 +6,20 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 17:28:53 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 12:57:17 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "libft.h"
 
-char *heredoc_expand(char *str)
+char	*heredoc_expand(char *str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
+	if (str == NULL)
+		return (NULL);
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -33,10 +35,10 @@ char *heredoc_expand(char *str)
 	return (str);
 }
 
-char *expand(char *str)
+char	*expand(char *str)
 {
-	size_t i;
-	int mode;
+	size_t	i;
+	int		mode;
 
 	i = 0;
 	mode = 0;
@@ -51,7 +53,7 @@ char *expand(char *str)
 	return (set_return_val(str));
 }
 
-int redirect_expansion(t_redirect *redirect)
+int	redirect_expansion(t_redirect *redirect)
 {
 	char	*filename;
 
@@ -65,9 +67,9 @@ int redirect_expansion(t_redirect *redirect)
 	return (0);
 }
 
-int cmd_expansion(char **cmd)
+int	cmd_expansion(char **cmd)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (cmd[i])
@@ -81,7 +83,7 @@ int cmd_expansion(char **cmd)
 	return (0);
 }
 
-int expansion(t_cmd *cmd)
+int	expansion(t_cmd *cmd)
 {
 	while (cmd)
 	{

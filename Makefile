@@ -6,7 +6,7 @@
 #    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2023/01/15 17:33:50 by hiroaki          ###   ########.fr        #
+#    Updated: 2023/01/16 16:43:13 by hiroaki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC_DIR		:=	./srcs
 CC			:=	cc
 CFLAGS		:=	-Wall -Werror -Wextra
 CFLAGS		+=	-g -fsanitize=address
+
 HEADERS			:=	./includes
 LIBFT_DIR		:=	./libft
 LIBFT			:=	$(LIBFT_DIR)/libft.a
@@ -38,6 +39,9 @@ HEADERS			+=	$(EXEC_DIR)
 UTIL_DIR		:=	$(SRC_DIR)/util
 UTIL			:=	$(UTIL_DIR)/util.a
 HEADERS			+=	$(UTIL_DIR)
+READLINE_DIR	:=	$(shell brew --prefix readline)
+READLINE		:=	$(READLINE_DIR)/lib/libreadline.a
+HEADERS			+=	$(READLINE_DIR)/include
 
 INCLUDES	:=	$(addprefix -I , $(HEADERS))
 
@@ -64,7 +68,7 @@ $(NAME): $(LIBFT) \
 		  $(EXEC) \
 		  $(OBJECTS)
 
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline
+	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline -L$(READLINE_DIR)
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c

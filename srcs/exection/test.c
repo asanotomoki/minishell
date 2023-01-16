@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 17:26:49 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/15 21:48:08 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/15 23:42:06 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 
 void	execve_test(char *test_command, char **envp)
 {
+	(void)envp;
 	char	*input;
 
 	printf("\n-----");
 	input = strdup(test_command);
 	printf(" [ %s ] ------\n", input);
-	exection(parser(lexer(input)), envp);
+	exection(parser(lexer(input)));
 	free(input);
 
 }
