@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:18 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 21:44:26 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 00:37:33 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int create_cmd(t_token_lst *lst, t_cmd **cmdlst, t_cmd *top, t_token_lst *tmplst
 	if (lst->type == PIPE)
 		cmd = cmd_addback(cmd, cmd_new());
 	else if (lst->type == OUTREDIRECT || lst->type == OUTADDITION ||
-			 lst->type == INREDIRECT || lst->type == HEREDOC)
+			 lst->type == INREDIRECT || lst->type == HEREDOCU)
 	{
 		redirection_addback(&cmd->redirect, redirection_new(lst));
 		lst = lst->next;
@@ -48,7 +48,7 @@ t_cmd *parser(t_token_lst *lst)
 		if (lst->type == PIPE)
 			cmd = cmd_addback(cmd, cmd_new());
 		else if (lst->type == OUTREDIRECT || lst->type == OUTADDITION ||
-				 lst->type == INREDIRECT || lst->type == HEREDOC)
+				 lst->type == INREDIRECT || lst->type == HEREDOCU)
 		{
 			redirection_addback(&cmd->redirect, redirection_new(lst));
 			lst = lst->next;

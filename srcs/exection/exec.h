@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:24:22 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/17 00:26:29 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 00:39:38 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*joint_carriage_return(char *line);
 /* utils3.c */
 void	perror_exit(int status, char *msg);
 void	error_exit(int status, char *msg);
-int	exec_builtin(t_cmd *cmd);
-int	check_builtin(t_cmd *cmd);
+int		exec_builtin(t_cmd *cmd);
+int		check_builtin(t_cmd *cmd);
 
 #endif

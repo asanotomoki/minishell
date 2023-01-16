@@ -7,7 +7,7 @@ AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
 SOURCES	:=	exection.c get_cmdfile.c set_redirect.c set_heredoc.c \
-			utils1.c utils2.c utils3.c
+			utils1.c utils2.c utils3.c exec_builtin.c
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)

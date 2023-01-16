@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 00:29:55 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 00:38:09 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef	enum e_token_type
 	OUTREDIRECT,
 	OUTADDITION,
 	INREDIRECT,
-	HEREDOC
+	HEREDOCU
 } t_token_type;
 
 typedef	enum e_stat

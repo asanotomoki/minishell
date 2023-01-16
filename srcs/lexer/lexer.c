@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:15 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 21:45:39 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 00:38:33 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_token_type get_token_type(char *line)
 	else if (ft_strncmp(line, ">>", 2) == 0)
 		type = OUTADDITION;
 	else if (ft_strncmp(line, "<<", 2) == 0)
-		type = HEREDOC;
+		type = HEREDOCU;
 	else if (*line == '>')
 		type = OUTREDIRECT;
 	else
