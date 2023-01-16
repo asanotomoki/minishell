@@ -6,7 +6,7 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2023/01/16 02:16:07 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/16 21:49:14 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,9 @@ CFLAGS		+=	-g -fsanitize=address
 HEADERS			:=  ./includes
 LIBFT_DIR		:=	./libft
 LIBFT			:=	$(LIBFT_DIR)/libft.a
+UTIL_DIR		:=	$(SRC_DIR)/util
+UTIL			:=	$(UTIL_DIR)/util.a
+HEADERS			+=	$(UTIL_DIR)
 HEADERS			+=	$(LIBFT_DIR)/includes
 BUILTIN_DIR		:=	$(SRC_DIR)/builtin_cmds
 BUILTIN			:=	$(BUILTIN_DIR)/builtin_cmds.a
@@ -35,9 +38,6 @@ HEADERS			+=	$(EXPANSION_DIR)
 EXEC_DIR		:=	$(SRC_DIR)/exection
 EXEC			:=	$(EXEC_DIR)/exection.a
 HEADERS			+=	$(EXEC_DIR)
-UTIL_DIR		:=	$(SRC_DIR)/util
-UTIL			:=	$(UTIL_DIR)/util.a
-HEADERS			+=	$(UTIL_DIR)
 
 INCLUDES	:=	$(addprefix -I , $(HEADERS))
 
@@ -57,14 +57,14 @@ FCLEAN_MSG	:=	"$(RED) Delete $(NAME)$(DEFAULT)"
 .PHONY: all fclean clean re
 
 $(NAME): $(LIBFT) \
+		  $(UTIL) \
 		  $(BUILTIN)\
 		  $(LEXER) \
 		  $(PARSER) \
 		  $(EXPANSION) \
 		  $(EXEC) \
-		  $(OBJECTS)
-		  
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline
+		  $(OBJECTS) 
+	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(UTIL) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c
@@ -73,6 +73,9 @@ $(OBJDIR)/%.o: $(SRC_DIR)/%.c
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
+
+$(UTIL):
+	@make -C $(UTIL_DIR)
 
 $(BUILTIN): 
 	@make -C $(BUILTIN_DIR)
@@ -88,9 +91,6 @@ $(EXPANSION):
 
 $(EXEC): 
 	@make -C $(EXEC_DIR)
-
-$(UTIL): 
-	@make -C $(UTIL_DIR)
 
 all: $(NAME)
 

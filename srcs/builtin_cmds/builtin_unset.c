@@ -6,13 +6,14 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:24 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 16:49:53 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 21:52:00 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "libft.h"
 #include "builtin_cmds.h"
+#include "minishell.h"
 
 void	clear_val(char **environ, size_t i)
 {

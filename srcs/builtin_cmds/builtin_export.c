@@ -6,13 +6,14 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 16:56:11 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 22:01:54 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 #include "builtin_cmds.h"
+#include "util.h"
 
 int	set_env_join(char **environ, char *s, char *param)
 {
@@ -35,10 +36,8 @@ int	set_env_join(char **environ, char *s, char *param)
 		free(environ[index]);
 		environ[index] = tmp;
 	}
-	free(param);
-	free(key);
-	param = NULL;
-	key = NULL;
+	free_strval(&param);
+	free_strval(&key);
 	return (0);
 }
 

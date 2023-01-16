@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 16:46:59 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 21:47:27 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,5 @@ char	*get_key(char *param);
 int		builtin_pwd(void);
 int		builtin_unset(char **argv);
 int		builtin_cd(char **argv);
-
-size_t	search_param(char **argv, char *param);
-char	**get_env(void);
-int		init_env(void);
-char	*env_put_error(char *function, char *val);
 
 #endif

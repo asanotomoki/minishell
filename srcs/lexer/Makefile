@@ -25,7 +25,7 @@ CLEAN_MSG := " $(YELLOW)Delete ./srcs/lexer/obj$(DEFAULT)"
 FCLEAN_MSG := " $(RED)Delete $(NAME)$(DEFAULT)"
 
 $(NAME): $(OBJECTS) 
-	$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
+	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c

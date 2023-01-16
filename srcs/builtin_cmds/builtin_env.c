@@ -6,12 +6,13 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:25:12 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 15:51:39 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 21:54:08 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "builtin_cmds.h"
+#include "util.h"
 
 int	builtin_env(void)
 {

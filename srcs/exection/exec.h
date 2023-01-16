@@ -56,4 +56,7 @@ size_t	pipe_cnt(t_cmd *cmd);
 void	heredoc_to_fd(t_cmd *cmd);
 void	perror_exit(int status, char *msg);
 void	error_exit(int status, char *msg);
+
+int	exec_builtin(t_cmd *cmd);
+int	check_builtin(t_cmd *cmd);
 #endif

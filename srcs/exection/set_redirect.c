@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:42:52 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 01:59:17 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 21:33:21 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void set_inredirect(t_redirect *redirect)
 
 	if (redirect->type == INREDIRECT)
 		new_fd = open(redirect->filename, O_RDONLY | O_CLOEXEC);
-	if (redirect->type == HEREDOC)
+	if (redirect->type == HEREDOCU)
 		new_fd = redirect->heredoc_fd;
 	if (new_fd == -1)
 		perror_exit(EXIT_FAILURE, redirect->filename);
@@ -49,7 +49,7 @@ void	set_redirect(t_redirect *redirect)
 	{
 		if (redirect->type == OUTREDIRECT || redirect->type == OUTADDITION)
 			set_outredirect(redirect);
-		else if (redirect->type == INREDIRECT || redirect->type == HEREDOC)
+		else if (redirect->type == INREDIRECT || redirect->type == HEREDOCU)
 			set_inredirect(redirect);
 		redirect = redirect->next;
 	}

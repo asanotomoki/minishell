@@ -6,12 +6,13 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:44:05 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 16:50:33 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 21:45:32 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
+#include "util.h"
 
 char	*env_put_error(char *function, char *val)
 {
@@ -64,7 +65,7 @@ int	init_env(void)
 		val[i] = ft_strdup(val[i]);
 		if (!val[i])
 		{
-			//free_args();
+			free_args(&val);
 			return (1);
 		}
 		i++;

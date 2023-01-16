@@ -5,7 +5,9 @@
 		"lexer.h": "c",
 		"__config": "c",
 		"expansion.h": "c",
-		"builtin_cmds.h": "c"
+		"builtin_cmds.h": "c",
+		"util.h": "c",
+		"fcntl.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

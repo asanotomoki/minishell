@@ -6,28 +6,21 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 03:37:31 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 22:15:12 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "exec.h"
+#include "minishell.h"
+#include "util.h"
 #include <fcntl.h>
 #include "libft.h"
 
-char **get_envp()
-{
-	extern char **environ;
-	char **val;
-	
-	val = (char **)environ;
-	return (val);
-}
-
 void basic_command(t_cmd *exec)
 {
-	char	*cmdfile;
-	char	*path;
+	char *cmdfile;
+	char *path;
 
 	path = getenv("PATH");
 	if (!path)
@@ -37,16 +30,16 @@ void basic_command(t_cmd *exec)
 		error_exit(COMMAND_NOT_FOUND, "command not found");
 	free(exec->cmd[0]);
 	exec->cmd[0] = cmdfile;
-	if (execve(exec->cmd[0], exec->cmd, get_envp()) == -1)
+	if (execve(exec->cmd[0], exec->cmd, get_env()) == -1)
 		perror_exit(EXIT_FAILURE, "execve");
 }
 
 void execve_command(t_cmd *exec)
 {
-	// if (check_builtins(exec))
-	//	exec_builtins(exec->cmd);
-	// else
-	basic_command(exec);
+	if (check_builtin(exec))
+		printf("%d\n", exec_builtin(exec));
+	else
+		basic_command(exec);
 }
 
 void execve_main(t_cmd *exec)
@@ -58,12 +51,12 @@ void execve_main(t_cmd *exec)
 		exit(0);
 }
 
-void	set_stdout(int pp[2])
+void set_stdout(int pp[2])
 {
 	set_dup2(pp[1], STDOUT_FILENO);
 	close_pipe(pp);
 }
-void	set_stdin(int pp[2])
+void set_stdin(int pp[2])
 {
 	set_dup2(pp[0], STDIN_FILENO);
 	close_pipe(pp);
@@ -71,8 +64,8 @@ void	set_stdin(int pp[2])
 
 int execve_system(t_cmd *exec, size_t len)
 {
-	int		pp[len][2];
-	size_t	i;
+	int pp[len][2];
+	size_t i;
 
 	i = 0;
 	while (i < len && len != 0)
@@ -100,7 +93,7 @@ int execve_system(t_cmd *exec, size_t len)
 		if (i > 0)
 			close_pipe(pp[i - 1]);
 		exec = exec->piped_cmd;
-		i ++;
+		i++;
 	}
 	return (0);
 }
@@ -108,8 +101,13 @@ int execve_system(t_cmd *exec, size_t len)
 int exection(t_cmd *cmd)
 {
 	heredoc_to_fd(cmd);
-	execve_system(cmd, pipe_cnt(cmd), envp);
-	create_waitpid(cmd);
+	if (!cmd->piped_cmd && check_builtin(cmd))
+		execve_main(cmd);
+	else
+	{
+		execve_system(cmd, pipe_cnt(cmd));
+		create_waitpid(cmd);
+	}
 	cmd_lstfree(&cmd);
 	return (0);
 }

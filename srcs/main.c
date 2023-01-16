@@ -19,7 +19,7 @@
 #include <readline/history.h>
 
 
-int shell_system(char *line, char **envp)
+int shell_system(char *line)
 {
 	t_token_lst *lexer_lst;
 	t_cmd 		*cmd_lst;
@@ -33,16 +33,14 @@ int shell_system(char *line, char **envp)
 		return (1);
 	if (expansion(cmd_lst))
 		return (1);
-	return (exection(cmd_lst, envp));
+	return (exection(cmd_lst));
 }
 
-int main(int argc, char **argv, char **envp)
+int main()
 {
-	(void)envp;
 	char *line;
-
-	argc++;
-	(void)argv;
+	
+	init_env();
 	while (1)
 	{
 		line = readline("minishell$ ");
@@ -51,7 +49,7 @@ int main(int argc, char **argv, char **envp)
 		if (*line)
 		{
 			add_history(line);
-			shell_system(line, envp);
+			shell_system(line);
 		}
 		free(line);
 	}
