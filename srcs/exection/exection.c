@@ -6,13 +6,22 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 20:56:05 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 21:32:19 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
 char **get_envp()
+{
+	extern char **environ;
+	char **val;
+
+	val = (char **)environ;
+	return (val);
+}
+
+void basic_command(t_cmd *exec)
 {
 	extern char **environ;
 	char **val;
