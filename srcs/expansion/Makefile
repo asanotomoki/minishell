@@ -10,7 +10,7 @@ SOURCES	:=	expansion.c utils.c remove_quote.c parameter.c
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
-INCLUDE	:=	-I ../../libft/includes
+INCLUDE	:=	-I ../../libft/includes -I ../../includes
 #test
 LEXER_DIR	:= ../lexer
 LEXER		:= $(LEXER_DIR)/lexer.a
@@ -18,6 +18,9 @@ INCLUDE		+= -I $(LEXER_DIR)
 PARSER_DIR	:= ../parser
 PARSER		:= $(PARSER_DIR)/parser.a
 INCLUDE		+= -I $(PARSER_DIR)
+UTIL_DIR	:= ../util
+UTIL		:= $(UTIL_DIR)/util.a
+INCLUDE		+= -I $(UTIL_DIR)
 #Message
 RED		:=	\033[1;31m
 GREEN	:=	\033[1;32m
@@ -55,10 +58,13 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(LEXER) $(PARSER) ../../libft/libft.a test.c
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(LEXER) $(PARSER) $(UTIL) ../../libft/libft.a test.c
 	./test
 $(LEXER):
 	@make -C $(LEXER_DIR)
 
 $(PARSER):
 	@make -C $(PARSER_DIR)
+
+$(UTIL):
+	@make -C $(UTIL_DIR)

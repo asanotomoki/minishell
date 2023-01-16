@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 21:33:12 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 21:43:23 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	redirect_expansion(t_redirect *redirect)
 	while (redirect)
 	{
 		filename = expand(redirect->filename);
-		//	fprintf(stderr, "minish: $%s: ambiguous redirect", redirect->filename);
 		redirect->filename = filename;
 		redirect = redirect->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:24:22 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/16 21:31:38 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 21:38:03 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@
 # ifndef OPEN_MAX
 #  define OPEN_MAX 1024
 # endif
-
-
-
-
 
 # ifndef PIPESIZE
 #  ifdef PIPE_BUF

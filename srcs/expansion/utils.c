@@ -4,19 +4,20 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 18:19:04 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/15 17:31:21 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 20:35:27 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "libft.h"
 
-char **swap_cmd_null(char **cmd, size_t i)
+char	**swap_cmd_null(char **cmd, size_t i)
 {
-	char *tmp;
+	char	*tmp;
+
 	while (cmd[i + 1])
 	{
 		tmp = cmd[i];
@@ -27,7 +28,7 @@ char **swap_cmd_null(char **cmd, size_t i)
 	return (cmd);
 }
 
-char *set_return_val(char *str)
+char	*set_return_val(char *str)
 {
 	if (!str)
 		return (NULL);
@@ -45,14 +46,7 @@ char *set_return_val(char *str)
 	}
 }
 
-void free_strval(char **str)
-{
-	if (*str)
-		free(*str);
-	*str = NULL;
-}
-
-int set_mode(char c, int mode)
+int	set_mode(char c, int mode)
 {
 	if (mode == 0)
 	{
@@ -61,8 +55,7 @@ int set_mode(char c, int mode)
 		if (c == '\"')
 			return (2);
 	}
-	if ((mode == 1 && c == '\'') ||
-		(mode == 2 && c == '\"'))
+	if ((mode == 1 && c == '\'') || (mode == 2 && c == '\"'))
 		return (0);
 	return (mode);
 }

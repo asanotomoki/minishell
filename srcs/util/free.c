@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 12:15:57 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/14 12:35:19 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 20:36:45 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,27 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-void free_args(char **cmd_paths)
+void	free_strval(char **str)
 {
+	if (*str)
+		free(*str);
+	*str = NULL;
+}
+
+void	free_args(char ***input)
+{
+	char 	**argv;
 	size_t	i;
 
-	i = -1;
-	if (!cmd_paths)
+	if (!input)
 		return ;
-	while (cmd_paths[++i])
+	argv = *input;
+	i = 0;
+	while (argv[i])
 	{
-		free(cmd_paths[i]);
-		cmd_paths = NULL;
+		free_strval(&argv[i]);
+		i++;
 	}
-	cmd_paths = NULL;
-	free(cmd_paths);
+	argv = NULL;
+	free(argv);
 }

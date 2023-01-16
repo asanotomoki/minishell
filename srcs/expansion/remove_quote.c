@@ -6,17 +6,17 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 02:17:05 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/14 02:26:37 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 20:32:09 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "expansion.h"
 
-static char *remove_set_val(char *str, size_t i)
+static char	*remove_set_val(char *str, size_t i)
 {
-	char *before;
-	char *tmp;
+	char	*before;
+	char	*tmp;
 
 	before = ft_substr(str, 0, i);
 	tmp = str;
@@ -26,11 +26,11 @@ static char *remove_set_val(char *str, size_t i)
 	return (str);
 }
 
-char *remove_quote(char *str)
+char	*remove_quote(char *str)
 {
-	size_t i;
-	int mode;
-	int tmp_mode;
+	size_t	i;
+	int		mode;
+	int		tmp_mode;
 
 	i = 0;
 	tmp_mode = 0;

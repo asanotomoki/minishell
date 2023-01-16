@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:42:50 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 14:18:32 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 21:42:39 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,14 @@ void	set_dup2(int new_fd, int old_fd)
 
 int	create_waitpid(t_cmd *cmd)
 {
-	while (cmd)
+	int	status;
+
+	while (cmd->piped_cmd)
 	{
 		set_waitpid(cmd->pid);
 		cmd = cmd->piped_cmd;
 	}
+	waitpid(cmd->pid, &status, 0);
+	printf("status : %d\n", status % 255);
 	return (0);
 }

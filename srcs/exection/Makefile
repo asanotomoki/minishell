@@ -22,6 +22,9 @@ INCLUDE			+= -I $(PARSER_DIR)
 EXPANSION_DIR	:= ../expansion
 EXPANSION		:= $(EXPANSION_DIR)/expansion.a
 INCLUDE			+= -I $(EXPANSION_DIR)
+BUILTIN_DIR		:= ../builtin_cmds
+BUILTIN			:= $(BUILTIN_DIR)/builtin_cmds.a
+INCLUDE			+= -I $(BUILTIN_DIR)
 
 #Message
 RED		:=	\033[1;31m
@@ -71,3 +74,6 @@ $(PARSER):
 
 $(EXPANSION):
 	@make -C $(EXPANSION_DIR)
+
+$(BUILTIN):
+	@make -C $(BUILTIN_DIR)
