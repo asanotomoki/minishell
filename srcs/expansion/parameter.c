@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 19:51:47 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 20:27:09 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static char *get_parameter(char *str)
 	size_t i;
 
 	i = 1;
+	if (ft_strncmp(str, "$?", 2) == 0)
+		return (ft_substr(str, 0, 2));
 	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 		i++;
 	return (ft_substr(str, 0, i));
@@ -60,17 +62,25 @@ static char *join_parameter(char *str, char *val, size_t i, size_t parameter_len
 
 char *set_parameter(char *str, size_t i)
 {
-	char *parameter;
-	char *val;
+	char	*parameter;
+	char	*val;
+	int		flag;
 
 	parameter = get_parameter(str + i);
-	if (ft_strncmp(parameter, "$?", 3) == 0)
-		str = ft_itoa(get_status());
-	else if (parameter)
+	flag = 0;
+	if (parameter)
 	{
-		val = getenv(parameter + 1);
+		if (ft_strncmp(parameter, "$?", 2) == 0)
+		{
+			val = ft_itoa(get_status());
+			flag = 1;
+		}
+		else
+			val = getenv(parameter + 1);
 		str = join_parameter(str, val, i, ft_strlen(parameter));
 		free_strval(&parameter);
+		if (flag)
+			free_strval(&val);
 	}
 	return (str);
 }

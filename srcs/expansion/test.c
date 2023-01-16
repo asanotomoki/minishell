@@ -6,11 +6,13 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 02:04:44 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 20:12:52 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
+#include "minishell.h"
+#include "util.h"
 #include "parser.h"
 #include "lexer.h"
 
@@ -45,158 +47,15 @@ int	put_ans(t_cmd *cmd)
 	return (0);
 }
 
-void put_token_lst(t_token_lst *content)
-{
-	while (content)
-	{
-		if (content->type == PIPE)
-			printf ("PIPE : ");
-		else if (content->type == OUTREDIRECT)
-			printf ("OUTREDIRECT : ");
-		else if (content->type == OUTADDITION)
-			printf ("OUTADDITION : ");
-		else if (content->type == INREDIRECT)
-			printf ("INREDIRECT : ");
-		else if (content->type == HEREDOC)
-			printf ("HEREDOCU : ");
-		else if (content->type == EXPANDABLE)
-			printf ("EXPANDABLE : ");
-		else if (content->type == NON_EXPANDABLE)
-			printf ("NON_EXPANDABLE : ");
-		printf("%s\n", content->token);
-		content = content->next;
-	}
-}
-
 int put_test(char *input)
 {
 	t_cmd *cmd;
+	t_token_lst *lst;
 
 	printf("\n------- [ %s ] -------\n", input);
-	cmd = parser(lexer(input));
-	expansion(cmd);
-	return (put_ans(cmd));
-}
-
-int	put_ans(t_cmd *cmd)
-{
-	size_t	i;
-	while (cmd)
-	{
-		printf("\nredirect : ");
-		while (cmd->redirect)
-		{
-			if (cmd->redirect->type == OUTREDIRECT)
-				printf (" > %s", cmd->redirect->filename);
-			else if (cmd->redirect->type == OUTADDITION)
-				printf (" >> %s", cmd->redirect->filename);
-			else if (cmd->redirect->type == INREDIRECT)
-				printf (" < %s", cmd->redirect->filename);
-			else if (cmd->redirect->type == HEREDOCU)
-				printf (" << %s", cmd->redirect->filename);
-			cmd->redirect = cmd->redirect->next;
-		}
-		printf("\ncommand : [");
-		i = 0;
-		while (cmd->argc!=0 && cmd->cmd[i])
-		{
-			printf("[%s]", cmd->cmd[i]);
-			i++;
-		}
-		printf("]\n");
-		cmd = cmd->piped_cmd;
-	}
-	return (0);
-}
-
-int put_test(char *input)
-{
-	t_cmd *cmd;
-
-	printf("\n------- [ %s ] -------\n", input);
-	cmd = parser(lexer(input));
-	expansion(cmd);
-	return (put_ans(cmd));
-}
-
-int	put_ans(t_cmd *cmd)
-{
-	size_t	i;
-	while (cmd)
-	{
-		printf("\nredirect : ");
-		while (cmd->redirect)
-		{
-			if (cmd->redirect->type == OUTREDIRECT)
-				printf (" > %s", cmd->redirect->filename);
-			else if (cmd->redirect->type == OUTADDITION)
-				printf (" >> %s", cmd->redirect->filename);
-			else if (cmd->redirect->type == INREDIRECT)
-				printf (" < %s", cmd->redirect->filename);
-			else if (cmd->redirect->type == HEREDOCU)
-				printf (" << %s", cmd->redirect->filename);
-			cmd->redirect = cmd->redirect->next;
-		}
-		printf("\ncommand : [");
-		i = 0;
-		while (cmd->argc!=0 && cmd->cmd[i])
-		{
-			printf("[%s]", cmd->cmd[i]);
-			i++;
-		}
-		printf("]\n");
-		cmd = cmd->piped_cmd;
-	}
-	return (0);
-}
-
-int put_test(char *input)
-{
-	t_cmd *cmd;
-
-	printf("\n------- [ %s ] -------\n", input);
-	cmd = parser(lexer(input));
-	expansion(cmd);
-	return (put_ans(cmd));
-}
-
-int	put_ans(t_cmd *cmd)
-{
-	size_t	i;
-	while (cmd)
-	{
-		printf("\nredirect : ");
-		while (cmd->redirect)
-		{
-			if (cmd->redirect->type == OUTREDIRECT)
-				printf (" > %s", cmd->redirect->filename);
-			else if (cmd->redirect->type == OUTADDITION)
-				printf (" >> %s", cmd->redirect->filename);
-			else if (cmd->redirect->type == INREDIRECT)
-				printf (" < %s", cmd->redirect->filename);
-			else if (cmd->redirect->type == HEREDOCU)
-				printf (" << %s", cmd->redirect->filename);
-			cmd->redirect = cmd->redirect->next;
-		}
-		printf("\ncommand : [");
-		i = 0;
-		while (cmd->argc!=0 && cmd->cmd[i])
-		{
-			printf("[%s]", cmd->cmd[i]);
-			i++;
-		}
-		printf("]\n");
-		cmd = cmd->piped_cmd;
-	}
-	return (0);
-}
-
-int put_test(char *input)
-{
-	t_cmd *cmd;
-
-	printf("\n------- [ %s ] -------\n", input);
-	cmd = parser(lexer(input));
+	lst = NULL;
+	lexer(input, &lst);
+	cmd = parser(lst);
 	expansion(cmd);
 	return (put_ans(cmd));
 }
@@ -225,6 +84,9 @@ int main()
 	put_test("ls  \'$nothing\'");
 	put_test("ls  test$nothing$USER");
 	put_test("echo \'\"\'\'$PATH\'\'\"\'");
+	//set_status(128);
+	g_shell.status = 10;
+	put_test("echo $?");
 	////error test
 	//put_test("ls -l ||");
 	//put_test("ls -l <<");
