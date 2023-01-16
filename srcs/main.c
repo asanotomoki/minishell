@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/17 03:22:16 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 03:31:23 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,6 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <stdio.h>
-
-
-int shell_system(char *line)
-{
-	t_token_lst *lexer_lst;
-	t_cmd 		*cmd_lst;
-	int			status;
-
-	lexer_lst = NULL;
-	status = lexer(line, &lexer_lst);
-	if (status)
-		return (set_get_status(status));
-	cmd_lst = parser(lexer_lst);
-	if (!cmd_lst)
-		return (get_status());
-	if (expansion(cmd_lst))
-		return (set_get_status(1));
-	return (exection(cmd_lst));
-}
 
 //static void	signal_inturrupt(int signo)
 //{
@@ -85,14 +66,30 @@ int shell_system(char *line)
 //	rl_redisplay();
 //}
 
+int shell_system(char *line)
+{
+	t_token_lst *lexer_lst;
+	t_cmd 		*cmd_lst;
+	int			status;
 
-int	main()
+	lexer_lst = NULL;
+	status = lexer(line, &lexer_lst);
+	if (status)
+		return (set_get_status(status));
+	cmd_lst = parser(lexer_lst);
+	if (!cmd_lst)
+		return (get_status());
+	if (expansion(cmd_lst))
+		return (set_get_status(1));
+	return (exection(cmd_lst));
+}
+
+int interactive_shell()
 {
 	char	*line;
+	int		status;
 
-	//setup_sigint();
-	init_env();
-	g_shell.status = 0;
+	status = 0;
 	while (1)
 	{
 		line = readline(PROMPT);
@@ -101,9 +98,23 @@ int	main()
 		if (*line)
 		{
 			add_history(line);
-			shell_system(line);
+			status = shell_system(line);
 		}
 		free(line);
 	}
+	return (status);
+}
+
+void init_shell()
+{
+	init_env();
+	set_status(0);
+}
+
+int	main(void)
+{
+	//setup_sigint();
+	init_shell();
+	interactive_shell();
 	return (0);
 }

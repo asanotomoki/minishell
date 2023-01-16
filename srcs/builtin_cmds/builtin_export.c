@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 00:26:06 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 03:35:35 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ int	set_env(char *s)
 {
 	char	*param;
 
-	if (!ft_strchr(s, '='))
-		return (0);
 	param = get_param(s);
 	if (!param)
 		return (1);
+	if (!ft_strchr(s, '='))
+		return (0);
 	else if (ft_strchr(param, '+'))
 		return (set_env_join(get_env(), s, param));
 	else
