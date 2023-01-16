@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 22:15:12 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 23:49:05 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void basic_command(t_cmd *exec)
 
 	path = getenv("PATH");
 	if (!path)
-		error_exit(EXIT_FAILURE, "Don't get Path");
+		error_exit(COMMAND_NOT_FOUND, "command not found");
 	cmdfile = get_cmdfile(exec->cmd[0], path);
 	if (!cmdfile)
 		error_exit(COMMAND_NOT_FOUND, "command not found");
@@ -37,7 +37,7 @@ void basic_command(t_cmd *exec)
 void execve_command(t_cmd *exec)
 {
 	if (check_builtin(exec))
-		printf("%d\n", exec_builtin(exec));
+		set_status(exec_builtin(exec));
 	else
 		basic_command(exec);
 }

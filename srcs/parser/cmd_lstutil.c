@@ -6,12 +6,13 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 09:35:13 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 03:43:49 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 22:45:30 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include <stdlib.h>
+#include "util.h"
 
 t_cmd *cmd_new()
 {
@@ -42,23 +43,6 @@ t_cmd *cmd_addback(t_cmd *lst, t_cmd *new)
 	}
 }
 
-void	args_free(char ***args)
-{
-	char	**argv;
-	size_t	i;
-
-	argv = *args;
-	i = 0;
-	while (argv[i])
-	{
-		free(argv[i]);
-		argv[i] = NULL;
-		i++;
-	}
-	free(argv);
-	argv = NULL;
-}
-
 void	cmd_lstfree(t_cmd **cmd)
 {
 	t_cmd	*tmp;
@@ -69,7 +53,7 @@ void	cmd_lstfree(t_cmd **cmd)
 		*cmd = tmp->piped_cmd;
 		redirect_lstfree(&tmp->redirect);
 		if (tmp->cmd)
-			args_free(&tmp->cmd);
+			free_args(&tmp->cmd);
 		tmp->cmd = NULL;
 		tmp->piped_cmd = NULL;
 		tmp->argc = 0;

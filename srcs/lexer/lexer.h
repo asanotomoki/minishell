@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 19:54:21 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 22:36:32 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 typedef	enum e_token_type
 {
 	EXPANDABLE,
-	NON_EXPANDABLE,
 	PIPE,
 	OUTREDIRECT,
 	OUTADDITION,

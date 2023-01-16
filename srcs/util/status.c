@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 19:45:00 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 22:05:10 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 00:04:50 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ int	get_status(void)
 
 void	set_status(int status)
 {
-	g_shell.status = status % 256;
+	g_shell.status = status % 255;
 }

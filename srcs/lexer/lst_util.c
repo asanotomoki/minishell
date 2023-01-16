@@ -6,12 +6,13 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:58:36 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 02:49:32 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 22:37:55 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "libft.h"
+#include "util.h"
 #include <stdlib.h>
 
 t_token_lst	*token_lstnew(char *word, t_token_type type)
@@ -37,8 +38,7 @@ void	token_lstfree(t_token_lst	**lst)
 	while (tmp)
 	{
 		*lst = tmp->next;
-		free(tmp->token);
-		tmp->token = NULL;
+		free_strval(&tmp->token);
 		free(tmp);
 		tmp = NULL;
 		tmp = *lst;

@@ -6,7 +6,7 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2023/01/16 21:55:20 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/16 22:26:19 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SOURCES	:=	builtin_cd.c \
 			builtin_pwd.c \
 			builtin_unset.c \
 			builtin_export.c \
-			builtin_export_utils.c \
+			param_util.c \
 			builtin_env.c \
 			builtin_exit.c 
 OBJDIR	:=	./obj

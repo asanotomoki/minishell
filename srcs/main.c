@@ -23,11 +23,12 @@ int shell_system(char *line)
 {
 	t_token_lst *lexer_lst;
 	t_cmd 		*cmd_lst;
+	int			status;
 
 	lexer_lst = NULL;
-	g_shell.status = lexer(line, &lexer_lst);
-	if (g_shell.status)
-		return (g_shell.status);
+	status = lexer(line, &lexer_lst);
+	if (status)
+		return (status);
 	cmd_lst = parser(lexer_lst);
 	if (!cmd_lst)
 		return (1);
@@ -41,6 +42,7 @@ int main()
 	char *line;
 	
 	init_env();
+	g_shell.status = 0;
 	while (1)
 	{
 		line = readline("minishell$ ");

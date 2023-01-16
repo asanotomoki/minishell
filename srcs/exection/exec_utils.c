@@ -6,13 +6,14 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:42:50 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 03:50:34 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 00:06:29 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include <fcntl.h>
 #include "libft.h"
+#include "util.h"
 
 void set_pipe(int pp[2])
 {
@@ -47,7 +48,8 @@ int 	create_waitpid(t_cmd *cmd)
 		set_waitpid(cmd->pid);
 		cmd = cmd->piped_cmd;
 	}
-	waitpid(cmd->pid, &status, 0);
-	printf("status : %d\n", status % 255);
+	if (waitpid(cmd->pid, &status, 0) == -1)
+		status = 1;
+	set_status(status);
 	return (0);
 }

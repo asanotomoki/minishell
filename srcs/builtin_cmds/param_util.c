@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_export_utils.c                             :+:      :+:    :+:   */
+/*   param_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:33:08 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 16:50:11 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 00:17:15 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 #include "builtin_cmds.h"
+
+int	check_param(char *param)
+{
+	while (*param)
+	{
+		if (!ft_isalnum(*param) && *param != '_')
+			return (1);
+		param++;
+	}
+	return (0);
+}
 
 char	*get_param(char *val)
 {

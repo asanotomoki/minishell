@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:24 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 21:52:00 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 22:26:28 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,6 @@ void	clear_val(char **environ, size_t i)
 		environ[i + 1] = NULL;
 		i++;
 	}
-}
-
-int	check_param(char *param)
-{
-	while (*param)
-	{
-		if (!ft_isalnum(*param) && *param != '_')
-			return (1);
-		param++;
-	}
-	return (0);
 }
 
 int	unset_env(char *param)

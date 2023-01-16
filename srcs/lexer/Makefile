@@ -14,6 +14,7 @@ LIB_DIR := 	../../libft
 LIBFT	:=	$(LIB_DIR)/libft.a
 INCLUDE	:=	-I $(LIB_DIR)/includes
 INCLUDE	+=	-I ../../includes
+INCLUDE	+=	-I ../util
 #Message
 RED		:= \033[1;31m
 GREEN	:= \033[1;32m
