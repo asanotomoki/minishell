@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 04:48:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/16 16:36:03 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 00:28:20 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	heredoc_to_fd(t_cmd *cmd)
 	if (cmd == NULL)
 		return ;
 	redir = cmd->redirect;
-	if (redir && redir->type == HEREDOC)
+	if (redir && redir->type == HEREDOCU)
 	{
 		len = 0;
 		document = creat_document(&len, redir->filename);

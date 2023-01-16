@@ -6,7 +6,7 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2023/01/16 15:43:51 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/16 22:26:19 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,17 +21,17 @@ RM		:=	rm -rf
 SOURCES	:=	builtin_cd.c \
 			builtin_echo.c \
 			builtin_pwd.c \
-			builtin_export.c \
-			builtin_export_utils.c \
 			builtin_unset.c \
+			builtin_export.c \
+			param_util.c \
 			builtin_env.c \
-			builtin_exit.c \
-			env_utils.c 
+			builtin_exit.c 
 OBJDIR	:=	./obj
 LIBFT_DIR		:=	../../libft
 LIBFT			:=	$(LIBFT_DIR)/libft.a
 INCLUDE			:=	-I $(LIBFT_DIR)/includes
 INCLUDE			+=	-I ../../includes
+INCLUDE			+=	-I ../util
 
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)

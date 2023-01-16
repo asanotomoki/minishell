@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 21:37:25 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 00:26:06 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 #include "builtin_cmds.h"
+#include "util.h"
 
-int	set_env_join(char **environ, char *s, char *param)
+static int	set_env_join(char **environ, char *s, char *param)
 {
 	char	*value;
 	char	*key;
@@ -35,14 +36,12 @@ int	set_env_join(char **environ, char *s, char *param)
 		free(environ[index]);
 		environ[index] = tmp;
 	}
-	free(param);
-	free(key);
-	param = NULL;
-	key = NULL;
+	free_strval(&param);
+	free_strval(&key);
 	return (0);
 }
 
-int	set_env_val(char **environ, char *s, char *param)
+static int	set_env_val(char **environ, char *s, char *param)
 {
 	size_t	index;
 
@@ -54,11 +53,10 @@ int	set_env_val(char **environ, char *s, char *param)
 	}
 	if (environ[index])
 	{
-		free(environ[index]);
+		free_strval(&environ[index]);
 		environ[index] = ft_strdup(s);
 	}
-	free(param);
-	param = NULL;
+	free_strval(&param);
 	return (0);
 }
 
@@ -78,7 +76,7 @@ int	set_env(char *s)
 	return (0);
 }
 
-int	put_env_declare(void)
+static int	put_env_declare(void)
 {
 	char	**environ;
 

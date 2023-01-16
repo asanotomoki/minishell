@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/16 22:01:56 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 00:28:12 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int	shell_system(char *line)
+
+int shell_system(char *line)
 {
-	t_token_lst	*lexer_lst;
-	t_cmd		*cmd_lst;
+	t_token_lst *lexer_lst;
+	t_cmd 		*cmd_lst;
+	int			status;
 
 	lexer_lst = NULL;
-	g_shell.status = lexer(line, &lexer_lst);
-	if (g_shell.status)
-		return (g_shell.status);
+	status = lexer(line, &lexer_lst);
+	if (status)
+		return (status);
 	cmd_lst = parser(lexer_lst);
 	if (!cmd_lst)
 		return (1);
@@ -84,12 +86,9 @@ int	shell_system(char *line)
 //}
 
 
-int	main(int argc, char **argv)
+int	main()
 {
 	char	*line;
-
-	(void)argv;
-	(void)argc;
 
 	//setup_sigint();
 	while (1)

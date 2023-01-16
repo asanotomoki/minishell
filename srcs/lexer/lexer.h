@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 21:45:57 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 00:29:55 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 typedef	enum e_token_type
 {
 	EXPANDABLE,
-	NON_EXPANDABLE,
 	PIPE,
 	OUTREDIRECT,
 	OUTADDITION,

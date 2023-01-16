@@ -1,0 +1,12 @@
+total 288
+-rwxr-xr-x   1 tasano  staff    3394  1 16 22:23 Makefile
+-rw-r--r--   1 tasano  staff    1844 12 17 22:25 README.md
+drwxr-xr-x   4 tasano  staff     128  1 16 22:23 includes
+drwxr-xr-x  54 tasano  staff    1728  1 17 00:06 libft
+-rwxr-xr-x   1 tasano  staff  133414  1 17 00:10 minishell
+drwxr-xr-x   3 tasano  staff      96  1 17 00:10 obj
+-rw-r--r--   1 tasano  staff       0  1 17 00:11 result
+drwxr-xr-x   9 tasano  staff     288  1 16 22:23 srcs
+-rw-r--r--   1 tasano  staff       0  1 17 00:11 test1
+-rw-r--r--   1 tasano  staff     572  1 17 00:12 test2
+-rw-r--r--   1 tasano  staff       0  1 17 00:12 test4

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 21:42:26 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 00:28:51 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include "util.h"
 
 void execve_test(char *test_command)
  {
@@ -36,6 +37,7 @@ void execve_test(char *test_command)
 
  int main()
 {
+	init_env();
 	/*****---------basic test----------*****/
 	execve_test(" wc -l > test1 < result.log");
 	execve_test("ls -l | wc");
@@ -59,6 +61,7 @@ void execve_test(char *test_command)
 
 	/*****---------builtins test----------*****/
 	execve_test("cd ../");
+	execve_test("pwd");
 
 	/*****---------error test----------*****/
 	printf("\n--------error test----------\n");

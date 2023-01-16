@@ -6,7 +6,7 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2023/01/16 22:22:35 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/17 00:24:06 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,9 @@ CFLAGS		+=	-g -fsanitize=address
 HEADERS			:=  ./includes
 LIBFT_DIR		:=	./libft
 LIBFT			:=	$(LIBFT_DIR)/libft.a
+UTIL_DIR		:=	$(SRC_DIR)/util
+UTIL			:=	$(UTIL_DIR)/util.a
+HEADERS			+=	$(UTIL_DIR)
 HEADERS			+=	$(LIBFT_DIR)/includes
 BUILTIN_DIR		:=	$(SRC_DIR)/builtin_cmds
 BUILTIN			:=	$(BUILTIN_DIR)/builtin_cmds.a
@@ -35,9 +38,7 @@ HEADERS			+=	$(EXPANSION_DIR)
 EXEC_DIR		:=	$(SRC_DIR)/exection
 EXEC			:=	$(EXEC_DIR)/exection.a
 HEADERS			+=	$(EXEC_DIR)
-UTIL_DIR		:=	$(SRC_DIR)/util
-UTIL			:=	$(UTIL_DIR)/util.a
-HEADERS			+=	$(UTIL_DIR)
+
 READLINE_DIR	:=	$(shell brew --prefix readline)
 READLINE		:=	$(READLINE_DIR)/lib/libreadline.a
 HEADERS			+=	$(READLINE_DIR)/include
@@ -66,9 +67,8 @@ $(NAME): $(LIBFT) \
 		  $(PARSER) \
 		  $(EXPANSION) \
 		  $(EXEC) \
-		  $(OBJECTS)
-
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(UTIL) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline -L$(READLINE_DIR)
+		  $(OBJECTS) 
+	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(UTIL) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c
@@ -81,7 +81,7 @@ $(LIBFT):
 $(UTIL):
 	@make -C $(UTIL_DIR)
 
-$(BUILTIN):
+$(BUILTIN): 
 	@make -C $(BUILTIN_DIR)
 
 $(LEXER):
@@ -95,7 +95,6 @@ $(EXPANSION):
 
 $(EXEC):
 	@make -C $(EXEC_DIR)
-
 
 all: $(NAME)
 

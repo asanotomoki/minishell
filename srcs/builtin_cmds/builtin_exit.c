@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:25:30 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 16:40:02 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 00:05:52 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	exit_put_error(char *str1, char *str2)
 	ft_putendl_fd(str2, 2);
 }
 
-void	put_exit(char *err1, char *err2, int status)
+static void	put_exit(char *err1, char *err2, int status)
 {
 	ft_putendl_fd("exit", 2);
 	if (err1 && err2)
@@ -43,7 +43,7 @@ int	builtin_exit(size_t argc, char **argv)
 		return (1);
 	}
 	else if (argc == 1)
-		put_exit(NULL, NULL, g_shell.status);
+		put_exit(NULL, NULL, get_status());
 	else
 	{
 		res = ft_strtol(argv[1], &endptr, 10);

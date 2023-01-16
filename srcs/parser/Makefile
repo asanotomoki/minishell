@@ -11,6 +11,7 @@ OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
 INCLUDE	:=	-I ../../libft/includes
+INCLUDE	+=	-I ../util
 LEXER_DIR := ../lexer
 LEXER	:= $(LEXER_DIR)/lexer.a
 INCLUDE += -I $(LEXER_DIR)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:24:22 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/16 21:38:03 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 00:26:29 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char	*joint_carriage_return(char *line);
 /* utils3.c */
 void	perror_exit(int status, char *msg);
 void	error_exit(int status, char *msg);
-t_cmd	*convert_cmd(t_cmd *lst);
+int	exec_builtin(t_cmd *cmd);
+int	check_builtin(t_cmd *cmd);
 
 #endif

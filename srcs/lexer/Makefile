@@ -14,6 +14,7 @@ LIB_DIR := 	../../libft
 LIBFT	:=	$(LIB_DIR)/libft.a
 INCLUDE	:=	-I $(LIB_DIR)/includes
 INCLUDE	+=	-I ../../includes
+INCLUDE	+=	-I ../util
 #Message
 RED		:= \033[1;31m
 GREEN	:= \033[1;32m
@@ -25,7 +26,7 @@ CLEAN_MSG := " $(YELLOW)Delete ./srcs/lexer/obj$(DEFAULT)"
 FCLEAN_MSG := " $(RED)Delete $(NAME)$(DEFAULT)"
 
 $(NAME): $(OBJECTS) 
-	$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
+	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c

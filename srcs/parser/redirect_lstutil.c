@@ -6,12 +6,13 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 09:35:13 by tasano            #+#    #+#             */
-/*   Updated: 2022/12/28 11:08:42 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 23:01:40 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include <stdlib.h>
+#include "util.h"
 
 t_redirect *redirection_new(t_token_lst *lst)
 {
@@ -52,8 +53,8 @@ void redirect_lstfree(t_redirect **lst)
 	while (tmp)
 	{
 		*lst = tmp->next;
-		free(tmp);
-		tmp = NULL;
+		free_strval(&tmp->filename);
+		
 		tmp = *lst;
 	}
 }

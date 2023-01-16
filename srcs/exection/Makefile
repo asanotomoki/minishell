@@ -12,7 +12,11 @@ OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
 INCLUDE	:=	-I ../../libft/includes
+INCLUDE	+=	-I ../../includes
 #test
+UTIL_DIR		:= ../util
+UTIL			:= $(UTIL_DIR)/util.a
+INCLUDE			+= -I $(UTIL_DIR)
 LEXER_DIR		:= ../lexer
 LEXER			:= $(LEXER_DIR)/lexer.a
 INCLUDE			+= -I $(LEXER_DIR)
@@ -63,11 +67,14 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(LEXER) $(PARSER) $(EXPANSION) ../../libft/libft.a test.c
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(UTIL) $(LEXER) $(PARSER) $(EXPANSION) $(BUILTIN) ../../libft/libft.a test.c -lreadline
 	./test
 
 $(LEXER):
 	@make -C $(LEXER_DIR)
+
+$(UTIL):
+	@make -C $(UTIL_DIR)
 
 $(PARSER):
 	@make -C $(PARSER_DIR)

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 12:15:57 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 20:36:45 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 22:42:54 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 
 void	free_strval(char **str)
 {
-	if (*str)
-		free(*str);
+	if (!str || !*str)
+		return ;
+	free(*str);
 	*str = NULL;
 }
 
