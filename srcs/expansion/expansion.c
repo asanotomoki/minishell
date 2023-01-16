@@ -6,16 +6,16 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 02:11:48 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 20:29:23 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "libft.h"
 
-char *heredoc_expand(char *str)
+char	*heredoc_expand(char *str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
@@ -33,10 +33,10 @@ char *heredoc_expand(char *str)
 	return (str);
 }
 
-char *expand(char *str)
+char	*expand(char *str)
 {
-	size_t i;
-	int mode;
+	size_t	i;
+	int		mode;
 
 	i = 0;
 	mode = 0;
@@ -51,23 +51,22 @@ char *expand(char *str)
 	return (set_return_val(str));
 }
 
-int redirect_expansion(t_redirect *redirect)
+int	redirect_expansion(t_redirect *redirect)
 {
 	char	*filename;
 
 	while (redirect)
 	{
 		filename = expand(redirect->filename);
-		//	fprintf(stderr, "minish: $%s: ambiguous redirect", redirect->filename);
 		redirect->filename = filename;
 		redirect = redirect->next;
 	}
 	return (0);
 }
 
-int cmd_expansion(char **cmd)
+int	cmd_expansion(char **cmd)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (cmd[i])
@@ -81,7 +80,7 @@ int cmd_expansion(char **cmd)
 	return (0);
 }
 
-int expansion(t_cmd *cmd)
+int	expansion(t_cmd *cmd)
 {
 	while (cmd)
 	{

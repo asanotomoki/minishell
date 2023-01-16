@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:02:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 03:41:18 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 19:55:16 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int parse_error(t_token_lst *lst, t_cmd *cmd, t_token_lst **tmplst)
 	int flag;
 
 	flag = 0;
-	if (lst->type == OUTREDIRECT || lst->type == OUTADDITION || lst->type == INREDIRECT || lst->type == HEREDOC)
+	if (lst->type == OUTREDIRECT || lst->type == OUTADDITION || lst->type == INREDIRECT || lst->type == HEREDOCU)
 	{
 		if (!lst->next)
 			flag = put_parse_error("newline");
@@ -87,7 +87,7 @@ void free_parser_lst(t_token_lst **lst)
 		*lst = tmp->next;
 		if (tmp->type == PIPE ||
 			tmp->type == OUTREDIRECT || tmp->type == OUTADDITION ||
-			tmp->type == INREDIRECT || tmp->type == HEREDOC)
+			tmp->type == INREDIRECT || tmp->type == HEREDOCU)
 		{
 			free(tmp->token);
 			tmp->token = NULL;

@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   status.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/01 16:56:26 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/16 20:26:13 by tasano           ###   ########.fr       */
+/*   Created: 2023/01/16 19:45:00 by tasano            #+#    #+#             */
+/*   Updated: 2023/01/16 19:46:59 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	*ft_calloc(size_t count, size_t size)
+int	get_status(void)
 {
-	size_t	total_size;
-	void	*res;
+	return (g_shell.status);
+}
 
-	if (size == 0 || count == 0)
-		ft_calloc(1, 1);
-	if (SIZE_MAX / size < count)
-		return (NULL);
-	total_size = size * count;
-	res = malloc(total_size);
-	if (!res)
-		return (NULL);
-	ft_bzero(res, total_size);
-	return (res);
+void	set_status(int status)
+{
+	g_shell.status = status;
 }
