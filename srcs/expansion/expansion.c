@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 01:08:11 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 03:16:49 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*expand(char *str)
 	while (str[i])
 	{
 		mode = set_mode(str[i], mode);
-		if (mode == 0 && str[i] == '$')
+		if ((mode == 0 || mode == 2) && str[i] == '$')
 			str = set_parameter(str, i);
 		else
 			i++;
@@ -60,10 +60,14 @@ int	redirect_expansion(t_redirect *redirect)
 
 	while (redirect)
 	{
-		filename = expand(redirect->filename);
-		if (!filename)
-			return (err_msg(redirect->filename, "ambiguous redirect", 1));
-		redirect->filename = filename;
+		filename = ft_strdup(redirect->filename);
+		redirect->filename = expand(redirect->filename);
+		if (!redirect->filename)
+		{
+			err_msg(filename, "ambiguous redirect", 1);
+			free_strval(&filename);
+			return (1);
+		}
 		redirect = redirect->next;
 	}
 	return (0);

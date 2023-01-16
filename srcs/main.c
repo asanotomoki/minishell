@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/17 02:57:52 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 03:22:16 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int shell_system(char *line)
 	lexer_lst = NULL;
 	status = lexer(line, &lexer_lst);
 	if (status)
-		return (status);
+		return (set_get_status(status));
 	cmd_lst = parser(lexer_lst);
 	if (!cmd_lst)
-		return (1);
+		return (get_status());
 	if (expansion(cmd_lst))
-		return (1);
+		return (set_get_status(1));
 	return (exection(cmd_lst));
 }
 
