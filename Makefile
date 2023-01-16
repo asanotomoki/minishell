@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
+#    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2023/01/16 21:37:08 by hiroaki          ###   ########.fr        #
+#    Updated: 2023/01/16 22:22:35 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,14 +60,15 @@ FCLEAN_MSG	:=	"$(RED) Delete $(NAME)$(DEFAULT)"
 .PHONY: all fclean clean re
 
 $(NAME): $(LIBFT) \
-		  $(BUILTIN)\
+		  $(UTIL) \
+		  $(BUILTIN) \
 		  $(LEXER) \
 		  $(PARSER) \
 		  $(EXPANSION) \
 		  $(EXEC) \
 		  $(OBJECTS)
 
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline -L$(READLINE_DIR)
+	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(UTIL) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline -L$(READLINE_DIR)
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c
@@ -76,6 +77,9 @@ $(OBJDIR)/%.o: $(SRC_DIR)/%.c
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
+
+$(UTIL):
+	@make -C $(UTIL_DIR)
 
 $(BUILTIN):
 	@make -C $(BUILTIN_DIR)
@@ -92,8 +96,6 @@ $(EXPANSION):
 $(EXEC):
 	@make -C $(EXEC_DIR)
 
-$(UTIL):
-	@make -C $(UTIL_DIR)
 
 all: $(NAME)
 
