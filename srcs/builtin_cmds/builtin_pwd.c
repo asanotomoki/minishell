@@ -1,24 +1,23 @@
-///* ************************************************************************** */
-///*                                                                            */
-///*                                                        :::      ::::::::   */
-///*   builtin_pwd.c                                      :+:      :+:    :+:   */
-///*                                                    +:+ +:+         +:+     */
-///*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
-///*                                                +#+#+#+#+#+   +#+           */
-///*   Created: 2022/12/09 17:26:02 by tasano            #+#    #+#             */
-///*   Updated: 2023/01/12 17:33:06 by tasano           ###   ########.fr       */
-///*                                                                            */
-///* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/09 17:26:02 by tasano            #+#    #+#             */
+/*   Updated: 2023/01/16 02:17:00 by tasano           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdio.h>
- #include "libft.h"
+#include "libft.h"
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>
-
 ino_t get_inode(char *);
 void printpathto(ino_t);
 
@@ -63,12 +62,11 @@ void printpathto(ino_t this_inode)
 		its_name = inum_to_name(this_inode);
 		printpathto(get_inode("."));
 		if (!its_name)
-			return ;
+			return;
 		printf("/%s", its_name);
 		free(its_name);
 	}
 }
-
 int builtin_pwd()
 {
 	if (get_inode("..") == get_inode("."))

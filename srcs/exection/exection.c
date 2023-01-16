@@ -26,8 +26,8 @@ char **get_envp()
 
 void basic_command(t_cmd *exec)
 {
-	char *cmdfile;
-	char *path;
+	char	*cmdfile;
+	char	*path;
 
 	path = getenv("PATH");
 	if (!path)
@@ -58,12 +58,12 @@ void execve_main(t_cmd *exec)
 		exit(0);
 }
 
-void set_stdout(int pp[2])
+void	set_stdout(int pp[2])
 {
 	set_dup2(pp[1], STDOUT_FILENO);
 	close_pipe(pp);
 }
-void set_stdin(int pp[2])
+void	set_stdin(int pp[2])
 {
 	set_dup2(pp[0], STDIN_FILENO);
 	close_pipe(pp);
@@ -90,7 +90,7 @@ int execve_system(t_cmd *exec, size_t len)
 				set_stdout(pp[i]);
 			else if (i == len - 1)
 				set_stdin(pp[i - 1]);
-			else
+			else if (i != 0 && i != len - 1)
 			{
 				set_stdout(pp[i]);
 				set_stdin(pp[i - 1]);
@@ -107,7 +107,8 @@ int execve_system(t_cmd *exec, size_t len)
 
 int exection(t_cmd *cmd)
 {
-	execve_system(cmd, pipe_cnt(cmd));
+	heredoc_to_fd(cmd);
+	execve_system(cmd, pipe_cnt(cmd), envp);
 	create_waitpid(cmd);
 	cmd_lstfree(&cmd);
 	return (0);

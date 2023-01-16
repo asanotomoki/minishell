@@ -37,6 +37,7 @@ t_token_type get_token_type(char *line)
 		type = OUTADDITION;
 	else if (ft_strncmp(line, "<<", 2) == 0)
 		type = HEREDOCU;
+		type = HEREDOC;
 	else if (*line == '>')
 		type = OUTREDIRECT;
 	else

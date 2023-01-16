@@ -36,7 +36,7 @@ int main()
 			printf ("OUTADDITION : ");
 		else if (content->type == INREDIRECT)
 			printf ("INREDIRECT : ");
-		else if (content->type == HEREDOCU)
+		else if (content->type == HEREDOC)
 			printf ("HEREDOCU : ");
 		else if (content->type == EXPANDABLE)
 			printf ("EXPANDABLE : ");

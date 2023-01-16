@@ -32,7 +32,7 @@ void execve_test(char *test_command)
 	exection(parser(lst));
 	free(input);
 
- }
+}
 
  int main()
 {
@@ -51,6 +51,7 @@ void execve_test(char *test_command)
 	write (fd, "\n--------test4 result--------\n", 30);
 	close(fd);
 	execve_test("ls -l >> test4");
+
 
 	/*****---------special test----------*****/
 	execve_test("wc -l > test1 < result.log");

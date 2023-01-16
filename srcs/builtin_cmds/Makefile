@@ -46,7 +46,7 @@ NAME_MSG	:= "$(GREEN) Compile $(NAME)$(DEFAULT)"
 CLEAN_MSG	:= "$(YELLOW) Delete ./srcs/builtin_cmds/obj$(DEFAULT)"
 FCLEAN_MSG	:= "$(RED) Delete $(NAME)$(DEFAULT)"
 
-$(NAME): $(OBJECTS) 
+$(NAME): $(OBJECTS)
 	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
 	@echo $(NAME_MSG)
 
@@ -73,8 +73,7 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME)  $(LIBFT) ../../libft/libft.a test.c 
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME)  $(LIBFT) ../../libft/libft.a test.c
 	./test
-
-$(LIBFT): 
+$(LIBFT):
 	@make -C $(LIBFT_DIR)
