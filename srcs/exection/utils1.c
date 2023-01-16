@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:42:50 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 03:50:34 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 21:42:39 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-#include <fcntl.h>
-#include "libft.h"
 
-void set_pipe(int pp[2])
+void	set_pipe(int pp[2])
 {
 	if (pipe(pp) == -1)
 		perror_exit(EXIT_FAILURE, "pipe");
 }
 
-void close_pipe(int pp[2])
+void	close_pipe(int pp[2])
 {
 	close(pp[0]);
 	close(pp[1]);
@@ -38,10 +36,10 @@ void	set_dup2(int new_fd, int old_fd)
 		perror_exit(EXIT_FAILURE, "dup2");
 }
 
-int 	create_waitpid(t_cmd *cmd)
+int	create_waitpid(t_cmd *cmd)
 {
 	int	status;
-	
+
 	while (cmd->piped_cmd)
 	{
 		set_waitpid(cmd->pid);

@@ -1,22 +1,20 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_cmdfile.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:41:21 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/11 16:40:31 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 14:05:14 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "exec.h"
 
-static char **get_paths(char *path)
+static char	**get_paths(char *path)
 {
-	char **paths;
+	char	**paths;
 
 	paths = ft_split(path, ':');
 	if (!paths)
@@ -24,11 +22,11 @@ static char **get_paths(char *path)
 	return (paths);
 }
 
-static char *find_cmdfile(char *cmd, char **cmd_paths)
+static char	*find_cmdfile(char *cmd, char **cmd_paths)
 {
-	char *tmp;
-	char *cmd_path;
-	size_t i;
+	char	*tmp;
+	char	*cmd_path;
+	size_t	i;
 
 	i = 0;
 	while (cmd_paths[i])
@@ -48,7 +46,7 @@ static char *find_cmdfile(char *cmd, char **cmd_paths)
 	return (NULL);
 }
 
-static char *relative_path(char *cmd)
+static char	*relative_path(char *cmd)
 {
 	if (access(cmd, X_OK) == 0)
 		return (ft_strdup(cmd));
@@ -56,9 +54,9 @@ static char *relative_path(char *cmd)
 		return (NULL);
 }
 
-static char *absolute_path(char *cmd, char *path)
+static char	*absolute_path(char *cmd, char *path)
 {
-	char **cmd_paths;
+	char	**cmd_paths;
 
 	cmd_paths = get_paths(path);
 	if (!cmd_paths)
@@ -66,7 +64,7 @@ static char *absolute_path(char *cmd, char *path)
 	return (find_cmdfile(cmd, cmd_paths));
 }
 
-char *get_cmdfile(char *cmd, char *path)
+char	*get_cmdfile(char *cmd, char *path)
 {
 	if (ft_strchr(cmd, '/'))
 		return (relative_path(cmd));

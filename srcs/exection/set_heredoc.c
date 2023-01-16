@@ -6,15 +6,11 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 04:48:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/15 21:02:06 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/16 16:36:03 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-#include "../expansion/expansion.h"
-#include <fcntl.h>
-#include <readline/readline.h>
-#include <sys/stat.h>
 
 static int	write_heredoc(int fd, t_list *document)
 {
@@ -23,8 +19,8 @@ static int	write_heredoc(int fd, t_list *document)
 	errno = 0;
 	while (document)
 	{
-		p_len = ft_putendl_fd(document->content, fd);
-		if (p_len != (ssize_t)document->len + 1)
+		p_len = ft_putstr_fd((char *)document->content, fd);
+		if (p_len != (ssize_t)document->len)
 		{
 			if (errno == 0)
 				errno = ENOSPC;
@@ -35,29 +31,19 @@ static int	write_heredoc(int fd, t_list *document)
 	return (0);
 }
 
-bool	discontinue(char *line, char *delimiter)
-{
-	//if (g_shell.heredoc_interrupted)
-	//	return (true);
-	if (ft_strcmp(line, delimiter) == 0)
-		return (true);
-	return (false);
-}
-
 static t_list	*creat_document(size_t *len_ptr, char *delimiter)
 {
 	char	*line;
 	t_list	*new;
 	t_list	*document;
 
-	if (delimiter == NULL)
-		return (NULL);
 	document = NULL;
 	while (1)
 	{
 		line = readline("> ");
 		if (discontinue(line, delimiter))
 			break ;
+		line = joint_carriage_return(line);
 		new = ft_lstnew(heredoc_expand(line));
 		if (new == NULL)
 			return (NULL);
@@ -101,7 +87,7 @@ static int	use_tempfile(t_list *document)
 	}
 	fd = open(HEREDOC_TEMPFILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	e = write_heredoc(fd, document);
-	fd2 = open (HEREDOC_TEMPFILE, O_RDONLY, 0600);
+	fd2 = open(HEREDOC_TEMPFILE, O_RDONLY, 0600);
 	close(fd);
 	if (e != 0 || unlink(HEREDOC_TEMPFILE) < 0)
 	{

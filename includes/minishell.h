@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:43:45 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/16 15:41:49 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 21:37:20 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+//# include <readline/readline.h>
+//# include <readline/history.h>
 # include "err.h"
 # include "libft.h"
 # include "util.h"
@@ -29,6 +29,7 @@
 typedef struct s_shell
 {
 	int	status;
+	int	heredoc_interrupt;
 } t_shell;
 
 t_shell g_shell;

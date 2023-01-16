@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
+#    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2023/01/16 02:16:07 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/16 21:37:08 by hiroaki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OBJDIR		:=	./obj
 SRC_DIR		:=	./srcs
 CC			:=	cc
 CFLAGS		:=	-Wall -Werror -Wextra
-CFLAGS		+=	-g -fsanitize=address 
+CFLAGS		+=	-g -fsanitize=address
 HEADERS			:=  ./includes
 LIBFT_DIR		:=	./libft
 LIBFT			:=	$(LIBFT_DIR)/libft.a
@@ -38,6 +38,9 @@ HEADERS			+=	$(EXEC_DIR)
 UTIL_DIR		:=	$(SRC_DIR)/util
 UTIL			:=	$(UTIL_DIR)/util.a
 HEADERS			+=	$(UTIL_DIR)
+READLINE_DIR	:=	$(shell brew --prefix readline)
+READLINE		:=	$(READLINE_DIR)/lib/libreadline.a
+HEADERS			+=	$(READLINE_DIR)/include
 
 INCLUDES	:=	$(addprefix -I , $(HEADERS))
 
@@ -63,8 +66,8 @@ $(NAME): $(LIBFT) \
 		  $(EXPANSION) \
 		  $(EXEC) \
 		  $(OBJECTS)
-		  
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline
+
+	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline -L$(READLINE_DIR)
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c
@@ -74,22 +77,22 @@ $(OBJDIR)/%.o: $(SRC_DIR)/%.c
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
-$(BUILTIN): 
+$(BUILTIN):
 	@make -C $(BUILTIN_DIR)
 
-$(LEXER): 
+$(LEXER):
 	@make -C $(LEXER_DIR)
 
-$(PARSER): 
+$(PARSER):
 	@make -C $(PARSER_DIR)
 
-$(EXPANSION): 
+$(EXPANSION):
 	@make -C $(EXPANSION_DIR)
 
-$(EXEC): 
+$(EXEC):
 	@make -C $(EXEC_DIR)
 
-$(UTIL): 
+$(UTIL):
 	@make -C $(UTIL_DIR)
 
 all: $(NAME)
@@ -104,7 +107,7 @@ clean:
 	@make clean -C $(EXPANSION_DIR)
 	@echo $(CLEAN_MSG)
 
-fclean: 
+fclean:
 	@make fclean -C $(LIBFT_DIR)
 	@make fclean -C $(BUILTIN_DIR)
 	@make fclean -C $(LEXER_DIR)
