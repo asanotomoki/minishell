@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:02 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 02:17:00 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 13:39:38 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,6 @@ void printpathto(ino_t this_inode)
 }
 int builtin_pwd()
 {
-	if (get_inode("..") == get_inode("."))
-		printf("/");
-	else
-		printpathto(get_inode("."));
-	printf("\n");
+	printf("%s\n", getcwd(NULL, 0));
 	return (0);
 }
