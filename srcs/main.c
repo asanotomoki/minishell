@@ -24,9 +24,10 @@ int shell_system(char *line, char **envp)
 	t_token_lst *lexer_lst;
 	t_cmd 		*cmd_lst;
 
-		lexer_lst = lexer(line);
-	if (!lexer_lst)
-		return (1);
+	lexer_lst = NULL;
+	g_shell.status = lexer(line, &lexer_lst);
+	if (g_shell.status)
+		return (g_shell.status);
 	cmd_lst = parser(lexer_lst);
 	if (!cmd_lst)
 		return (1);

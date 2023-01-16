@@ -54,10 +54,3 @@ void	set_redirect(t_redirect *redirect)
 		redirect = redirect->next;
 	}
 }
-
-/*
-wc -l test1 < test2 > test3 < test1 < test2 < test3 |
-cmd : [[wc] [-l]]
-out : test1 > test3
-in  : test2 < test1 < test2 < test3
-*/

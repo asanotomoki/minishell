@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:58:36 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 02:29:33 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 02:49:32 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,17 @@ void	token_lstfree(t_token_lst	**lst)
 	}
 }
 
-size_t add_lst(t_token_lst **lst, char *line, size_t size, t_token_type type)
+int add_lst(t_token_lst **lst, char *line, size_t size, t_token_type type)
 {
 	char *word;
 	t_token_lst *tmp;
 
 	word = ft_substr(line, 0, size);
 	if (!word)
+	{
+		perror("lexer");
 		return (1);
+	}
 	tmp = token_lstnew(word, type);
 	if (!tmp)
 	{
@@ -63,7 +66,6 @@ size_t add_lst(t_token_lst **lst, char *line, size_t size, t_token_type type)
 	return (0);
 }
 
-
 t_token_lst	*token_lstlast(t_token_lst *lst)
 {
 	if (!lst)
@@ -73,12 +75,11 @@ t_token_lst	*token_lstlast(t_token_lst *lst)
 	return (lst);
 }
 
-
 void	token_lstadd_back(t_token_lst **lst, t_token_lst	*new)
 {
 	if (!new)
 		return ;
-	if (!*lst)
+	if (!lst || !*lst)
 		*lst = new;
 	else
 		token_lstlast(*lst)->next = new;
