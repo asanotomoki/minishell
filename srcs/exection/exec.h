@@ -11,7 +11,7 @@
 # define SHELL "minish"
 # define COMMAND_NOT_FOUND 127
 
-int	exection(t_cmd *cmd, char **envp);
+int	exection(t_cmd *cmd);
 
 
 char *get_cmdfile(char *cmd, char *path);
