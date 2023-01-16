@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 20:27:09 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 20:30:19 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include "libft.h"
 #include "util.h"
 
-
-static char *get_before(char *str, size_t len)
+static char	*get_before(char *str, size_t len)
 {
 	if (0 < len)
 		return (ft_substr(str, 0, len));
@@ -23,7 +22,7 @@ static char *get_before(char *str, size_t len)
 		return (NULL);
 }
 
-static char *get_after(char *str, size_t len)
+static char	*get_after(char *str, size_t len)
 {
 	if (*str + len)
 		return (ft_strdup(str + len));
@@ -31,9 +30,9 @@ static char *get_after(char *str, size_t len)
 		return (NULL);
 }
 
-static char *get_parameter(char *str)
+static char	*get_parameter(char *str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 1;
 	if (ft_strncmp(str, "$?", 2) == 0)
@@ -43,11 +42,12 @@ static char *get_parameter(char *str)
 	return (ft_substr(str, 0, i));
 }
 
-static char *join_parameter(char *str, char *val, size_t i, size_t parameter_len)
+static char	*join_parameter(char *str, char *val, \
+size_t i, size_t parameter_len)
 {
-	char *before;
-	char *after;
-	char *tmp;
+	char	*before;
+	char	*after;
+	char	*tmp;
 
 	before = get_before(str, i);
 	after = get_after(str, i + parameter_len);
@@ -60,7 +60,7 @@ static char *join_parameter(char *str, char *val, size_t i, size_t parameter_len
 	return (str);
 }
 
-char *set_parameter(char *str, size_t i)
+char	*set_parameter(char *str, size_t i)
 {
 	char	*parameter;
 	char	*val;
