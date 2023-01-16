@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 09:35:13 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 23:01:40 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 02:29:21 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_redirect *redirection_new(t_token_lst *lst)
 		return (NULL);
 	content->filename = lst->next->token;
 	content->type = lst->type;
-	content->expnad_type = lst->next->type;
 	content->next = NULL;
 	return (content);
 }

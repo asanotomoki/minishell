@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 09:35:13 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 22:45:30 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 02:27:53 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	cmd_lstfree(t_cmd **cmd)
 		redirect_lstfree(&tmp->redirect);
 		if (tmp->cmd)
 			free_args(&tmp->cmd);
-		tmp->cmd = NULL;
 		tmp->piped_cmd = NULL;
 		tmp->argc = 0;
+		free(tmp);
 		tmp = NULL;
 		tmp = *cmd;
 	}

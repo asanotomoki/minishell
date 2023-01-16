@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/17 00:42:14 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 02:57:52 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	main()
 	g_shell.status = 0;
 	while (1)
 	{
-		line = readline("minishell$ ");
+		line = readline(PROMPT);
 		if (!line)
 			break ;
 		if (*line)

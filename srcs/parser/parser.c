@@ -6,22 +6,16 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:18 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 01:30:39 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 02:56:27 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "lexer.h"
 
-int create_cmd(t_token_lst *lst, t_cmd **cmdlst, t_cmd *top, t_token_lst *tmplst)
+static t_token_lst	*set_cmdval(t_token_lst *lst, t_cmd *cmd)
 {
-	t_cmd *cmd;
-
-	cmd = *cmdlst;
-	if (parse_error(lst, top, &tmplst))
-		return (1);
-	if (lst->type == PIPE)
-		cmd = cmd_addback(cmd, cmd_new());
-	else if (lst->type == OUTREDIRECT || lst->type == OUTADDITION ||
+	if (lst->type == OUTREDIRECT || lst->type == OUTADDITION ||
 			 lst->type == INREDIRECT || lst->type == HEREDOCU)
 	{
 		redirection_addback(&cmd->redirect, redirection_new(lst));
@@ -29,34 +23,37 @@ int create_cmd(t_token_lst *lst, t_cmd **cmdlst, t_cmd *top, t_token_lst *tmplst
 	}
 	else
 		cmd->cmd = append_args(cmd->cmd, cmd->argc++, lst->token);
-	return (0);
+	return (lst);
+}
+
+static t_cmd *pipe_error(t_token_lst **lst)
+{
+	put_parse_error("|");
+	token_lstfree(lst);
+	return (NULL);
 }
 
 t_cmd *parser(t_token_lst *lst)
 {
 	t_cmd *cmd;
-	t_cmd *tmp;
+	t_cmd *top;
 	t_token_lst *tmplst;
 
 	tmplst = lst;
+	if (lst->type == PIPE)
+		return (pipe_error(&tmplst));
 	cmd = cmd_new();
-	tmp = cmd;
+	top = cmd;
 	while (lst)
 	{
-		if (parse_error(lst, tmp, &tmplst))
+		if (parse_error(lst, &top))
 			break ;
 		if (lst->type == PIPE)
 			cmd = cmd_addback(cmd, cmd_new());
-		else if (lst->type == OUTREDIRECT || lst->type == OUTADDITION ||
-				 lst->type == INREDIRECT || lst->type == HEREDOCU)
-		{
-			redirection_addback(&cmd->redirect, redirection_new(lst));
-			lst = lst->next;
-		}
 		else
-			cmd->cmd = append_args(cmd->cmd, cmd->argc++, lst->token);
+			lst = set_cmdval(lst, cmd);
 		lst = lst->next;
 	}
 	free_parser_lst(&tmplst);
-	return (tmp);
+	return (top);
 }

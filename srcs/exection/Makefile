@@ -37,7 +37,7 @@ YELLOW	:=	\033[1;33m
 DEFAULT	:=	\033[0m
 
 NAME_MSG := " $(GREEN)Compile $(NAME)$(DEFAULT)"
-CLEAN_MSG := " $(YELLOW)Delete ./srcs/parser/obj$(DEFAULT)"
+CLEAN_MSG := " $(YELLOW)Delete ./srcs/exection/obj$(DEFAULT)"
 FCLEAN_MSG := " $(RED)Delete $(NAME)$(DEFAULT)"
 
 $(NAME): $(OBJECTS)
