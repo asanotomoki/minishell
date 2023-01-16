@@ -12,10 +12,12 @@ OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
 INCLUDE	:=	-I ../../libft/includes
 INCLUDE	+=	-I ../../includes
-INCLUDE	+=	-I ../util
 LEXER_DIR := ../lexer
 LEXER	:= $(LEXER_DIR)/lexer.a
 INCLUDE += -I $(LEXER_DIR)
+UTIL_DIR := ../util
+UTIL	:= $(UTIL_DIR)/util.a
+INCLUDE	+=	-I ../util
 #Message
 RED		:=	\033[1;31m
 GREEN	:=	\033[1;32m
@@ -53,8 +55,11 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(LEXER) ../../libft/libft.a test.c 
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(UTIL) $(LEXER) ../../libft/libft.a test.c 
 	./test
 
 $(LEXER): 
 	@make -C $(LEXER_DIR)
+
+$(UTIL): 
+	@make -C $(UTIL_DIR)

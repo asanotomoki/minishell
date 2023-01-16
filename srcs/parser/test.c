@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 03:19:55 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 02:31:32 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 int	put_ans(t_cmd *cmd)
 {
 	size_t	i;
+
 	while (cmd)
 	{
 		printf("\nredirect : ");
@@ -53,7 +54,7 @@ int parser_test(char *input)
 	t_token_lst *lst;
 
 	lst = NULL;
-	printf ("-----[ %s ]------", input);
+	printf ("-----[ %s ]------\n", input);
 	cmd = strdup(input);
 	lexer(cmd, &lst);
 	put_ans(parser(lst));
@@ -69,7 +70,7 @@ int main()
 	parser_test("ls > test > test1 << EOF << EOT < test3 > test1 < test");
 	//error test
 	printf("\n\n\n--------- error test ---------\n\n\n");
-	parser_test("ls -l ||");
+	parser_test("ls -l || test");
 	parser_test("ls -l <<");
 	parser_test("|");
 	parser_test("| test");

@@ -6,13 +6,14 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:02:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 01:42:42 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 02:43:38 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "lexer.h"
 #include "libft.h"
+#include "util.h"
 #include "minishell.h"
 #include <stdlib.h>
 
@@ -39,16 +40,10 @@ char **append_args(char **args, size_t argc, char *new)
 	return (res);
 }
 
-static void all_free(t_cmd **cmd, t_token_lst **lst)
-{
-	cmd_lstfree(cmd);
-	token_lstfree(lst);
-}
-
-static	int	put_parse_error(char *param)
+int	put_parse_error(char *param)
 {
 	ft_putstr_fd(SHELL, 2);
-	ft_putstr_fd("syntax error near unexpected token ", 2);
+	ft_putstr_fd(": syntax error near unexpected token ", 2);
 	ft_putstr_fd("`", 2);
 	ft_putstr_fd(param, 2);
 	ft_putendl_fd("'", 2);
@@ -56,7 +51,7 @@ static	int	put_parse_error(char *param)
 	return (258);
 }
 
-int parse_error(t_token_lst *lst, t_cmd *cmd, t_token_lst **tmplst)
+int parse_error(t_token_lst *lst, t_cmd **cmd)
 {
 	int flag;
 
@@ -77,7 +72,7 @@ int parse_error(t_token_lst *lst, t_cmd *cmd, t_token_lst **tmplst)
 			flag = put_parse_error("|");
 	}
 	if (flag)
-		all_free(&cmd, tmplst);
+		cmd_lstfree(cmd);
 	return (flag);
 }
 
@@ -92,10 +87,7 @@ void free_parser_lst(t_token_lst **lst)
 		if (tmp->type == PIPE ||
 			tmp->type == OUTREDIRECT || tmp->type == OUTADDITION ||
 			tmp->type == INREDIRECT || tmp->type == HEREDOCU)
-		{
-			free(tmp->token);
-			tmp->token = NULL;
-		}
+			free_strval(&tmp->token);
 		free(tmp);
 		tmp = NULL;
 		tmp = *lst;
