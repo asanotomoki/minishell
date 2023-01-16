@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util.h                                             :+:      :+:    :+:   */
+/*   status.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 19:52:15 by tasano           ###   ########.fr       */
+/*   Created: 2023/01/16 19:45:00 by tasano            #+#    #+#             */
+/*   Updated: 2023/01/16 19:46:59 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTIL_H
-# define UTIL_H
+#include "minishell.h"
 
-#include <stdio.h>
-int		err_msg(char *msg);
-int		perr_msg(char *msg);
-void	free_args(char **cmd_paths);
-int		get_status(void);
-void	set_status(int status);
-#endif
+int	get_status(void)
+{
+	return (g_shell.status);
+}
+
+void	set_status(int status)
+{
+	g_shell.status = status;
+}

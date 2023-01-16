@@ -18,6 +18,9 @@ INCLUDE		+= -I $(LEXER_DIR)
 PARSER_DIR	:= ../parser
 PARSER		:= $(PARSER_DIR)/parser.a
 INCLUDE		+= -I $(PARSER_DIR)
+UTIL_DIR	:= ../util
+UTIL		:= $(UTIL_DIR)/util.a
+INCLUDE		+= -I $(UTIL_DIR)
 #Message
 RED		:=	\033[1;31m
 GREEN	:=	\033[1;32m

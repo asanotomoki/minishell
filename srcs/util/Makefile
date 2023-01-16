@@ -6,11 +6,11 @@ SRCDIR	:= ./
 AR		:= ar
 ARFLAFS	:= -rcs
 RM		:= rm -rf
-SOURCES	:= error.c free.c
+SOURCES	:= error.c free.c status.c
 OBJDIR	:= ./obj
 OBJECTS	:= $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:= $(OBJECTS:.o:=.d)
-INCLUDE	:=	-I ../../libft/includes
+INCLUDE	:=	-I ../../libft/includes -I ../../includes
 #Message
 RED		:= \033[1;31m
 GREEN	:= \033[1;32m

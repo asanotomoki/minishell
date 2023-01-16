@@ -6,13 +6,14 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 01:29:53 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 19:51:47 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "libft.h"
-#include "expansion.h"
+#include "util.h"
+
 
 static char *get_before(char *str, size_t len)
 {
@@ -63,7 +64,9 @@ char *set_parameter(char *str, size_t i)
 	char *val;
 
 	parameter = get_parameter(str + i);
-	if (parameter)
+	if (ft_strncmp(parameter, "$?", 3) == 0)
+		str = ft_itoa(get_status());
+	else if (parameter)
 	{
 		val = getenv(parameter + 1);
 		str = join_parameter(str, val, i, ft_strlen(parameter));
