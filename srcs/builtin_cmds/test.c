@@ -6,92 +6,20 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/01/16 01:45:11 by tasano           ###   ########.fr       */
-=======
-/*   Updated: 2023/01/15 16:58:30 by tasano           ###   ########.fr       */
->>>>>>> d6cf5c8 (builtin unset)
+/*   Updated: 2023/01/16 16:57:56 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmds.h"
 #include "libft.h"
-#include "leakdetect.h"
- #include <stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
-#include "leakdetect.h"
-
-int echo_test(char *input)
-{
-	builtin_echo(ft_split(input, ' '));
-	return (0);
-}
 
 int export_test(char *input)
 {
-	builtin_export(ft_split(input, ' '));
+	printf("%d\n", builtin_export(ft_split(input, ' ')));
 	return (0);
 }
-
-int init_env(char ***environ)
-{
-	size_t i;
-	char **val;
-
-	val = *environ;
-	i = 0;
-	while (val[i])
-		i++;
-	i = 0;
-	while (val[i])
-	{
-		val[i] = ft_strdup(val[i]);
-		if (!val[i])
-		{
-			perror("export");
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-
-int echo_test(char *input)
-{
-	builtin_echo(ft_split(input, ' '));
-	return (0);
-}
-
-int export_test(char *input)
-{
-	builtin_export(ft_split(input, ' '));
-	return (0);
-}
-
-int init_env(char ***environ)
-{
-	size_t i;
-	char **val;
-
-	val = *environ;
-	i = 0;
-	while (val[i])
-		i++;
-	i = 0;
-	while (val[i])
-	{
-		val[i] = ft_strdup(val[i]);
-		if (!val[i])
-		{
-			perror("export");
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
 int echo_test(char *input)
 {
 	builtin_echo(ft_split(input, ' '));
@@ -100,39 +28,34 @@ int echo_test(char *input)
 
 int main()
 {
-<<<<<<< HEAD
-extern char **environ;
-=======
-	leak_detect_init();
-
-	extern char **environ;
->>>>>>> d6cf5c8 (builtin unset)
-	char **val;
-	val = (char **)environ;
-	init_env(&val);
-	leak_detect_check();
-	//export_test("export USER=tomo USER+=tomoki SHELL=minishell =test");
+	init_env();
+	export_test("export USER=tomo USER+=tomoki SHELL=minishell =test");
+	export_test("export USER=tomo  SHELL=minishell =test USE:R+=tomoki");
+	export_test("export USER=tomo  USER+=tomoki");
 	//builtin_env();
-	builtin_unset(ft_split("unset USER", ' '));
-	builtin_unset(ft_split("unset tes:t", ' '));
-	printf("%s\n", getenv("USER"));
-	builtin_env();
-	leak_detect_check();
-	return (0);
+	//builtin_unset(ft_split("unset tes:t", ' '));
+	//builtin_unset(ft_split("unset USER HOME", ' '));
+	//printf("%s\n", getenv("USER"));
+	//printf("%s\n", getenv("HOME"));
 	//echo_test("echo test msg");
 	//echo_test("echo");
 	//echo_test("echo -n");
-	//echo_test("echo -n test msg");
+	////echo_test("echo -n test msg");
 	//builtin_exit(1, ft_split("exit", ' '));
 	//builtin_exit(2, ft_split("exit 80", ' '));
 	//builtin_exit(2, ft_split("exit 0", ' '));
 	//builtin_exit(2, ft_split("exit 213713802", ' '));
 	//builtin_exit(4, ft_split("exit 80 0 1", ' '));
-	//builtin_exit(2, ft_split("exit -10", ' '));
+	//builtin_exit(2, ft_split("exit aa", ' '));
 	//builtin_exit(2, ft_split("exit -1000", ' '));
-
+	//builtin_cd(ft_split("cd ", ' '));
 	//builtin_pwd();
-	builtin_env();
-	//chdir("../");
-	return (0);	
+	//builtin_cd(ft_split("cd nothing", ' '));
+	//builtin_pwd();
+	//builtin_cd(ft_split("cd ./test.dSYM/Contents/Resources/../", ' '));
+	//builtin_pwd();
+	//builtin_env();
+	//printf("PWD=%s\n", getenv("PWD"));
+	//builtin_cd(ft_split("cd ./testdir", ' '));
+	return (0);
 }

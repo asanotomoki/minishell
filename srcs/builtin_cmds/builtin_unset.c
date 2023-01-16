@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:24 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 02:17:00 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 16:49:53 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "builtin_cmds.h"
 
-void clear_val(char **environ, size_t i)
+void	clear_val(char **environ, size_t i)
 {
 	if (!environ[i])
 		return ;
@@ -28,7 +28,7 @@ void clear_val(char **environ, size_t i)
 	}
 }
 
-int check_param(char *param)
+int	check_param(char *param)
 {
 	while (*param)
 	{
@@ -39,13 +39,18 @@ int check_param(char *param)
 	return (0);
 }
 
-int unset_env(char **environ, char *param)
+int	unset_env(char *param)
 {
-	char *param_search;
+	char	*param_search;
+	char	**environ;
 	size_t	i;
 
+	environ = get_env();
 	if (check_param(param))
-		ft_putendl_fd("not a valid identifier" ,2);
+	{
+		env_put_error("unset", param);
+		return (1);
+	}
 	param_search = ft_strjoin(param, "=");
 	i = search_param(environ, param_search);
 	if (environ[i])
@@ -55,19 +60,16 @@ int unset_env(char **environ, char *param)
 	return (0);
 }
 
-int builtin_unset(char **argv)
+int	builtin_unset(char **argv)
 {
-	extern char **environ;
-	char **val;
-	int status;
+	int	status;
 
 	argv++;
-	val = (char **)environ;
 	if (!*argv)
 		return (0);
 	while (*argv)
 	{
-		status = unset_env(val, *argv);
+		status = unset_env(*argv);
 		argv++;
 	}
 	return (status);

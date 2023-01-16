@@ -6,14 +6,14 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:42:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/12 00:33:38 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/16 15:47:04 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmds.h"
 #include "libft.h"
 
-int builtin_echo(char **argv)
+int	builtin_echo(char **argv)
 {
 	size_t	i;
 	int		option;
