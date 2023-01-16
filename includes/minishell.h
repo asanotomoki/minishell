@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:43:45 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/16 21:45:51 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 00:24:19 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+//# include <readline/readline.h>
+//# include <readline/history.h>
 # include "err.h"
 # include "libft.h"
 # include "util.h"
@@ -29,6 +29,7 @@
 typedef struct s_shell
 {
 	int	status;
+	int	heredoc_interrupt;
 } t_shell;
 
 t_shell g_shell;

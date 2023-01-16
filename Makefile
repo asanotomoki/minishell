@@ -6,7 +6,7 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2023/01/16 21:49:14 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/17 00:24:06 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OBJDIR		:=	./obj
 SRC_DIR		:=	./srcs
 CC			:=	cc
 CFLAGS		:=	-Wall -Werror -Wextra
-CFLAGS		+=	-g -fsanitize=address 
+CFLAGS		+=	-g -fsanitize=address
 HEADERS			:=  ./includes
 LIBFT_DIR		:=	./libft
 LIBFT			:=	$(LIBFT_DIR)/libft.a
@@ -39,6 +39,10 @@ EXEC_DIR		:=	$(SRC_DIR)/exection
 EXEC			:=	$(EXEC_DIR)/exection.a
 HEADERS			+=	$(EXEC_DIR)
 
+READLINE_DIR	:=	$(shell brew --prefix readline)
+READLINE		:=	$(READLINE_DIR)/lib/libreadline.a
+HEADERS			+=	$(READLINE_DIR)/include
+
 INCLUDES	:=	$(addprefix -I , $(HEADERS))
 
 SRC_FILE :=	main.c
@@ -58,7 +62,7 @@ FCLEAN_MSG	:=	"$(RED) Delete $(NAME)$(DEFAULT)"
 
 $(NAME): $(LIBFT) \
 		  $(UTIL) \
-		  $(BUILTIN)\
+		  $(BUILTIN) \
 		  $(LEXER) \
 		  $(PARSER) \
 		  $(EXPANSION) \
@@ -80,16 +84,16 @@ $(UTIL):
 $(BUILTIN): 
 	@make -C $(BUILTIN_DIR)
 
-$(LEXER): 
+$(LEXER):
 	@make -C $(LEXER_DIR)
 
-$(PARSER): 
+$(PARSER):
 	@make -C $(PARSER_DIR)
 
-$(EXPANSION): 
+$(EXPANSION):
 	@make -C $(EXPANSION_DIR)
 
-$(EXEC): 
+$(EXEC):
 	@make -C $(EXEC_DIR)
 
 all: $(NAME)
@@ -104,7 +108,7 @@ clean:
 	@make clean -C $(EXPANSION_DIR)
 	@echo $(CLEAN_MSG)
 
-fclean: 
+fclean:
 	@make fclean -C $(LIBFT_DIR)
 	@make fclean -C $(BUILTIN_DIR)
 	@make fclean -C $(LEXER_DIR)

@@ -6,11 +6,10 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 23:49:05 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 00:27:42 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
 #include "exec.h"
 #include "minishell.h"
 #include "util.h"
@@ -51,43 +50,41 @@ void execve_main(t_cmd *exec)
 		exit(0);
 }
 
-void set_stdout(int pp[2])
+
+static void	\
+	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2])
 {
-	set_dup2(pp[1], STDOUT_FILENO);
-	close_pipe(pp);
-}
-void set_stdin(int pp[2])
-{
-	set_dup2(pp[0], STDIN_FILENO);
-	close_pipe(pp);
+	if (pipe_cnt == 1)
+		return ;
+	if (i == 0)
+		set_stdout(pp[i]);
+	else if (i == pipe_cnt - 1)
+		set_stdin(pp[i - 1]);
+	else
+	{
+		set_stdout(pp[i]);
+		set_stdin(pp[i - 1]);
+	}
 }
 
-int execve_system(t_cmd *exec, size_t len)
+static int	execve_system(t_cmd *exec, size_t cnt)
 {
-	int pp[len][2];
-	size_t i;
+	size_t	i;
+	int		pp[OPEN_MAX / 2][2];
 
 	i = 0;
-	while (i < len && len != 0)
+	if (cnt > OPEN_MAX / 2)
+		perror_exit(EXIT_FAILURE, "pipe");
+	while (i < cnt && cnt != 0)
 	{
-		if (i != len)
+		if (i != cnt)
 			set_pipe(pp[i]);
 		exec->pid = fork();
 		if (exec->pid == -1)
 			perror_exit(EXIT_FAILURE, "fork");
-		else if (exec->pid == 0)
+		if (exec->pid == 0)
 		{
-			if (len == 1)
-				;
-			else if (i == 0)
-				set_stdout(pp[i]);
-			else if (i == len - 1)
-				set_stdin(pp[i - 1]);
-			else if (i != 0 && i != len - 1)
-			{
-				set_stdout(pp[i]);
-				set_stdin(pp[i - 1]);
-			}
+			connect_io_pipe(i, cnt, pp);
 			execve_main(exec);
 		}
 		if (i > 0)
@@ -98,7 +95,7 @@ int execve_system(t_cmd *exec, size_t len)
 	return (0);
 }
 
-int exection(t_cmd *cmd)
+int	exection(t_cmd *cmd)
 {
 	heredoc_to_fd(cmd);
 	if (!cmd->piped_cmd && check_builtin(cmd))
