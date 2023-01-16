@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:18 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 02:56:27 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 03:56:45 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static t_token_lst	*set_cmdval(t_token_lst *lst, t_cmd *cmd)
 {
-	if (lst->type == OUTREDIRECT || lst->type == OUTADDITION ||
-			 lst->type == INREDIRECT || lst->type == HEREDOCU)
+	if (lst->type == OUTREDIRECT || lst->type == OUTADDITION || \
+		lst->type == INREDIRECT || lst->type == HEREDOCU)
 	{
 		redirection_addback(&cmd->redirect, redirection_new(lst));
 		lst = lst->next;
@@ -26,18 +26,18 @@ static t_token_lst	*set_cmdval(t_token_lst *lst, t_cmd *cmd)
 	return (lst);
 }
 
-static t_cmd *pipe_error(t_token_lst **lst)
+static t_cmd	*pipe_error(t_token_lst **lst)
 {
 	put_parse_error("|");
 	token_lstfree(lst);
 	return (NULL);
 }
 
-t_cmd *parser(t_token_lst *lst)
+t_cmd	*parser(t_token_lst *lst)
 {
-	t_cmd *cmd;
-	t_cmd *top;
-	t_token_lst *tmplst;
+	t_cmd		*cmd;
+	t_cmd		*top;
+	t_token_lst	*tmplst;
 
 	tmplst = lst;
 	if (lst->type == PIPE)

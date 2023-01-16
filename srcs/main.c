@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/17 03:31:23 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 04:04:05 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@
 //	rl_redisplay();
 //}
 
-int shell_system(char *line)
+int	shell_system(char *line)
 {
-	t_token_lst *lexer_lst;
-	t_cmd 		*cmd_lst;
+	t_token_lst	*lexer_lst;
+	t_cmd		*cmd_lst;
 	int			status;
 
 	lexer_lst = NULL;
@@ -84,7 +84,7 @@ int shell_system(char *line)
 	return (exection(cmd_lst));
 }
 
-int interactive_shell()
+int	interactive_shell(void)
 {
 	char	*line;
 	int		status;
@@ -105,7 +105,7 @@ int interactive_shell()
 	return (status);
 }
 
-void init_shell()
+void	init_shell(void)
 {
 	init_env();
 	set_status(0);

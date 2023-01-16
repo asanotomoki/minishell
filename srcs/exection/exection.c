@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 00:55:54 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 03:42:52 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 #include <fcntl.h>
 #include "libft.h"
 
-void basic_command(t_cmd *exec)
+void	basic_command(t_cmd *exec)
 {
-	char *cmdfile;
-	char *path;
+	char	*cmdfile;
+	char	*path;
 
 	path = getenv("PATH");
 	if (!path)
@@ -33,7 +33,7 @@ void basic_command(t_cmd *exec)
 		perror_exit(EXIT_FAILURE, "execve");
 }
 
-void execve_command(t_cmd *exec)
+void	execve_command(t_cmd *exec)
 {
 	if (check_builtin(exec))
 		set_status(exec_builtin(exec));
@@ -41,30 +41,13 @@ void execve_command(t_cmd *exec)
 		basic_command(exec);
 }
 
-void execve_main(t_cmd *exec)
+void	execve_main(t_cmd *exec)
 {
 	set_redirect(exec->redirect);
 	if (exec->cmd)
 		execve_command(exec);
 	else
 		exit(0);
-}
-
-
-static void	\
-	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2])
-{
-	if (pipe_cnt == 1)
-		return ;
-	if (i == 0)
-		set_stdout(pp[i]);
-	else if (i == pipe_cnt - 1)
-		set_stdin(pp[i - 1]);
-	else
-	{
-		set_stdout(pp[i]);
-		set_stdin(pp[i - 1]);
-	}
 }
 
 static int	execve_system(t_cmd *exec, size_t cnt)

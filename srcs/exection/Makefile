@@ -1,7 +1,7 @@
 NAME	:=	exection.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
-CFLAGS	+=	 -fsanitize=address -fno-omit-frame-pointer -g
+#CFLAGS	+=	 -fsanitize=address -fno-omit-frame-pointer -g
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 09:35:13 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 02:27:53 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 03:55:43 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <stdlib.h>
 #include "util.h"
 
-t_cmd *cmd_new()
+t_cmd	*cmd_new(void)
 {
-	t_cmd *content;
+	t_cmd	*content;
 
 	content = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!content)
@@ -28,7 +28,7 @@ t_cmd *cmd_new()
 	return (content);
 }
 
-t_cmd *cmd_addback(t_cmd *lst, t_cmd *new)
+t_cmd	*cmd_addback(t_cmd *lst, t_cmd *new)
 {
 	if (!new)
 		return (NULL);

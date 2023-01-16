@@ -6,14 +6,14 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2023/01/16 22:26:19 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/17 04:04:25 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:=	builtin_cmds.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
-CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g
+#CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs

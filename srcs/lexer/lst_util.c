@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:58:36 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 02:13:18 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 03:48:06 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void	token_lstfree(t_token_lst	**lst)
 	}
 }
 
-int add_lst(t_token_lst **lst, char *line, size_t size, t_token_type type)
+int	add_lst(t_token_lst **lst, char *line, size_t size, t_token_type type)
 {
-	char *word;
-	t_token_lst *tmp;
+	char		*word;
+	t_token_lst	*tmp;
 
 	word = ft_substr(line, 0, size);
 	if (!word)

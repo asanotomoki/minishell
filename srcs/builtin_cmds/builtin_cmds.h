@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 22:28:40 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 03:41:06 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ char	*export_put_error(char *val);
 char	*get_param(char *val);
 char	*get_key(char *param);
 int		check_param(char *param);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:24 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 21:21:51 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 03:41:36 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parser.h"
 #include "builtin_cmds.h"
 
-int exec_builtin(t_cmd *cmd)
+int	exec_builtin(t_cmd *cmd)
 {
 	if (!cmd->cmd)
 		return (0);
@@ -35,7 +35,7 @@ int exec_builtin(t_cmd *cmd)
 	return (0);
 }
 
-int check_builtin(t_cmd *cmd)
+int	check_builtin(t_cmd *cmd)
 {
 	if (!cmd->cmd)
 		return (0);

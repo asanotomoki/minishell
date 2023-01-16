@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:02:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 02:43:38 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 03:59:37 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "minishell.h"
 #include <stdlib.h>
 
-char **append_args(char **args, size_t argc, char *new)
+char	**append_args(char **args, size_t argc, char *new)
 {
 	size_t	i;
 	char	**res;
@@ -51,9 +51,9 @@ int	put_parse_error(char *param)
 	return (258);
 }
 
-int parse_error(t_token_lst *lst, t_cmd **cmd)
+int	parse_error(t_token_lst *lst, t_cmd **cmd)
 {
-	int flag;
+	int	flag;
 
 	flag = 0;
 	if (lst->type == OUTREDIRECT || lst->type == OUTADDITION || \
@@ -67,7 +67,7 @@ int parse_error(t_token_lst *lst, t_cmd **cmd)
 	else if (lst->type == PIPE)
 	{
 		if (!lst->next)
-	 		flag = put_parse_error("|");
+			flag = put_parse_error("|");
 		else if (lst->next->type == PIPE)
 			flag = put_parse_error("|");
 	}
@@ -76,16 +76,16 @@ int parse_error(t_token_lst *lst, t_cmd **cmd)
 	return (flag);
 }
 
-void free_parser_lst(t_token_lst **lst)
+void	free_parser_lst(t_token_lst **lst)
 {
-	t_token_lst *tmp;
+	t_token_lst	*tmp;
 
 	tmp = *lst;
 	while (tmp)
 	{
 		*lst = tmp->next;
-		if (tmp->type == PIPE ||
-			tmp->type == OUTREDIRECT || tmp->type == OUTADDITION ||
+		if (tmp->type == PIPE || \
+			tmp->type == OUTREDIRECT || tmp->type == OUTADDITION || \
 			tmp->type == INREDIRECT || tmp->type == HEREDOCU)
 			free_strval(&tmp->token);
 		free(tmp);

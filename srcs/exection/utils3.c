@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:59:00 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 00:54:21 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 04:05:40 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,18 @@ void	error_exit(int status, char *param, char *msg)
 	exit (status);
 }
 
-t_cmd	*convert_cmd(t_cmd *lst)
+void	\
+connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2])
 {
-	t_cmd	*content;
-	t_cmd	*init;
-	t_cmd	*top;
-
-	init = lst;
-	top = lst;
-	while (init->piped_cmd)
+	if (pipe_cnt == 1)
+		return ;
+	if (i == 0)
+		set_stdout(pp[i]);
+	else if (i == pipe_cnt - 1)
+		set_stdin(pp[i - 1]);
+	else
 	{
-		content = init->piped_cmd;
-		init->piped_cmd = content->piped_cmd;
-		content->piped_cmd = top;
-		top = content;
+		set_stdout(pp[i]);
+		set_stdin(pp[i - 1]);
 	}
-	return (top);
 }

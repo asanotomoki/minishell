@@ -6,13 +6,13 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 12:15:57 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 01:59:42 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 04:02:19 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 void	free_strval(char **str)
 {
@@ -24,7 +24,7 @@ void	free_strval(char **str)
 
 void	free_args(char ***input)
 {
-	char 	**argv;
+	char	**argv;
 	size_t	i;
 
 	if (!input || !*input)

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:24:22 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/17 00:55:02 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 04:05:51 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ char	*joint_carriage_return(char *line);
 /* utils3.c */
 void	perror_exit(int status, char *msg);
 void	error_exit(int status, char *param, char *msg);
+void	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2]);
+
 int		exec_builtin(t_cmd *cmd);
 int		check_builtin(t_cmd *cmd);
 

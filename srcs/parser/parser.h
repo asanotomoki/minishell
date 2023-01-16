@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 02:43:08 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 04:01:22 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ typedef struct s_redirect
 
 typedef struct s_cmd
 {
-   t_redirect   *redirect;
-    struct s_cmd *piped_cmd;
-    char         **cmd;
-    size_t       argc;
-    pid_t        pid;
-}   t_cmd;
+	t_redirect		*redirect;
+	struct s_cmd	*piped_cmd;
+	char			**cmd;
+	size_t			argc;
+	pid_t			pid;
+}	t_cmd;
 
 t_cmd		*parser(t_token_lst *lst);
 
@@ -54,7 +54,7 @@ t_cmd		*cmd_addback(t_cmd *lst, t_cmd *new);
 t_cmd		*cmd_new(void);
 //utils
 char		**append_args(char **args, size_t argc, char *new);
-int 		parse_error(t_token_lst *lst, t_cmd **cmd);
+int			parse_error(t_token_lst *lst, t_cmd **cmd);
 void		free_parser_lst(t_token_lst **lst);
 int			put_parse_error(char *param);
 
