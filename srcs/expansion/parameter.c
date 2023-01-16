@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 00:29:43 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 01:10:30 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,7 @@ char	*set_parameter(char *str, size_t i)
 		if (flag)
 			free_strval(&val);
 	}
+	else
+		set_status(1);
 	return (str);
 }

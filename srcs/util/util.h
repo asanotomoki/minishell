@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 21:49:54 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 01:43:59 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define UTIL_H
 
 #include <stdio.h>
-int		err_msg(char *msg);
+int		err_msg(char *param, char *msg, int status);
 int		perr_msg(char *msg);
 
 void	free_strval(char **str);

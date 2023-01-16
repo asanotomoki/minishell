@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 01:56:20 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 01:31:28 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <stdio.h>
 # include <unistd.h>
 # include "lexer.h"
-
-# define SYNTAXERR "minishell: syntax error near unexpected token `"
 
 typedef struct s_heredoc
 {

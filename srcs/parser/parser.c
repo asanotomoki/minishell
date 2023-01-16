@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:18 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 00:37:33 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 01:30:39 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_cmd *parser(t_token_lst *lst)
 	while (lst)
 	{
 		if (parse_error(lst, tmp, &tmplst))
-			break;
+			break ;
 		if (lst->type == PIPE)
 			cmd = cmd_addback(cmd, cmd_new());
 		else if (lst->type == OUTREDIRECT || lst->type == OUTADDITION ||
