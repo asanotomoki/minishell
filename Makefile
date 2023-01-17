@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
+#    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2023/01/17 04:05:02 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/17 18:51:14 by hiroaki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,8 +67,8 @@ $(NAME): $(LIBFT) \
 		  $(PARSER) \
 		  $(EXPANSION) \
 		  $(EXEC) \
-		  $(OBJECTS) 
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(UTIL) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -lreadline
+		  $(OBJECTS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(UTIL) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -l readline -L$(READLINE_DIR)/lib
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c
@@ -81,7 +81,7 @@ $(LIBFT):
 $(UTIL):
 	@make -C $(UTIL_DIR)
 
-$(BUILTIN): 
+$(BUILTIN):
 	@make -C $(BUILTIN_DIR)
 
 $(LEXER):

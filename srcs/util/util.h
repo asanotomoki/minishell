@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 04:03:00 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/18 00:26:16 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,10 @@ size_t	search_param(char **argv, char *param);
 char	**get_env(void);
 int		init_env(void);
 char	*env_put_error(char *function, char *val);
+
+int		rl_event(void);
+void	signal_handler(int signo);
+void	init_sigaction(void);
+void	trap_signal(void);
+
 #endif
