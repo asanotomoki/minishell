@@ -6,12 +6,35 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:59:00 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 04:05:40 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 15:17:34 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "minishell.h"
+
+int	check_cmdfile(char	*filename, char	*param)
+{
+	struct stat	s_st;
+	int			result;
+
+	if (!filename)
+		error_exit(COMMAND_NOT_FOUND, param, "command not found");
+	result = stat(filename, &s_st);
+	if (result == -1)
+		error_exit(COMMAND_NOT_FOUND, param, "command not found");
+	if (S_ISDIR(s_st.st_mode))
+	{
+		free_strval(&filename);
+		error_exit(126, param, "is a directory");
+	}
+	if ((s_st.st_mode & S_IXUSR) == 0)
+	{
+		free_strval(&filename);
+		error_exit(126, param, "Permission denied");
+	}
+	return (0);
+}
 
 void	perror_exit(int status, char *msg)
 {
