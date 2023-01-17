@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cmds.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 03:41:06 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 17:44:15 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 
 # include <stdio.h>
 # include <stddef.h>
+
+typedef enum e_cmd_type
+{
+	MINI_ECHO = 1,
+	MINI_CD,
+	MINI_PWD,
+	MINI_EXPORT,
+	MINI_UNSET,
+	MINI_ENV,
+	MINI_EXIT,
+	DOT
+}	t_cmd_type;
 
 int		builtin_echo(char **argv);
 int		builtin_exit(size_t argc, char **argv);

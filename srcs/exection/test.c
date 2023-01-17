@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 00:28:51 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 15:40:32 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 #include <fcntl.h>
 #include "util.h"
 
-void execve_test(char *test_command)
- {
-	char *input;
-	t_token_lst *lst;
+void	execve_test(char *test_command)
+{
+	char		*input;
+	t_token_lst	*lst;
 
 	lst = NULL;
 	lexer(test_command, &lst);
@@ -35,7 +35,7 @@ void execve_test(char *test_command)
 
 }
 
- int main()
+int	main()
 {
 	init_env();
 	/*****---------basic test----------*****/
@@ -44,7 +44,7 @@ void execve_test(char *test_command)
 	execve_test("ls -l > test2 | wc -l");
 	execve_test("ls -l | grep exec |  wc -l");
 	execve_test("cat test1");
-	execve_test("./bash.sh");
+	execve_test("./system");
 	execve_test("cat | ls");
 	//execve_test("ls > test > test1 << EOF << EOT < test3 > test1 < test");
 
@@ -56,7 +56,6 @@ void execve_test(char *test_command)
 
 
 	/*****---------special test----------*****/
-	execve_test("wc -l > test1 < result.log");
 	execve_test("> test2 < result.log");
 
 	/*****---------builtins test----------*****/
@@ -67,8 +66,9 @@ void execve_test(char *test_command)
 	printf("\n--------error test----------\n");
 	execve_test("bash.sh");
 	execve_test("cat nosuchfile");
+	execve_test("wc -l > test1");
 	execve_test("wc -l < nosuchfile");
-	execve_test("wc -l < permissionfile");
+	execve_test("wc -l < system");
 	execve_test("nocommand | nocommand");
 	return (0);
 }

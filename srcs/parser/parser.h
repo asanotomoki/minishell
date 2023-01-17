@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 04:01:22 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 16:34:15 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include "lexer.h"
-
-typedef struct s_heredoc
-{
-	int		*fd;
-	char	*document;
-	size_t	len;
-}	t_heredoc;
+# include "../builtin_cmds/builtin_cmds.h"
 
 typedef struct s_redirect
 {
@@ -37,6 +31,7 @@ typedef struct s_cmd
 	t_redirect		*redirect;
 	struct s_cmd	*piped_cmd;
 	char			**cmd;
+	t_cmd_type		type;
 	size_t			argc;
 	pid_t			pid;
 }	t_cmd;

@@ -1,7 +1,7 @@
 NAME	:=	parser.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
-#CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g 
+#CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
@@ -18,6 +18,7 @@ INCLUDE += -I $(LEXER_DIR)
 UTIL_DIR := ../util
 UTIL	:= $(UTIL_DIR)/util.a
 INCLUDE	+=	-I ../util
+INCLUDE	+=	-I ../builtin_cmds
 #Message
 RED		:=	\033[1;31m
 GREEN	:=	\033[1;32m
@@ -28,8 +29,8 @@ NAME_MSG := " $(GREEN)Compile $(NAME)$(DEFAULT)"
 CLEAN_MSG := " $(YELLOW)Delete ./srcs/parser/obj$(DEFAULT)"
 FCLEAN_MSG := " $(RED)Delete $(NAME)$(DEFAULT)"
 
-$(NAME): $(OBJECTS) 
-	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS) 
+$(NAME): $(OBJECTS)
+	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
@@ -55,11 +56,11 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(UTIL) $(LEXER) ../../libft/libft.a test.c 
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(UTIL) $(LEXER) ../../libft/libft.a test.c
 	./test
 
-$(LEXER): 
+$(LEXER):
 	@make -C $(LEXER_DIR)
 
-$(UTIL): 
+$(UTIL):
 	@make -C $(UTIL_DIR)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exection.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 03:42:52 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 17:52:35 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,11 @@
 void	basic_command(t_cmd *exec)
 {
 	char	*cmdfile;
-	char	*path;
 
-	path = getenv("PATH");
-	if (!path)
+	if (exec->type == DOT)
 		error_exit(COMMAND_NOT_FOUND, exec->cmd[0], "command not found");
-	cmdfile = get_cmdfile(exec->cmd[0], path);
-	if (!cmdfile)
-		error_exit(COMMAND_NOT_FOUND, exec->cmd[0], "command not found");
+	cmdfile = get_cmdfile(exec->cmd[0], getenv("PATH"));
+	check_cmdfile(cmdfile, exec->cmd[0]);
 	free(exec->cmd[0]);
 	exec->cmd[0] = cmdfile;
 	if (execve(exec->cmd[0], exec->cmd, get_env()) == -1)
