@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:42:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 15:47:04 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 13:31:39 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ int	builtin_echo(char **argv)
 	int		option;
 
 	option = 0;
-	if (argv[1] && ft_strncmp(argv[1], "-n", 3) == 0)
+	i = 1;
+	while (argv[i] && ft_strncmp(argv[i], "-n", 3) == 0)
 		option = 1;
-	argv += 1 + option;
+	argv += i + option;
 	i = 0;
 	while (argv[i])
 	{

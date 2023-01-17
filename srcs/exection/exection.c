@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 03:42:52 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 14:48:03 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,35 @@
 #include <fcntl.h>
 #include "libft.h"
 
+int	check_cmdfile(char	*filename, char	*param)
+{
+	struct stat	s_st;
+	int			result;
+
+	if (!filename)
+		error_exit(COMMAND_NOT_FOUND, param, "command not found");
+	result = stat(filename, &s_st);
+	if (result == -1)
+		error_exit(COMMAND_NOT_FOUND, param, "command not found");
+	if (S_ISDIR(s_st.st_mode))
+	{
+		free_strval(&filename);
+		error_exit(126, param, "is a directory");
+	}
+	if ((s_st.st_mode & S_IXUSR) == 0)
+	{
+		free_strval(&filename);
+		error_exit(126, param, "Permission denied");
+	}
+	return (0);
+}
+
 void	basic_command(t_cmd *exec)
 {
 	char	*cmdfile;
-	char	*path;
 
-	path = getenv("PATH");
-	if (!path)
-		error_exit(COMMAND_NOT_FOUND, exec->cmd[0], "command not found");
-	cmdfile = get_cmdfile(exec->cmd[0], path);
-	if (!cmdfile)
-		error_exit(COMMAND_NOT_FOUND, exec->cmd[0], "command not found");
+	cmdfile = get_cmdfile(exec->cmd[0], getenv("PATH"));
+	check_cmdfile(cmdfile, exec->cmd[0]);
 	free(exec->cmd[0]);
 	exec->cmd[0] = cmdfile;
 	if (execve(exec->cmd[0], exec->cmd, get_env()) == -1)
