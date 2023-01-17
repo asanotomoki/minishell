@@ -6,11 +6,14 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:16:16 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/18 00:17:20 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 00:59:03 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "util.h"
 #include "minishell.h"
+#include <readline/readline.h>
+#include <signal.h>
 
 int	rl_event(void)
 {

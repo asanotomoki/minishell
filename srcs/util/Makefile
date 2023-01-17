@@ -31,7 +31,7 @@ $(NAME): $(OBJECTS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@-mkdir -p $(OBJDIR)
-	@$(CC) $(CFLAGS) $(INCLUDE) $(READLINE) -lreadline -L$(READLINE_DIR)/lib -o $@ -c $<
+	@$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
 
 .PHONY: all
 all: $(NAME)
@@ -53,5 +53,5 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) -o test $(NAME) test.c
+	$(CC) $(CFLAGS) -lreadline -L$(READLINE)/lib -o test $(NAME) test.c
 	./test
