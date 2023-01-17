@@ -30,6 +30,10 @@ BUILTIN_DIR		:= ../builtin_cmds
 BUILTIN			:= $(BUILTIN_DIR)/builtin_cmds.a
 INCLUDE			+= -I $(BUILTIN_DIR)
 
+READLINE_DIR	:=	$(shell brew --prefix readline)
+READLINE		:=	$(READLINE_DIR)/lib/libreadline.a
+INCLUDE			+= -I $(READLINE_DIR)/include
+
 #Message
 RED		:=	\033[1;31m
 GREEN	:=	\033[1;32m
@@ -67,7 +71,7 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(UTIL) $(LEXER) $(PARSER) $(EXPANSION) $(BUILTIN) ../../libft/libft.a test.c -lreadline
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(UTIL) $(LEXER) $(PARSER) $(EXPANSION) $(BUILTIN) ../../libft/libft.a test.c -lreadline -L$(READLINE_DIR)/lib
 	./test
 
 $(LEXER):

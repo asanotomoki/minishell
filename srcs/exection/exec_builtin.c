@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:24 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 17:47:21 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 18:01:07 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 #include "builtin_cmds.h"
 #include "../../includes/minishell.h"
 #include <errno.h>
-
-//static int	case_dot(char *cmd)
-//{
-//	extern char	**environ;
-//
-//	execve(cmd, NULL, environ);
-//	return (2);
-//}
 
 int	exec_builtin(t_cmd *cmd)
 {

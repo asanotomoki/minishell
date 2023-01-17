@@ -6,11 +6,15 @@ SRCDIR	:= ./
 AR		:= ar
 ARFLAFS	:= -rcs
 RM		:= rm -rf
-SOURCES	:= error.c free.c status.c env_utils.c 
+SOURCES	:= error.c free.c status.c env_utils.c signal.c
 OBJDIR	:= ./obj
 OBJECTS	:= $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:= $(OBJECTS:.o:=.d)
 INCLUDE	:=	-I ../../libft/includes -I ../../includes
+
+READLINE_DIR	:=	$(shell brew --prefix readline)
+READLINE		:=	$(READLINE_DIR)/lib/libreadline.a
+INCLUDE			+=	-I $(READLINE_DIR)/include
 #Message
 RED		:= \033[1;31m
 GREEN	:= \033[1;32m
@@ -21,13 +25,13 @@ NAME_MSG := " $(GREEN)Compile $(NAME)$(DEFAULT)"
 CLEAN_MSG := " $(YELLOW)Delete ./srcs/util/obj$(DEFAULT)"
 FCLEAN_MSG := " $(RED)Delete $(NAME)$(DEFAULT)"
 
-$(NAME): $(OBJECTS) 
+$(NAME): $(OBJECTS)
 	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@-mkdir -p $(OBJDIR)
-	@$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(INCLUDE) $(READLINE) -lreadline -L$(READLINE_DIR)/lib -o $@ -c $<
 
 .PHONY: all
 all: $(NAME)
@@ -49,5 +53,5 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) -o test $(NAME) test.c 
+	$(CC) $(CFLAGS) -o test $(NAME) test.c
 	./test

@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   set_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 04:48:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/17 00:28:20 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/18 00:12:44 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
 #include "exec.h"
+
+static int	heredoc_interrupt(void)
+{
+	if (g_shell.sig_no == 0)
+		return (0);
+	rl_done = 1;
+	g_shell.status = 1;
+	g_shell.sig_no = 0;
+	g_shell.heredoc_sig_flag = 1;
+	return (0);
+}
 
 static int	write_heredoc(int fd, t_list *document)
 {
@@ -37,6 +49,7 @@ static t_list	*creat_document(size_t *len_ptr, char *delimiter)
 	t_list	*new;
 	t_list	*document;
 
+	rl_event_hook = heredoc_interrupt;
 	document = NULL;
 	while (1)
 	{
@@ -112,7 +125,7 @@ void	heredoc_to_fd(t_cmd *cmd)
 	{
 		len = 0;
 		document = creat_document(&len, redir->filename);
-		if (len == 0)
+		if (len == 0 || g_shell.heredoc_sig_flag)
 			redir->heredoc_fd = open("/dev/null", O_RDONLY);
 		else if (len > HEREDOC_PIPESIZE)
 			redir->heredoc_fd = use_tempfile(document);
@@ -120,5 +133,8 @@ void	heredoc_to_fd(t_cmd *cmd)
 			redir->heredoc_fd = use_system_pipe(document);
 		ft_lstclear(&document, free);
 	}
-	heredoc_to_fd(cmd->piped_cmd);
+	if (g_shell.heredoc_sig_flag)
+		g_shell.heredoc_sig_flag = 0;
+	else
+		return (heredoc_to_fd(cmd->piped_cmd));
 }

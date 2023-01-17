@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:43:45 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/17 14:39:08 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 00:05:55 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
-//# include <readline/readline.h>
-//# include <readline/history.h>
 # include "err.h"
 # include "libft.h"
 # include "util.h"
@@ -29,8 +27,9 @@
 
 typedef struct s_shell
 {
-	int	status;
-	int	heredoc_interrupt;
+	int						status;
+	volatile sig_atomic_t	sig_no;
+	volatile sig_atomic_t	heredoc_sig_flag;
 }	t_shell;
 
 t_shell	g_shell;
