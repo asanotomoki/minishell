@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/18 01:44:54 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/18 02:00:20 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	detect_eof(void)
 {
 	rl_cleanup_after_signal();
 	ft_putendl_fd("exit", 2);
-	exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 }
 
 void	interactive_shell(void)
