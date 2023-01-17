@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/18 02:00:20 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/18 02:16:31 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int	shell_system(char *line)
+static int	shell_system(char *line)
 {
 	t_token_lst	*lexer_lst;
 	t_cmd		*cmd_lst;
@@ -37,17 +37,18 @@ int	shell_system(char *line)
 		return (get_status());
 	if (expansion(cmd_lst))
 		return (set_get_status(1));
-	return (exection(cmd_lst));
+	exection(cmd_lst);
+	return (get_status());
 }
 
-void	detect_eof(void)
+static void	detect_eof(void)
 {
 	rl_cleanup_after_signal();
 	ft_putendl_fd("exit", 2);
 	exit(EXIT_SUCCESS);
 }
 
-void	interactive_shell(void)
+static void	interactive_shell(void)
 {
 	char	*line;
 
@@ -57,12 +58,11 @@ void	interactive_shell(void)
 	add_history(line);
 	if (*line)
 		shell_system(line);
-		//g_shell.status = shell_system(line);
 	free(line);
 	return (interactive_shell());
 }
 
-void	init_shell(void)
+static void	init_shell(void)
 {
 	init_env();
 	set_status(0);
