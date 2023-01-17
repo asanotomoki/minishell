@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/18 00:19:20 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 01:44:54 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	interactive_shell(void)
 		return (detect_eof());
 	add_history(line);
 	if (*line)
-		g_shell.status = shell_system(line);
+		shell_system(line);
+		//g_shell.status = shell_system(line);
 	free(line);
 	return (interactive_shell());
 }

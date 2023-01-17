@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:42:50 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 01:38:45 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/18 01:47:14 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ int	create_waitpid(t_cmd *cmd)
 		set_waitpid(cmd->pid);
 		cmd = cmd->piped_cmd;
 	}
-	if (waitpid(cmd->pid, &status, 0) == -1)
-		status = 1;
+	waitpid(cmd->pid, &status, 0);
+	if (WIFSIGNALED(status))
+		status = 128 + WTERMSIG(status);
 	set_status(status % 255);
 	return (0);
 }
