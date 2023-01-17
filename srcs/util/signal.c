@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:16:16 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/18 00:59:03 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 01:45:54 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	rl_event(void)
 	g_shell.status = 1;
 	rl_done = 1;
 	rl_redisplay();
-	return (1);
+	return (0);
 }
 
 void	signal_handler(int signo)
