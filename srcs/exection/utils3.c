@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:59:00 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 17:49:17 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 01:08:34 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	error_exit(int status, char *param, char *msg)
 	exit (status);
 }
 
-void \
-	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2])
+void	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2])
 {
 	if (pipe_cnt == 1)
 		return ;
@@ -69,4 +68,15 @@ void \
 		set_stdout(pp[i]);
 		set_stdin(pp[i - 1]);
 	}
+}
+
+int	heredoc_interrupt(void)
+{
+	if (g_shell.sig_no == 0)
+		return (0);
+	rl_done = 1;
+	g_shell.status = 1;
+	g_shell.sig_no = 0;
+	g_shell.heredoc_sig_flag = 1;
+	return (0);
 }

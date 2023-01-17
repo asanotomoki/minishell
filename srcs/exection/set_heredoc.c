@@ -6,23 +6,12 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 04:48:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/18 00:12:44 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 01:06:46 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include "exec.h"
-
-static int	heredoc_interrupt(void)
-{
-	if (g_shell.sig_no == 0)
-		return (0);
-	rl_done = 1;
-	g_shell.status = 1;
-	g_shell.sig_no = 0;
-	g_shell.heredoc_sig_flag = 1;
-	return (0);
-}
 
 static int	write_heredoc(int fd, t_list *document)
 {

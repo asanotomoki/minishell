@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:24:22 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/18 00:09:30 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 01:06:00 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ char	*joint_carriage_return(char *line);
 int		check_cmdfile(char	*filename, char	*param);
 void	perror_exit(int status, char *msg);
 void	error_exit(int status, char *param, char *msg);
+int		heredoc_interrupt(void);
 void	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2]);
+
+/* exec_builtin.c */
 int		exec_builtin(t_cmd *cmd);
 int		check_builtin(t_cmd *cmd);
 
