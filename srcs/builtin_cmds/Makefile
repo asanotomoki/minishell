@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
+#    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2023/01/17 04:04:25 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/17 16:27:48 by hiroaki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,13 +25,15 @@ SOURCES	:=	builtin_cd.c \
 			builtin_export.c \
 			param_util.c \
 			builtin_env.c \
-			builtin_exit.c 
+			builtin_exit.c
 OBJDIR	:=	./obj
 LIBFT_DIR		:=	../../libft
 LIBFT			:=	$(LIBFT_DIR)/libft.a
 INCLUDE			:=	-I $(LIBFT_DIR)/includes
 INCLUDE			+=	-I ../../includes
 INCLUDE			+=	-I ../util
+INCLUDE			+=	-I ../parser
+INCLUDE			+=	-I ../lexer
 
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
@@ -72,7 +74,7 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME)  $(LIBFT) ../../libft/libft.a test.c
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(LIBFT) ../../libft/libft.a test.c
 	./test
 $(LIBFT):
 	@make -C $(LIBFT_DIR)

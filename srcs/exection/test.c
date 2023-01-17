@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 14:42:47 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 15:40:32 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main()
 	execve_test("ls -l > test2 | wc -l");
 	execve_test("ls -l | grep exec |  wc -l");
 	execve_test("cat test1");
-	execve_test("./bash.sh");
+	execve_test("./system");
 	execve_test("cat | ls");
 	//execve_test("ls > test > test1 << EOF << EOT < test3 > test1 < test");
 
@@ -56,7 +56,6 @@ int	main()
 
 
 	/*****---------special test----------*****/
-	execve_test("wc -l > test1 < result.log");
 	execve_test("> test2 < result.log");
 
 	/*****---------builtins test----------*****/
@@ -67,8 +66,9 @@ int	main()
 	printf("\n--------error test----------\n");
 	execve_test("bash.sh");
 	execve_test("cat nosuchfile");
+	execve_test("wc -l > test1");
 	execve_test("wc -l < nosuchfile");
-	execve_test("wc -l < permissionfile");
+	execve_test("wc -l < system");
 	execve_test("nocommand | nocommand");
 	return (0);
 }

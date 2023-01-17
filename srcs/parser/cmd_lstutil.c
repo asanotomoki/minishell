@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_lstutil.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 09:35:13 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 03:55:43 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 17:31:27 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_cmd	*cmd_new(void)
 	content->redirect = NULL;
 	content->piped_cmd = NULL;
 	content->argc = 0;
+	content->type = 0;
 	return (content);
 }
 

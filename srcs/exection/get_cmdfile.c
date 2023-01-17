@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmdfile.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:41:21 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 14:05:14 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 14:47:40 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*find_cmdfile(char *cmd, char **cmd_paths)
 		if (!cmd_path)
 			perror_exit(EXIT_FAILURE, "malloc");
 		free(tmp);
-		if (access(cmd_path, X_OK) == 0)
+		if (access(cmd_path, F_OK) == 0)
 			return (cmd_path);
 		free(cmd_path);
 		i++;
@@ -48,7 +48,7 @@ static char	*find_cmdfile(char *cmd, char **cmd_paths)
 
 static char	*relative_path(char *cmd)
 {
-	if (access(cmd, X_OK) == 0)
+	if (access(cmd, F_OK) == 0)
 		return (ft_strdup(cmd));
 	else
 		return (NULL);
@@ -58,6 +58,8 @@ static char	*absolute_path(char *cmd, char *path)
 {
 	char	**cmd_paths;
 
+	if (!path)
+		return (NULL);
 	cmd_paths = get_paths(path);
 	if (!cmd_paths)
 		perror_exit(EXIT_FAILURE, "malloc");

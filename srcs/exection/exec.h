@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:24:22 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/17 15:19:47 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 15:40:23 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ bool	discontinue(char *line, char *delimiter);
 char	*joint_carriage_return(char *line);
 
 /* utils3.c */
+int		check_cmdfile(char	*filename, char	*param);
 void	perror_exit(int status, char *msg);
 void	error_exit(int status, char *param, char *msg);
 void	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2]);

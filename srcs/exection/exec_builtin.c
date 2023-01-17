@@ -6,52 +6,67 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:24 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 15:34:10 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/17 17:47:21 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parser.h"
 #include "builtin_cmds.h"
+#include "../../includes/minishell.h"
+#include <errno.h>
+
+//static int	case_dot(char *cmd)
+//{
+//	extern char	**environ;
+//
+//	execve(cmd, NULL, environ);
+//	return (2);
+//}
 
 int	exec_builtin(t_cmd *cmd)
 {
 	if (!cmd->cmd)
 		return (0);
-	if (ft_strncmp(cmd->cmd[0], "echo", 5) == 0)
+	if (cmd->type == MINI_ECHO)
 		return (builtin_echo(cmd->cmd));
-	else if (ft_strncmp(cmd->cmd[0], "cd", 3) == 0)
+	if (cmd->type == MINI_CD)
 		return (builtin_cd(cmd->cmd));
-	else if (ft_strncmp(cmd->cmd[0], "pwd", 4) == 0)
+	if (cmd->type == MINI_PWD)
 		return (builtin_pwd());
-	else if (ft_strncmp(cmd->cmd[0], "export", 7) == 0)
+	if (cmd->type == MINI_EXPORT)
 		return (builtin_export(cmd->cmd));
-	else if (ft_strncmp(cmd->cmd[0], "unset", 5) == 0)
+	if (cmd->type == MINI_UNSET)
 		return (builtin_unset(cmd->cmd));
-	else if (ft_strncmp(cmd->cmd[0], "env", 4) == 0)
+	if (cmd->type == MINI_ENV)
 		return (builtin_env());
-	else if (ft_strncmp(cmd->cmd[0], "exit", 5) == 0)
+	if (cmd->type == MINI_EXIT)
 		return (builtin_exit(cmd->argc, cmd->cmd));
 	return (0);
 }
 
-int	check_builtin(t_cmd *cmd)
+bool	check_builtin(t_cmd *cmd)
 {
 	if (!cmd->cmd)
-		return (0);
-	else if (ft_strncmp(cmd->cmd[0], "echo", 5) == 0)
-		return (1);
-	else if (ft_strncmp(cmd->cmd[0], "cd", 3) == 0)
-		return (1);
-	else if (ft_strncmp(cmd->cmd[0], "pwd", 4) == 0)
-		return (1);
-	else if (ft_strncmp(cmd->cmd[0], "export", 7) == 0)
-		return (1);
-	else if (ft_strncmp(cmd->cmd[0], "unset", 5) == 0)
-		return (1);
-	else if (ft_strncmp(cmd->cmd[0], "env", 4) == 0)
-		return (1);
-	else if (ft_strncmp(cmd->cmd[0], "exit", 5) == 0)
-		return (1);
-	return (0);
+		return (false);
+	if (ft_strcmp(cmd->cmd[0], "echo") == 0)
+		cmd->type = MINI_ECHO;
+	else if (ft_strcmp(cmd->cmd[0], "cd") == 0)
+		cmd->type = MINI_CD;
+	else if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
+		cmd->type = MINI_PWD;
+	else if (ft_strcmp(cmd->cmd[0], "export") == 0)
+		cmd->type = MINI_EXPORT;
+	else if (ft_strcmp(cmd->cmd[0], "unset") == 0)
+		cmd->type = MINI_UNSET;
+	else if (ft_strcmp(cmd->cmd[0], "env") == 0)
+		cmd->type = MINI_ENV;
+	else if (ft_strcmp(cmd->cmd[0], ".") == 0 || \
+			ft_strcmp(cmd->cmd[0], "..") == 0)
+		cmd->type = DOT;
+	else if (ft_strcmp(cmd->cmd[0], "exit") == 0)
+		cmd->type = MINI_EXIT;
+	if (cmd->type != 0 && cmd->type != DOT)
+		return (true);
+	return (false);
 }
