@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:24:22 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/18 01:06:00 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 01:44:55 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@ void	heredoc_to_fd(t_cmd *cmd);
 /* get_cmdfile.c */
 char	*get_cmdfile(char *cmd, char *path);
 
+/* exec_builtin.c */
+int		exec_builtin(t_cmd *cmd);
+int		check_builtin(t_cmd *cmd);
+
 /* utils.c */
 void	set_pipe(int pp[2]);
 void	set_dup2(int new_fd, int old_fd);
@@ -87,8 +91,7 @@ void	error_exit(int status, char *param, char *msg);
 int		heredoc_interrupt(void);
 void	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2]);
 
-/* exec_builtin.c */
-int		exec_builtin(t_cmd *cmd);
-int		check_builtin(t_cmd *cmd);
+/* utils4.c */
+bool	heredoc_interrupted(void);
 
 #endif

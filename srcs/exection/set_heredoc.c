@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 04:48:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/18 01:06:46 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 01:42:51 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	heredoc_to_fd(t_cmd *cmd)
 	if (redir && redir->type == HEREDOCU)
 	{
 		len = 0;
+		g_shell.status = 0;
 		document = creat_document(&len, redir->filename);
 		if (len == 0 || g_shell.heredoc_sig_flag)
 			redir->heredoc_fd = open("/dev/null", O_RDONLY);
@@ -122,8 +123,6 @@ void	heredoc_to_fd(t_cmd *cmd)
 			redir->heredoc_fd = use_system_pipe(document);
 		ft_lstclear(&document, free);
 	}
-	if (g_shell.heredoc_sig_flag)
-		g_shell.heredoc_sig_flag = 0;
-	else
+	if (!g_shell.heredoc_sig_flag)
 		return (heredoc_to_fd(cmd->piped_cmd));
 }
