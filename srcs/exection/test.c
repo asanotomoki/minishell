@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:10:26 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 00:28:51 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 14:42:47 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 #include <fcntl.h>
 #include "util.h"
 
-void execve_test(char *test_command)
- {
-	char *input;
-	t_token_lst *lst;
+void	execve_test(char *test_command)
+{
+	char		*input;
+	t_token_lst	*lst;
 
 	lst = NULL;
 	lexer(test_command, &lst);
@@ -35,7 +35,7 @@ void execve_test(char *test_command)
 
 }
 
- int main()
+int	main()
 {
 	init_env();
 	/*****---------basic test----------*****/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:24 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 03:41:36 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 15:34:10 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_builtin(t_cmd *cmd)
 {
 	if (!cmd->cmd)
 		return (0);
-	if (ft_strncmp(cmd->cmd[0], "echo", 5) == 0)
+	else if (ft_strncmp(cmd->cmd[0], "echo", 5) == 0)
 		return (1);
 	else if (ft_strncmp(cmd->cmd[0], "cd", 3) == 0)
 		return (1);

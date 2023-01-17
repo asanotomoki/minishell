@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:43:45 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/17 00:52:35 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 14:39:08 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@
 # include "libft.h"
 # include "util.h"
 
-#define PROMPT "minish$ "
+# define PROMPT "minish$ "
 # define SHELL "minish"
 
 typedef struct s_shell
 {
 	int	status;
 	int	heredoc_interrupt;
-} t_shell;
+}	t_shell;
 
-t_shell g_shell;
+t_shell	g_shell;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:59:00 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 04:05:40 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/17 15:19:01 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	error_exit(int status, char *param, char *msg)
 	exit (status);
 }
 
-void	\
-connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2])
+void \
+	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2])
 {
 	if (pipe_cnt == 1)
 		return ;
