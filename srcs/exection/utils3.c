@@ -6,14 +6,14 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:59:00 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/18 01:08:34 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 21:11:39 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "minishell.h"
 
-int	check_cmdfile(char	*filename, char	*param)
+int	check_cmdfile(char *filename, char *param)
 {
 	struct stat	s_st;
 	int			result;
@@ -39,7 +39,7 @@ void	perror_exit(int status, char *msg)
 	ft_putstr_fd(SHELL, 2);
 	ft_putstr_fd(": ", 2);
 	perror(msg);
-	exit (status);
+	exit(status);
 }
 
 void	error_exit(int status, char *param, char *msg)
@@ -52,7 +52,7 @@ void	error_exit(int status, char *param, char *msg)
 		ft_putstr_fd(": ", 2);
 	}
 	ft_putendl_fd(msg, 2);
-	exit (status);
+	exit(status);
 }
 
 void	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2])
@@ -70,13 +70,13 @@ void	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2])
 	}
 }
 
-int	heredoc_interrupt(void)
+int	rl_heredoc_event(void)
 {
 	if (g_shell.sig_no == 0)
 		return (0);
-	rl_done = 1;
-	g_shell.status = 1;
 	g_shell.sig_no = 0;
-	g_shell.heredoc_sig_flag = 1;
+	g_shell.status = 1;
+	g_shell.heredoc_interrupted = 1;
+	rl_done = 1;
 	return (0);
 }

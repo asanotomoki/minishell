@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:02:35 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/18 00:13:55 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 20:43:49 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,8 @@ void	set_stdin(int pp[2])
 
 bool	discontinue(char *line, char *delimiter)
 {
-	if (g_shell.heredoc_sig_flag)
-	{
-		rl_cleanup_after_signal();
-		rl_free_line_state();
+	if (g_shell.heredoc_interrupted)
 		return (true);
-	}
 	if (ft_strcmp(line, delimiter) == 0)
 		return (true);
 	return (false);
