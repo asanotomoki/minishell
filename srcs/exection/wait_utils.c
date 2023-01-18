@@ -1,45 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
+/*   wait_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 00:42:50 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 01:38:45 by tasano           ###   ########.fr       */
+/*   Created: 2023/01/19 01:16:38 by hiroaki           #+#    #+#             */
+/*   Updated: 2023/01/19 03:22:31 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-#include <fcntl.h>
-#include "libft.h"
-#include "util.h"
 
-void	set_pipe(int pp[2])
+int	set_waitpid(pid_t pid)
 {
-	if (pipe(pp) == -1)
-		perror_exit(EXIT_FAILURE, "pipe");
+	int			status;
+
+	status = 0;
+	if (waitpid(pid, &status, 0) < 0)
+	{
+		if (errno != EINTR && errno != ECHILD)
+			perror_exit(EXIT_FAILURE, "waitpid");
+		if (errno == EINTR)
+			return (EINTR);
+	}
+	return (status);
 }
 
-void	close_pipe(int pp[2])
-{
-	close(pp[0]);
-	close(pp[1]);
-}
-
-void	set_waitpid(pid_t pid)
-{
-	if (waitpid(pid, NULL, 0) == -1)
-		perror_exit(EXIT_FAILURE, "waitpid");
-}
-
-void	set_dup2(int new_fd, int old_fd)
-{
-	if (dup2(new_fd, old_fd) == -1)
-		perror_exit(EXIT_FAILURE, "dup2");
-}
-
-int	create_waitpid(t_cmd *cmd)
+void	create_waitpid(t_cmd *cmd)
 {
 	int	status;
 

@@ -6,17 +6,17 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/18 01:44:25 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 03:22:09 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
-#include "minishell.h"
-#include "util.h"
 #include <fcntl.h>
 #include "libft.h"
+#include "exec.h"
+#include "util.h"
+#include "minishell.h"
 
-void	basic_command(t_cmd *exec)
+static void	basic_command(t_cmd *exec)
 {
 	char	*cmdfile;
 
@@ -30,7 +30,7 @@ void	basic_command(t_cmd *exec)
 		perror_exit(EXIT_FAILURE, "execve");
 }
 
-void	execve_command(t_cmd *exec)
+static void	execve_command(t_cmd *exec)
 {
 	if (check_builtin(exec))
 		set_status(exec_builtin(exec));
@@ -38,7 +38,7 @@ void	execve_command(t_cmd *exec)
 		basic_command(exec);
 }
 
-void	execve_main(t_cmd *exec)
+static void	execve_main(t_cmd *exec)
 {
 	set_redirect(exec->redirect);
 	if (exec->cmd)

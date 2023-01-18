@@ -6,8 +6,9 @@ SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-SOURCES	:=	exection.c get_cmdfile.c set_redirect.c set_heredoc.c exec_builtin.c \
-			utils1.c utils2.c utils3.c utils4.c
+SOURCES	:=	exection.c get_cmdfile.c set_redirect.c set_heredoc.c exec_builtin.c check_cmdfile.c \
+			fd_utils.c heredoc_utils.c pipe_utils.c wait_utils.c
+
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
@@ -29,10 +30,6 @@ INCLUDE			+= -I $(EXPANSION_DIR)
 BUILTIN_DIR		:= ../builtin_cmds
 BUILTIN			:= $(BUILTIN_DIR)/builtin_cmds.a
 INCLUDE			+= -I $(BUILTIN_DIR)
-
-READLINE_DIR	:=	$(shell brew --prefix readline)
-READLINE		:=	$(READLINE_DIR)/lib/libreadline.a
-INCLUDE			+= -I $(READLINE_DIR)/include
 
 #Message
 RED		:=	\033[1;31m
@@ -71,7 +68,7 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(UTIL) $(LEXER) $(PARSER) $(EXPANSION) $(BUILTIN) ../../libft/libft.a test.c -lreadline -L$(READLINE_DIR)/lib
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(UTIL) $(LEXER) $(PARSER) $(EXPANSION) $(BUILTIN) ../../libft/libft.a test.c
 	./test
 
 $(LEXER):

@@ -6,23 +6,23 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/18 00:19:20 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 03:20:31 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "builtin_cmds.h"
-#include "lexer.h"
-#include "parser.h"
-#include "expansion.h"
-#include "exec.h"
-#include <readline/readline.h>
-#include <readline/history.h>
 #include <signal.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <readline/history.h>
+#include <readline/readline.h>
+#include "exec.h"
+#include "lexer.h"
+#include "parser.h"
+#include "minishell.h"
+#include "expansion.h"
+#include "builtin_cmds.h"
 
-int	shell_system(char *line)
+static int	shell_system(char *line)
 {
 	t_token_lst	*lexer_lst;
 	t_cmd		*cmd_lst;
@@ -47,7 +47,7 @@ void	detect_eof(void)
 	exit(EXIT_FAILURE);
 }
 
-void	interactive_shell(void)
+static void	interactive_shell(void)
 {
 	char	*line;
 
@@ -61,10 +61,13 @@ void	interactive_shell(void)
 	return (interactive_shell());
 }
 
-void	init_shell(void)
+static void	init_shell(void)
 {
 	init_env();
-	set_status(0);
+	g_shell.status = 0;
+	g_shell.sig_no = 0;
+	g_shell.child_interrupted = 0;
+	g_shell.heredoc_interrupted = 0;
 }
 
 int	main(void)

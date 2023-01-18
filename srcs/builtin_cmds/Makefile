@@ -6,14 +6,15 @@
 #    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2023/01/19 03:13:44 by hiroaki          ###   ########.fr        #
+#    Updated: 2023/01/19 03:21:42 by hiroaki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:=	builtin_cmds.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
-#CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g
+CFLAGS  +=  #-fsanitize=address -fno-omit-frame-pointer -g
+
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
@@ -26,7 +27,7 @@ SOURCES	:=	builtin_cd.c \
 			param_util.c \
 			builtin_env.c \
 			builtin_exit.c
-OBJDIR	:=	./obj
+OBJDIR			:=	./obj
 LIBFT_DIR		:=	../../libft
 LIBFT			:=	$(LIBFT_DIR)/libft.a
 INCLUDE			:=	-I $(LIBFT_DIR)/includes
