@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:24:22 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/18 01:44:55 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 21:10:54 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <readline/readline.h>
+# include "libft.h"
 # include "parser.h"
 # include "expansion.h"
-# include "libft.h"
 # include "minishell.h"
 
 # define COMMAND_NOT_FOUND 127
@@ -73,9 +73,9 @@ int		check_builtin(t_cmd *cmd);
 /* utils.c */
 void	set_pipe(int pp[2]);
 void	set_dup2(int new_fd, int old_fd);
-void	set_waitpid(pid_t pid);
 void	close_pipe(int pp[2]);
-int		create_waitpid(t_cmd *cmd);
+void	create_waitpid(t_cmd *cmd);
+int		set_waitpid(pid_t pid);
 
 /* utils2.c */
 size_t	pipe_cnt(t_cmd *cmd);
@@ -88,10 +88,8 @@ char	*joint_carriage_return(char *line);
 int		check_cmdfile(char	*filename, char	*param);
 void	perror_exit(int status, char *msg);
 void	error_exit(int status, char *param, char *msg);
-int		heredoc_interrupt(void);
+int		rl_heredoc_event(void);
 void	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2]);
-
-/* utils4.c */
-bool	heredoc_interrupted(void);
+void	set_heredoc(t_cmd *cmd);
 
 #endif

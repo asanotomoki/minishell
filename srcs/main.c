@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/18 00:19:20 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 20:52:47 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ int	shell_system(char *line)
 
 void	detect_eof(void)
 {
-	rl_cleanup_after_signal();
-	ft_putendl_fd("exit", 2);
-	exit(EXIT_FAILURE);
+	ft_putendl_fd("exit", STDOUT_FILENO);
+	exit(EXIT_SUCCESS);
 }
 
 void	interactive_shell(void)
@@ -64,13 +63,25 @@ void	interactive_shell(void)
 void	init_shell(void)
 {
 	init_env();
-	set_status(0);
+	g_shell.status = 0;
+	g_shell.sig_no = 0;
+	g_shell.child_interrupted = 0;
+	g_shell.heredoc_interrupted = 0;
+}
+
+void	set_rl_routine(void)
+{
+	extern int	_rl_echo_control_chars;
+
+	_rl_echo_control_chars = 0;
+	rl_event_hook = rl_routine;
 }
 
 int	main(void)
 {
-	trap_signal();
 	init_shell();
+	catch_signal();
+	set_rl_routine();
 	interactive_shell();
 	return (g_shell.status);
 }
