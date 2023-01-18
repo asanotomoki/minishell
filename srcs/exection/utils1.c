@@ -79,4 +79,9 @@ void	create_waitpid(t_cmd *cmd)
 		g_shell.child_interrupted = 1;
 	else
 		set_status(status % 255);
+	waitpid(cmd->pid, &status, 0);
+	if (WIFSIGNALED(status))
+		status = 128 + WTERMSIG(status);
+	set_status(status % 255);
+	return (0);
 }

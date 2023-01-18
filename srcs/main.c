@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
 /*   Updated: 2023/01/18 20:52:47 by hiroaki          ###   ########.fr       */
@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int	shell_system(char *line)
+static int	shell_system(char *line)
 {
 	t_token_lst	*lexer_lst;
 	t_cmd		*cmd_lst;
@@ -37,16 +37,17 @@ int	shell_system(char *line)
 		return (get_status());
 	if (expansion(cmd_lst))
 		return (set_get_status(1));
-	return (exection(cmd_lst));
+	exection(cmd_lst);
+	return (get_status());
 }
 
-void	detect_eof(void)
+static void	detect_eof(void)
 {
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	exit(EXIT_SUCCESS);
 }
 
-void	interactive_shell(void)
+static void	interactive_shell(void)
 {
 	char	*line;
 
@@ -55,12 +56,12 @@ void	interactive_shell(void)
 		return (detect_eof());
 	add_history(line);
 	if (*line)
-		g_shell.status = shell_system(line);
+		shell_system(line);
 	free(line);
 	return (interactive_shell());
 }
 
-void	init_shell(void)
+static void	init_shell(void)
 {
 	init_env();
 	g_shell.status = 0;
