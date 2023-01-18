@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:16:38 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/19 01:17:14 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 03:24:40 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,15 @@ int	set_waitpid(pid_t pid)
 
 void	create_waitpid(t_cmd *cmd)
 {
-	int		status;
-	bool	interrupted;
+	int	status;
 
-	interrupted = false;
-	while (cmd)
+	while (cmd->piped_cmd)
 	{
-		status = set_waitpid(cmd->pid);
-		if (status == EINTR)
-			interrupted = true;
+		set_waitpid(cmd->pid);
 		cmd = cmd->piped_cmd;
 	}
-	if (interrupted)
-		g_shell.child_interrupted = 1;
-	else
-		set_status(status % 255);
+	if (waitpid(cmd->pid, &status, 0) == -1)
+		status = 1;
+	set_status(status % 255);
+	return (0);
 }

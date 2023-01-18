@@ -6,14 +6,14 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:59:00 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 01:24:30 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 03:20:41 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "minishell.h"
 
-int	check_cmdfile(char *filename, char *param)
+int	check_cmdfile(char	*filename, char	*param)
 {
 	struct stat	s_st;
 	int			result;

@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 00:50:11 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 03:22:09 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,9 @@ static int	execve_system(t_cmd *exec, size_t cnt)
 
 int	exection(t_cmd *cmd)
 {
-	set_heredocument(cmd);
-	if (g_shell.heredoc_interrupted)
-	{
-		g_shell.heredoc_interrupted = 0;
-		g_shell.status = 1;
-		return (true);
-	}
+	heredoc_to_fd(cmd);
+	if (heredoc_interrupted())
+		return (g_shell.status);
 	if (!cmd->piped_cmd && check_builtin(cmd))
 		execve_main(cmd);
 	else
