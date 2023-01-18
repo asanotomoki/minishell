@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 03:23:02 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 01:44:43 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**get_env(void);
 void	ignore_signal(int sig_no);
 void	signal_handler(int sig_no);
 void	init_sigaction(void);
-void	trap_signal(void);
+void	catch_signal(void);
 
 /* set_readline.c */
 int		rl_routine(void);

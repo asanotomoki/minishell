@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:43:45 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/19 03:21:33 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 02:06:44 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct s_shell
 {
 	int						status;
 	volatile sig_atomic_t	sig_no;
-	volatile sig_atomic_t	heredoc_sig_flag;
+	volatile sig_atomic_t	child_interrupted;
+	volatile sig_atomic_t	heredoc_interrupted;
 }	t_shell;
 
 t_shell	g_shell;
