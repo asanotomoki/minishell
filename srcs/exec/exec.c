@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 21:37:10 by hiroaki           #+#    #+#             */
-/*   Updated: 2022/12/29 22:36:46 by hiroaki          ###   ########.fr       */
+/*   Updated: 2022/12/30 15:17:57 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,6 @@
 
 void	duplicate_fd(t_parse_ast *ast, int i, int pipe_cnt)
 {
-	//if (i == 0)
-	//{
-	//	if (dup2(ast->pfd[1], STDOUT_FILENO) != STDOUT_FILENO)
-	//		exit(3);
-	//	close(ast->pfd[0]);
-	//	close(ast->pfd[1]);
-	//}
-	//else if (i == pipe_cnt)
 	if (i == pipe_cnt)
 	{
 		if (dup2(ast->prev_pipe->pfd[0], STDIN_FILENO) != STDIN_FILENO)
@@ -45,13 +37,8 @@ void	duplicate_fd(t_parse_ast *ast, int i, int pipe_cnt)
 
 void	exec_pipe(t_parse_ast *ast, int i, int pipe_cnt, char *envp[])
 {
-	char		*argv[3];
-
-	argv[0] = "echo";
-	argv[1] = "Hello world";
-	argv[2] = NULL;
 	duplicate_fd(ast, i, pipe_cnt);
-	//execve("/bin/echo", argv, envp);
+	execve(ast->cmd_path, ast->cmd, envp);
 }
 
 void	connect_pipe(t_parse_ast *ast, int pipe_cnt, char *envp[])
@@ -73,7 +60,6 @@ void	connect_pipe(t_parse_ast *ast, int pipe_cnt, char *envp[])
 		if (pid == 0)
 		{
 			exec_pipe(ast, i, pipe_cnt, envp);
-			dprintf(1, "errno = %d\n", errno);
 			dprintf(2, "errno = %d\n", errno);
 			exit(EXIT_SUCCESS);
 		}
@@ -96,16 +82,33 @@ int	main(int argc, char **argv, char *envp[])
 
 	i = 0;
 	pipe_cnt = 1;
+
 	ast = malloc(sizeof(t_parse_ast));
 	ast->prev_pipe = NULL;
 	ast->next_pipe = NULL;
 	head = ast;
+
 	while (i < pipe_cnt)
 	{
 		new = malloc(sizeof(t_parse_ast));
 		new->prev_pipe = ast;
 		ast->next_pipe = new;
 		new->next_pipe = NULL;
+		if (i == 0)
+		{
+			ast->cmd_path = "/bin/echo";
+			ast->cmd[0] = "echo";
+			ast->cmd[1] = "a\nb\n";
+			ast->cmd[2] = NULL;
+		}
+		if (i == 1)
+		{
+			ast->cmd_path = "/bin/grep";
+			ast->cmd[0] = "grep";
+			ast->cmd[1] = "b";
+			ast->cmd[2] = NULL;
+		}
+
 		ast = ast->next_pipe;
 		i++;
 	}
