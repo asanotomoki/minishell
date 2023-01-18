@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/18 20:57:36 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 01:44:25 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,30 +75,11 @@ static int	execve_system(t_cmd *exec, size_t cnt)
 	return (0);
 }
 
-void	set_rl_heredoc_event(void)
-{
-	extern int	_rl_echo_control_chars;
-
-	_rl_echo_control_chars = 0;
-	rl_event_hook = rl_heredoc_event;
-}
-
-void	set_heredocument(t_cmd *cmd)
-{
-	set_rl_heredoc_event();
-	heredoc_to_fd(cmd);
-	set_rl_routine();
-}
-
 int	exection(t_cmd *cmd)
 {
-	set_heredocument(cmd);
-	if (g_shell.heredoc_interrupted)
-	{
-		g_shell.heredoc_interrupted = 0;
-		g_shell.status = 1;
-		return (true);
-	}
+	heredoc_to_fd(cmd);
+	if (heredoc_interrupted())
+		return (g_shell.status);
 	if (!cmd->piped_cmd && check_builtin(cmd))
 		execve_main(cmd);
 	else

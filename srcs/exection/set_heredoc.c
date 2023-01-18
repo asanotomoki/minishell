@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 04:48:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/18 20:54:39 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 01:42:51 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static t_list	*creat_document(size_t *len_ptr, char *delimiter)
 	t_list	*new;
 	t_list	*document;
 
+	rl_event_hook = heredoc_interrupt;
 	document = NULL;
 	while (1)
 	{
@@ -114,7 +115,7 @@ void	heredoc_to_fd(t_cmd *cmd)
 		len = 0;
 		g_shell.status = 0;
 		document = creat_document(&len, redir->filename);
-		if (len == 0 || g_shell.heredoc_interrupted)
+		if (len == 0 || g_shell.heredoc_sig_flag)
 			redir->heredoc_fd = open("/dev/null", O_RDONLY);
 		else if (len > HEREDOC_PIPESIZE)
 			redir->heredoc_fd = use_tempfile(document);
@@ -122,6 +123,6 @@ void	heredoc_to_fd(t_cmd *cmd)
 			redir->heredoc_fd = use_system_pipe(document);
 		ft_lstclear(&document, free);
 	}
-	if (!g_shell.heredoc_interrupted)
+	if (!g_shell.heredoc_sig_flag)
 		return (heredoc_to_fd(cmd->piped_cmd));
 }

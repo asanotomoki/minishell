@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/18 21:09:36 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/18 00:26:16 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@ char	**get_env(void);
 int		init_env(void);
 char	*env_put_error(char *function, char *val);
 
-int		rl_routine(void);
-void	set_rl_routine(void);
-
+int		rl_event(void);
 void	signal_handler(int signo);
 void	init_sigaction(void);
-void	catch_signal(void);
+void	trap_signal(void);
 
 #endif
