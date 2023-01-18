@@ -6,15 +6,15 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:24 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 18:01:07 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 01:19:33 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include "libft.h"
 #include "parser.h"
 #include "builtin_cmds.h"
 #include "../../includes/minishell.h"
-#include <errno.h>
 
 int	exec_builtin(t_cmd *cmd)
 {

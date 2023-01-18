@@ -6,7 +6,7 @@
 #    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2023/01/18 02:01:42 by hiroaki          ###   ########.fr        #
+#    Updated: 2023/01/19 02:02:24 by hiroaki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,25 +16,32 @@ SRC_DIR		:=	./srcs
 CC			:=	cc
 CFLAGS		:=	-Wall -Werror -Wextra
 CFLAGS		+=	-g -fsanitize=address
+
 HEADERS			:=  ./includes
 LIBFT_DIR		:=	./libft
 LIBFT			:=	$(LIBFT_DIR)/libft.a
+HEADERS			+=	$(LIBFT_DIR)/includes
+
 UTIL_DIR		:=	$(SRC_DIR)/util
 UTIL			:=	$(UTIL_DIR)/util.a
 HEADERS			+=	$(UTIL_DIR)
-HEADERS			+=	$(LIBFT_DIR)/includes
+
 BUILTIN_DIR		:=	$(SRC_DIR)/builtin_cmds
 BUILTIN			:=	$(BUILTIN_DIR)/builtin_cmds.a
 HEADERS			+=	$(BUILTIN_DIR)
+
 LEXER_DIR		:=	$(SRC_DIR)/lexer
 LEXER			:=	$(LEXER_DIR)/lexer.a
 HEADERS			+=	$(LEXER_DIR)
+
 PARSER_DIR		:=	$(SRC_DIR)/parser
 PARSER			:=	$(PARSER_DIR)/parser.a
 HEADERS			+=	$(PARSER_DIR)
-EXPANSION_DIR		:=	$(SRC_DIR)/expansion
-EXPANSION			:=	$(EXPANSION_DIR)/expansion.a
+
+EXPANSION_DIR	:=	$(SRC_DIR)/expansion
+EXPANSION		:=	$(EXPANSION_DIR)/expansion.a
 HEADERS			+=	$(EXPANSION_DIR)
+
 EXEC_DIR		:=	$(SRC_DIR)/exection
 EXEC			:=	$(EXEC_DIR)/exection.a
 HEADERS			+=	$(EXEC_DIR)
@@ -43,7 +50,7 @@ READLINE_DIR	:=	$(shell brew --prefix readline)
 READLINE		:=	$(READLINE_DIR)/lib/libreadline.a
 HEADERS			+=	$(READLINE_DIR)/include
 
-INCLUDES	:=	$(addprefix -I , $(HEADERS))
+INCLUDES		:=	$(addprefix -I , $(HEADERS))
 
 SRC_FILE :=	main.c
 OBJECTS	:= $(addprefix $(OBJDIR)/, $(notdir $(SRC_FILE:.c=.o)))

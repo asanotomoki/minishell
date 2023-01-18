@@ -6,17 +6,17 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/18 20:57:36 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 00:50:11 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
-#include "minishell.h"
-#include "util.h"
 #include <fcntl.h>
 #include "libft.h"
+#include "exec.h"
+#include "util.h"
+#include "minishell.h"
 
-void	basic_command(t_cmd *exec)
+static void	basic_command(t_cmd *exec)
 {
 	char	*cmdfile;
 
@@ -30,7 +30,7 @@ void	basic_command(t_cmd *exec)
 		perror_exit(EXIT_FAILURE, "execve");
 }
 
-void	execve_command(t_cmd *exec)
+static void	execve_command(t_cmd *exec)
 {
 	if (check_builtin(exec))
 		set_status(exec_builtin(exec));
@@ -38,7 +38,7 @@ void	execve_command(t_cmd *exec)
 		basic_command(exec);
 }
 
-void	execve_main(t_cmd *exec)
+static void	execve_main(t_cmd *exec)
 {
 	set_redirect(exec->redirect);
 	if (exec->cmd)
@@ -73,21 +73,6 @@ static int	execve_system(t_cmd *exec, size_t cnt)
 		i++;
 	}
 	return (0);
-}
-
-void	set_rl_heredoc_event(void)
-{
-	extern int	_rl_echo_control_chars;
-
-	_rl_echo_control_chars = 0;
-	rl_event_hook = rl_heredoc_event;
-}
-
-void	set_heredocument(t_cmd *cmd)
-{
-	set_rl_heredoc_event();
-	heredoc_to_fd(cmd);
-	set_rl_routine();
 }
 
 int	exection(t_cmd *cmd)

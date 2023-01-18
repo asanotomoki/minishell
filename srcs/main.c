@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/18 20:52:47 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 02:06:26 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "builtin_cmds.h"
-#include "lexer.h"
-#include "parser.h"
-#include "expansion.h"
-#include "exec.h"
-#include <readline/readline.h>
-#include <readline/history.h>
 #include <signal.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <readline/history.h>
+#include <readline/readline.h>
+#include "exec.h"
+#include "lexer.h"
+#include "parser.h"
+#include "minishell.h"
+#include "expansion.h"
+#include "builtin_cmds.h"
 
 static int	shell_system(char *line)
 {
@@ -37,11 +37,10 @@ static int	shell_system(char *line)
 		return (get_status());
 	if (expansion(cmd_lst))
 		return (set_get_status(1));
-	exection(cmd_lst);
-	return (get_status());
+	return (exection(cmd_lst));
 }
 
-static void	detect_eof(void)
+void	detect_eof(void)
 {
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	exit(EXIT_SUCCESS);
@@ -56,7 +55,7 @@ static void	interactive_shell(void)
 		return (detect_eof());
 	add_history(line);
 	if (*line)
-		shell_system(line);
+		g_shell.status = shell_system(line);
 	free(line);
 	return (interactive_shell());
 }
@@ -68,14 +67,6 @@ static void	init_shell(void)
 	g_shell.sig_no = 0;
 	g_shell.child_interrupted = 0;
 	g_shell.heredoc_interrupted = 0;
-}
-
-void	set_rl_routine(void)
-{
-	extern int	_rl_echo_control_chars;
-
-	_rl_echo_control_chars = 0;
-	rl_event_hook = rl_routine;
 }
 
 int	main(void)
