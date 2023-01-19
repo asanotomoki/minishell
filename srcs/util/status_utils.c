@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   status_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 16:42:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 04:13:55 by hiroaki          ###   ########.fr       */
+/*   Created: 2023/01/16 19:45:00 by tasano            #+#    #+#             */
+/*   Updated: 2023/01/19 00:30:29 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin_cmds.h"
-#include "libft.h"
+#include "minishell.h"
 
-int	builtin_echo(char **argv)
+int	get_status(void)
 {
-	size_t	i;
-	int		option;
+	return (g_shell.status);
+}
 
-	option = 0;
-	i = 0;
-	while (argv[++i] && ft_strncmp(argv[i], "-n", 3) == 0)
-		option = 1;
-	argv += i + option;
-	i = 0;
-	while (argv[i])
-	{
-		if (i != 0)
-			ft_putchar_fd(' ', 1);
-		ft_putstr_fd(argv[i], 1);
-		i++;
-	}
-	if (!option)
-		ft_putchar_fd('\n', 1);
-	return (0);
+void	set_status(int status)
+{
+	g_shell.status = status;
+}
+
+int	set_get_status(int status)
+{
+	set_status(status);
+	return (get_status());
 }

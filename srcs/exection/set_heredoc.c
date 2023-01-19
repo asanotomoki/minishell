@@ -6,101 +6,14 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 04:48:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/18 20:54:39 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 16:56:38 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
 #include "exec.h"
+#include "util.h"
 
-static int	write_heredoc(int fd, t_list *document)
-{
-	ssize_t	p_len;
-
-	errno = 0;
-	while (document)
-	{
-		p_len = ft_putstr_fd((char *)document->content, fd);
-		if (p_len != (ssize_t)document->len)
-		{
-			if (errno == 0)
-				errno = ENOSPC;
-			return (errno);
-		}
-		document = document->next;
-	}
-	return (0);
-}
-
-static t_list	*creat_document(size_t *len_ptr, char *delimiter)
-{
-	char	*line;
-	t_list	*new;
-	t_list	*document;
-
-	document = NULL;
-	while (1)
-	{
-		line = readline("> ");
-		if (discontinue(line, delimiter))
-			break ;
-		line = joint_carriage_return(line);
-		new = ft_lstnew(heredoc_expand(line));
-		if (new == NULL)
-			return (NULL);
-		ft_lstadd_back(&document, new);
-		*len_ptr += new->len;
-	}
-	return (document);
-}
-
-static int	use_system_pipe(t_list *document)
-{
-	int	e;
-	int	herepipe[2];
-
-	if (pipe(herepipe) < 0)
-		return (-1);
-	e = write_heredoc(herepipe[1], document);
-	if (e != 0)
-	{
-		close(herepipe[0]);
-		errno = e;
-		return (-1);
-	}
-	close(herepipe[1]);
-	return (herepipe[0]);
-}
-
-static int	use_tempfile(t_list *document)
-{
-	int			e;
-	int			fd;
-	int			fd2;
-	struct stat	info;
-
-	stat(HEREDOC_TEMPFILE, &info);
-	e = errno;
-	if (e != ENOENT)
-	{
-		errno = EEXIST;
-		return (-1);
-	}
-	fd = open(HEREDOC_TEMPFILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	e = write_heredoc(fd, document);
-	fd2 = open(HEREDOC_TEMPFILE, O_RDONLY, 0600);
-	close(fd);
-	if (e != 0 || unlink(HEREDOC_TEMPFILE) < 0)
-	{
-		if (e != 0)
-			errno = e;
-		close (fd2);
-		return (-1);
-	}
-	return (fd2);
-}
-
-void	heredoc_to_fd(t_cmd *cmd)
+static void	heredoc_to_fd(t_cmd *cmd)
 {
 	t_list		*document;
 	t_redirect	*redir;
@@ -112,7 +25,6 @@ void	heredoc_to_fd(t_cmd *cmd)
 	if (redir && redir->type == HEREDOCU)
 	{
 		len = 0;
-		g_shell.status = 0;
 		document = creat_document(&len, redir->filename);
 		if (len == 0 || g_shell.heredoc_interrupted)
 			redir->heredoc_fd = open("/dev/null", O_RDONLY);
@@ -120,8 +32,17 @@ void	heredoc_to_fd(t_cmd *cmd)
 			redir->heredoc_fd = use_tempfile(document);
 		else
 			redir->heredoc_fd = use_system_pipe(document);
+		if (redir->heredoc_fd < 0)
+			perror_exit(EXIT_FAILURE, "here document");
 		ft_lstclear(&document, free);
 	}
 	if (!g_shell.heredoc_interrupted)
 		return (heredoc_to_fd(cmd->piped_cmd));
+}
+
+void	set_heredocument(t_cmd *cmd)
+{
+	set_rl_heredoc_event();
+	heredoc_to_fd(cmd);
+	set_rl_routine();
 }

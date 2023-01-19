@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils4.c                                           :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 01:44:03 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/18 21:04:43 by hiroaki          ###   ########.fr       */
+/*   Created: 2022/03/08 17:01:59 by asanotomoki       #+#    #+#             */
+/*   Updated: 2023/01/14 02:13:42 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "libft.h"
 
-//bool	heredoc_interrupted(void)
-//{
-//	if (g_shell.heredoc_interrupted)
-//	{
-//		g_shell.heredoc_interrupted = 0;
-//		g_shell.status = 1;
-//		return (true);
-//	}
-//	return (false);
-//}
+size_t	ft_putchar_fd(const char c, int fd)
+{
+	return (write(fd, &c, sizeof(char)));
+}

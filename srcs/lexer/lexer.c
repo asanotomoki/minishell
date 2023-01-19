@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:15 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 03:47:28 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:48:45 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "minishell.h"
 
-char	*set_lst(t_token_lst **lst, char *line, size_t i)
+static char	*set_lst(t_token_lst **lst, char *line, size_t i)
 {
 	if (0 < i)
 	{
@@ -40,7 +40,7 @@ char	*set_lst(t_token_lst **lst, char *line, size_t i)
 	return (line);
 }
 
-int	nomal_tokenizer(t_token_lst **lst, char *line)
+static int	normal_tokenizer(t_token_lst **lst, char *line)
 {
 	size_t	i;
 	int		quote_mode;
@@ -70,5 +70,5 @@ int	lexer(char *line, t_token_lst **lst)
 {
 	if (!line)
 		return (0);
-	return (nomal_tokenizer(lst, line));
+	return (normal_tokenizer(lst, line));
 }

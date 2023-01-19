@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   wait_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 16:42:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 04:13:55 by hiroaki          ###   ########.fr       */
+/*   Created: 2023/01/19 01:16:38 by hiroaki           #+#    #+#             */
+/*   Updated: 2023/01/19 16:14:22 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin_cmds.h"
-#include "libft.h"
+#include "exec.h"
 
-int	builtin_echo(char **argv)
+void	set_waitpid(pid_t pid)
 {
-	size_t	i;
-	int		option;
-
-	option = 0;
-	i = 0;
-	while (argv[++i] && ft_strncmp(argv[i], "-n", 3) == 0)
-		option = 1;
-	argv += i + option;
-	i = 0;
-	while (argv[i])
+	if (waitpid(pid, NULL, 0) < 0)
 	{
-		if (i != 0)
-			ft_putchar_fd(' ', 1);
-		ft_putstr_fd(argv[i], 1);
-		i++;
+		if (errno != EINTR && errno != ECHILD)
+			perror_exit(EXIT_FAILURE, "waitpid");
 	}
-	if (!option)
-		ft_putchar_fd('\n', 1);
-	return (0);
+}
+
+void	create_waitpid(t_cmd *cmd)
+{
+	bool	interrupted;
+
+	errno = 0;
+	interrupted = false;
+	while (cmd)
+	{
+		set_waitpid(cmd->pid);
+		if (errno == EINTR)
+			interrupted = true;
+		cmd = cmd->piped_cmd;
+	}
+	if (interrupted)
+		g_shell.child_interrupted = 1;
 }

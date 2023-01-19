@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:44:05 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 00:57:22 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/19 00:38:36 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minishell.h"
 #include "util.h"
+#include "minishell.h"
 
 char	*env_put_error(char *function, char *val)
 {

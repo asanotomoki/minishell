@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 16:42:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 04:13:55 by hiroaki          ###   ########.fr       */
+/*   Created: 2022/02/04 17:48:30 by hiroaki           #+#    #+#             */
+/*   Updated: 2023/01/13 18:38:57 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin_cmds.h"
 #include "libft.h"
 
-int	builtin_echo(char **argv)
+t_list	*ft_lstlast(t_list *lst)
 {
-	size_t	i;
-	int		option;
-
-	option = 0;
-	i = 0;
-	while (argv[++i] && ft_strncmp(argv[i], "-n", 3) == 0)
-		option = 1;
-	argv += i + option;
-	i = 0;
-	while (argv[i])
-	{
-		if (i != 0)
-			ft_putchar_fd(' ', 1);
-		ft_putstr_fd(argv[i], 1);
-		i++;
-	}
-	if (!option)
-		ft_putchar_fd('\n', 1);
-	return (0);
+	while (lst && lst->next)
+		lst = lst->next;
+	return (lst);
 }

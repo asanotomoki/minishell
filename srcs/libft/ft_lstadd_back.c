@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 16:42:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 04:13:55 by hiroaki          ###   ########.fr       */
+/*   Created: 2022/02/04 18:17:37 by hiroaki           #+#    #+#             */
+/*   Updated: 2023/01/13 18:38:43 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin_cmds.h"
 #include "libft.h"
 
-int	builtin_echo(char **argv)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	size_t	i;
-	int		option;
+	t_list	*second_last;
 
-	option = 0;
-	i = 0;
-	while (argv[++i] && ft_strncmp(argv[i], "-n", 3) == 0)
-		option = 1;
-	argv += i + option;
-	i = 0;
-	while (argv[i])
+	if (!lst || !new)
+		return ;
+	if (!*lst)
 	{
-		if (i != 0)
-			ft_putchar_fd(' ', 1);
-		ft_putstr_fd(argv[i], 1);
-		i++;
+		*lst = new;
+		return ;
 	}
-	if (!option)
-		ft_putchar_fd('\n', 1);
-	return (0);
+	second_last = ft_lstlast(*lst);
+	second_last->next = new;
 }

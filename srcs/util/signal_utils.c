@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   signal_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 16:42:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 04:13:55 by hiroaki          ###   ########.fr       */
+/*   Created: 2023/01/18 00:16:16 by hiroaki           #+#    #+#             */
+/*   Updated: 2023/01/19 17:04:58 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin_cmds.h"
-#include "libft.h"
+#include <signal.h>
+#include "minishell.h"
 
-int	builtin_echo(char **argv)
+void	sigint_handler(int sig_no)
 {
-	size_t	i;
-	int		option;
+	g_shell.sig_no = sig_no;
+}
 
-	option = 0;
-	i = 0;
-	while (argv[++i] && ft_strncmp(argv[i], "-n", 3) == 0)
-		option = 1;
-	argv += i + option;
-	i = 0;
-	while (argv[i])
-	{
-		if (i != 0)
-			ft_putchar_fd(' ', 1);
-		ft_putstr_fd(argv[i], 1);
-		i++;
-	}
-	if (!option)
-		ft_putchar_fd('\n', 1);
-	return (0);
+void	sigchld_handler(int sig_no)
+{
+	int		status;
+
+	(void)sig_no;
+	while (waitpid(-1, &status, WNOHANG) > 0)
+		g_shell.status = status >> 8;
 }

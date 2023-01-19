@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   status.c                                           :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 19:45:00 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 04:02:41 by tasano           ###   ########.fr       */
+/*   Created: 2022/02/04 20:46:18 by hiroaki           #+#    #+#             */
+/*   Updated: 2022/06/21 18:49:38 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	get_status(void)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	return (g_shell.status);
-}
-
-void	set_status(int status)
-{
-	g_shell.status = status;
-}
-
-int	set_get_status(int status)
-{
-	set_status(status);
-	return (get_status());
+	if (!lst)
+		return ;
+	if (del)
+		del(lst->content);
+	free(lst);
 }

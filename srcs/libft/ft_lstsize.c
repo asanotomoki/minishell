@@ -1,37 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 16:42:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 04:13:55 by hiroaki          ###   ########.fr       */
+/*   Created: 2022/02/04 17:51:03 by hiroaki           #+#    #+#             */
+/*   Updated: 2022/03/10 21:55:39 by hmakino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin_cmds.h"
 #include "libft.h"
 
-int	builtin_echo(char **argv)
+int	ft_lstsize(t_list *lst)
 {
-	size_t	i;
-	int		option;
+	int	i;
 
-	option = 0;
 	i = 0;
-	while (argv[++i] && ft_strncmp(argv[i], "-n", 3) == 0)
-		option = 1;
-	argv += i + option;
-	i = 0;
-	while (argv[i])
+	while (lst)
 	{
-		if (i != 0)
-			ft_putchar_fd(' ', 1);
-		ft_putstr_fd(argv[i], 1);
+		lst = lst->next;
 		i++;
 	}
-	if (!option)
-		ft_putchar_fd('\n', 1);
-	return (0);
+	return (i);
 }
+
+//#include <stdio.h>
+//
+//int main(void)
+//{
+//	t_list	*node_tanaka;
+//	t_list	*node_yamada;
+//	t_list	*node_makino;
+//
+//	node_tanaka = ft_lstnew("tanaka");
+//	node_yamada = ft_lstnew("yamada");
+//	node_makino = ft_lstnew("makino");
+//	node_tanaka->next = node_yamada;
+//	node_yamada->next = node_makino;
+//	printf("\nlstsize : %d\n", ft_lstsize(node_tanaka));
+//}

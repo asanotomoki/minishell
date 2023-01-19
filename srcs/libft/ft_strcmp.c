@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 16:42:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 04:13:55 by hiroaki          ###   ########.fr       */
+/*   Created: 2022/02/21 17:20:46 by asanotomoki       #+#    #+#             */
+/*   Updated: 2023/01/12 23:25:44 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin_cmds.h"
 #include "libft.h"
 
-int	builtin_echo(char **argv)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
-	int		option;
 
-	option = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (0);
 	i = 0;
-	while (argv[++i] && ft_strncmp(argv[i], "-n", 3) == 0)
-		option = 1;
-	argv += i + option;
-	i = 0;
-	while (argv[i])
-	{
-		if (i != 0)
-			ft_putchar_fd(' ', 1);
-		ft_putstr_fd(argv[i], 1);
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;
-	}
-	if (!option)
-		ft_putchar_fd('\n', 1);
-	return (0);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

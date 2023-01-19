@@ -1,12 +1,12 @@
 NAME	:= util.a
-LIBFT	:= ../../libft/libf.a
+LIBFT	:= ../../libft/libft.a
 CC		:= cc
 CFLAGS	:= -Wall -Wextra -Werror
 SRCDIR	:= ./
 AR		:= ar
 ARFLAFS	:= -rcs
 RM		:= rm -rf
-SOURCES	:= error.c free.c status.c env_utils.c signal.c
+SOURCES	:= error_utils.c free_utils.c status_utils.c env_utils.c signal_utils.c signal_utils2.c readline_utils.c
 OBJDIR	:= ./obj
 OBJECTS	:= $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:= $(OBJECTS:.o:=.d)
@@ -14,7 +14,8 @@ INCLUDE	:=	-I ../../libft/includes -I ../../includes
 
 READLINE_DIR	:=	$(shell brew --prefix readline)
 READLINE		:=	$(READLINE_DIR)/lib/libreadline.a
-INCLUDE			+=	-I $(READLINE_DIR)/include
+INCLUDE			+= -I $(READLINE_DIR)/include
+
 #Message
 RED		:= \033[1;31m
 GREEN	:= \033[1;32m
@@ -53,5 +54,5 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) -lreadline -L$(READLINE)/lib -o test $(NAME) test.c
+	$(CC) $(CFLAGS) -lreadline -L$(READLINE) -o test $(NAME) test.c
 	./test
