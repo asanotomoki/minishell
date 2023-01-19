@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 00:42:50 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 02:07:40 by hiroaki          ###   ########.fr       */
+/*   Created: 2023/01/19 21:53:53 by hiroaki           #+#    #+#             */
+/*   Updated: 2023/01/19 21:54:41 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ size_t	pipe_cnt(t_cmd *cmd)
 	cnt = 0;
 	while (cmd)
 	{
-		cnt ++;
+		cnt++;
 		cmd = cmd->piped_cmd;
 	}
 	return (cnt);

@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/19 17:07:26 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 21:43:34 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	shell_system(char *line)
 	return (status);
 }
 
-static void	detect_eof(void)
+void	detect_eof(void)
 {
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	exit(EXIT_SUCCESS);

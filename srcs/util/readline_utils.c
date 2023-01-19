@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 23:51:13 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/19 21:37:12 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 21:46:01 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	rl_heredoc_event(void)
 {
 	if (g_shell.sig_no == 0)
 		return (0);
-	printf("aaaaaaa\n");
 	g_shell.status = 1;
 	g_shell.heredoc_interrupted = 1;
 	rl_done = 1;
