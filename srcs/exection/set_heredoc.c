@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 04:48:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/19 16:56:38 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 21:38:58 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,6 @@ void	set_heredocument(t_cmd *cmd)
 	set_rl_heredoc_event();
 	heredoc_to_fd(cmd);
 	set_rl_routine();
+	if (g_shell.heredoc_interrupted)
+		g_shell.heredoc_interrupted = 0;
 }

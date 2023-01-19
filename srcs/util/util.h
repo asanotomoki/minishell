@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 17:01:39 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 20:26:33 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ void	sigint_handler(int sig_no);
 void	sigchld_handler(int sig_no);
 
 /* signal_utils2.c */
-void	ignore_signal(int sig_no);
-void	catch_sigint(void);
-void	catch_sigchld(void);
 void	catch_signal(void);
 
 /* readline_utils.c */
