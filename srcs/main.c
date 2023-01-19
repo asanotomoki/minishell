@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/19 21:43:34 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/20 04:49:02 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include "minishell.h"
 #include "expansion.h"
 #include "builtin_cmds.h"
+#include "libft.h"
 
 static int	shell_system(char *line)
 {
@@ -39,6 +40,7 @@ static int	shell_system(char *line)
 	if (status != 0)
 		return (set_get_status(status));
 	status = exection(cmd_lst);
+	cmd_lstfree(&cmd_lst);
 	return (status);
 }
 

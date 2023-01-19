@@ -6,11 +6,12 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:41:21 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 14:47:40 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/20 04:37:41 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "util.h"
 
 static char	**get_paths(char *path)
 {
@@ -39,7 +40,10 @@ static char	*find_cmdfile(char *cmd, char **cmd_paths)
 			perror_exit(EXIT_FAILURE, "malloc");
 		free(tmp);
 		if (access(cmd_path, F_OK) == 0)
+		{
+			free_args(&cmd_paths);
 			return (cmd_path);
+		}
 		free(cmd_path);
 		i++;
 	}
@@ -51,7 +55,8 @@ static char	*relative_path(char *cmd)
 	if (access(cmd, F_OK) == 0)
 		return (ft_strdup(cmd));
 	else
-		return (NULL);
+		error_exit(127, cmd, "No such file or directory");
+	return (NULL);
 }
 
 static char	*absolute_path(char *cmd, char *path)

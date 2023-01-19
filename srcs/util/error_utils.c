@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 17:10:17 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/19 21:45:29 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/19 23:12:50 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "libft.h"
 #include "minishell.h"
+#include "util.h"
 
 int	perr_msg(char *msg)
 {

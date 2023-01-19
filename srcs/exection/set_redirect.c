@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_redirect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:42:52 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 00:52:01 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/20 04:32:34 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,15 @@ static void	set_outredirect(t_redirect *redirect)
 
 void	set_redirect(t_redirect *redirect)
 {
-	while (redirect)
+	t_redirect	*tmp;
+
+	tmp = redirect;
+	while (tmp)
 	{
-		if (redirect->type == OUTREDIRECT || redirect->type == OUTADDITION)
-			set_outredirect(redirect);
-		else if (redirect->type == INREDIRECT || redirect->type == HEREDOCU)
-			set_inredirect(redirect);
-		redirect = redirect->next;
+		if (tmp->type == OUTREDIRECT || tmp->type == OUTADDITION)
+			set_outredirect(tmp);
+		else if (tmp->type == INREDIRECT || tmp->type == HEREDOCU)
+			set_inredirect(tmp);
+		tmp = tmp->next;
 	}
 }
-
-/*
-wc -l test1 < test2 > test3 < test1 < test2 < test3 |
-cmd : [[wc] [-l]]
-out : test1 > test3
-in  : test2 < test1 < test2 < test3
-*/

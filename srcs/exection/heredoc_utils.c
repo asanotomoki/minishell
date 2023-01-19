@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 00:55:39 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/19 21:44:11 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/20 01:13:01 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "libft.h"
 
 int	write_heredoc(int fd, t_list *document)
 {
