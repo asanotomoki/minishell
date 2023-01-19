@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exection.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 21:44:04 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/20 02:24:03 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@
 static void	basic_command(t_cmd *exec)
 {
 	char	*cmdfile;
+	char	*path;
 
+	path = getenv("PATH");
+	if (!path)
+		error_exit(126, exec->cmd[0], "No such file or directory");
 	if (exec->type == DOT)
 		error_exit(COMMAND_NOT_FOUND, exec->cmd[0], "command not found");
-	cmdfile = get_cmdfile(exec->cmd[0], getenv("PATH"));
+	cmdfile = get_cmdfile(exec->cmd[0], path);
 	check_cmdfile(cmdfile, exec->cmd[0]);
 	free(exec->cmd[0]);
 	exec->cmd[0] = cmdfile;
@@ -66,6 +70,7 @@ static int	execve_system(t_cmd *exec, size_t cnt)
 		{
 			connect_io_pipe(i, cnt, pp);
 			execve_main(exec);
+			exit(get_status());
 		}
 		if (i > 0)
 			close_pipe(pp[i - 1]);
@@ -88,6 +93,5 @@ int	exection(t_cmd *cmd)
 		execve_system(cmd, pipe_cnt(cmd));
 		create_waitpid(cmd);
 	}
-	cmd_lstfree(&cmd);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 03:16:49 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/20 03:22:23 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	redirect_expansion(t_redirect *redirect)
 			free_strval(&filename);
 			return (1);
 		}
+		free_strval(&filename);
 		redirect = redirect->next;
 	}
 	return (0);
@@ -94,7 +95,10 @@ int	expansion(t_cmd *cmd)
 	while (cmd)
 	{
 		if (redirect_expansion(cmd->redirect))
+		{
+			cmd_lstfree(&cmd);
 			return (1);
+		}
 		if (0 < cmd->argc)
 			cmd_expansion(cmd->cmd);
 		cmd = cmd->piped_cmd;

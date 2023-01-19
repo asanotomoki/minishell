@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:25:30 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 00:56:43 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/20 04:26:33 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,13 @@ static void	exit_put_error(char *str1, char *str2)
 
 static void	put_exit(char *err1, char *err2, int status)
 {
+	char	**env;
+
+	env = get_env();
 	ft_putendl_fd("exit", 2);
 	if (err1 && err2)
 		exit_put_error(err1, err2);
+	free_args(&env);
 	exit(status);
 }
 

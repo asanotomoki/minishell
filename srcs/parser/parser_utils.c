@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:02:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 03:59:37 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/20 04:26:17 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	**append_args(char **args, size_t argc, char *new)
 	res = (char **)malloc(sizeof(char *) * (argc + 1 + 1));
 	if (!res)
 		return (NULL);
-	res[argc] = new;
+	res[argc] = ft_strdup(new);
 	res[argc + 1] = NULL;
 	if (argc != 0)
 	{
@@ -35,8 +35,8 @@ char	**append_args(char **args, size_t argc, char *new)
 			res[i] = args[i];
 			i++;
 		}
-		free(args);
 	}
+	free(args);
 	return (res);
 }
 
@@ -51,7 +51,13 @@ int	put_parse_error(char *param)
 	return (258);
 }
 
-int	parse_error(t_token_lst *lst, t_cmd **cmd)
+void	all_free(t_cmd *cmd, t_token_lst *lst)
+{
+	token_lstfree(&lst);
+	cmd_lstfree(&cmd);
+}
+
+int	parse_error(t_token_lst *lst, t_cmd **cmd, t_token_lst **head)
 {
 	int	flag;
 
@@ -72,7 +78,7 @@ int	parse_error(t_token_lst *lst, t_cmd **cmd)
 			flag = put_parse_error("|");
 	}
 	if (flag)
-		cmd_lstfree(cmd);
+		all_free(*cmd, *head);
 	return (flag);
 }
 
@@ -84,9 +90,7 @@ void	free_parser_lst(t_token_lst **lst)
 	while (tmp)
 	{
 		*lst = tmp->next;
-		if (tmp->type == PIPE || \
-			tmp->type == OUTREDIRECT || tmp->type == OUTADDITION || \
-			tmp->type == INREDIRECT || tmp->type == HEREDOCU)
+		if (tmp->type != EXPANDABLE)
 			free_strval(&tmp->token);
 		free(tmp);
 		tmp = NULL;

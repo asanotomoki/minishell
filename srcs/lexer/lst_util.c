@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:58:36 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 03:48:06 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/20 04:35:34 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	token_lstfree(t_token_lst	**lst)
 		*lst = tmp->next;
 		free_strval(&tmp->token);
 		free(tmp);
-		tmp = NULL;
 		tmp = *lst;
 	}
 }

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_lstutil.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 09:35:13 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 17:31:27 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/20 03:17:04 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include <stdlib.h>
 #include "util.h"
+#include "libft.h"
 
 t_cmd	*cmd_new(void)
 {

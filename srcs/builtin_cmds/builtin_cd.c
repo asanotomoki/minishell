@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:24:39 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 14:24:14 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/20 04:52:12 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,11 @@ static int	execve_chdir(char *path)
 	if (!tmp)
 		return (1);
 	pwd = ft_strjoin("PWD=", tmp);
-	free(tmp);
-	tmp = NULL;
+	free_strval(&tmp);
 	if (!pwd)
 		return (1);
 	set_env(pwd);
-	free(pwd);
-	pwd = NULL;
+	free_strval(&pwd);
 	return (status);
 }
 
