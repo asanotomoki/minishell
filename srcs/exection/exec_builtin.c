@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:24 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 01:19:33 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/21 08:11:42 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "parser.h"
 #include "builtin_cmds.h"
+#include "exec.h"
 #include "../../includes/minishell.h"
 
 int	exec_builtin(t_cmd *cmd)
@@ -61,4 +62,37 @@ bool	check_builtin(t_cmd *cmd)
 	if (cmd->type != 0 && cmd->type != DOT)
 		return (true);
 	return (false);
+}
+
+void	close_fd(t_redirect *redirect, int backup, int backupin)
+{
+	t_redirect	*tmp;
+
+	tmp = redirect;
+	while (tmp)
+	{
+		if (tmp->fd != -1)
+			close(tmp->fd);
+		tmp = tmp->next;
+	}
+	dup2(backup, 1);
+	close(backup);
+	dup2(backupin, STDIN_FILENO);
+	close(backupin);
+}
+
+void	exec_builtin_parent(t_cmd *cmd)
+{
+	int	backup_out;
+	int	backup_in;
+
+	backup_out = dup(STDOUT_FILENO);
+	backup_in = dup(STDIN_FILENO);
+	if (set_redirect(cmd->redirect))
+	{
+		close_fd(cmd->redirect, backup_out, backup_in);
+		return ;
+	}
+	set_status(exec_builtin(cmd));
+	close_fd(cmd->redirect, backup_out, backup_in);
 }

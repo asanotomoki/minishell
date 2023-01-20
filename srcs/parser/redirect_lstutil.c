@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_lstutil.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 09:35:13 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 00:57:31 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/21 03:59:54 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_redirect	*redirection_new(t_token_lst *lst)
 	if (lst->next && lst->next->type == EXPANDABLE)
 		content->filename = ft_strdup(lst->next->token);
 	content->type = lst->type;
+	content->fd = -1;
 	content->next = NULL;
 	return (content);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exection.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 01:25:04 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/21 08:11:03 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@ static void	execve_command(t_cmd *exec)
 
 static void	execve_main(t_cmd *exec)
 {
-	set_redirect(exec->redirect);
-	if (exec->cmd)
+	if (set_redirect(exec->redirect))
+		exit (EXIT_FAILURE);
+	else if (exec->cmd)
 		execve_command(exec);
 	else
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 }
 
 static int	execve_system(t_cmd *exec, size_t cnt)
@@ -87,7 +88,7 @@ int	exection(t_cmd *cmd)
 	if (g_shell.status)
 		return (1);
 	if (!cmd->piped_cmd && check_builtin(cmd))
-		execve_main(cmd);
+		exec_builtin_parent(cmd);
 	else
 	{
 		execve_system(cmd, pipe_cnt(cmd));

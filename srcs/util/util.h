@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/19 21:46:45 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/21 08:05:25 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	**get_env(void);
 
 /* signal_utils.c */
 void	sigint_handler(int sig_no);
-void	sigchld_handler(int sig_no);
 
 /* signal_utils2.c */
 void	catch_signal(void);

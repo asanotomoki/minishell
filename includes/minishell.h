@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:43:45 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/19 02:06:44 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/21 08:03:33 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_shell
 {
 	int						status;
 	volatile sig_atomic_t	sig_no;
-	volatile sig_atomic_t	child_interrupted;
 	volatile sig_atomic_t	heredoc_interrupted;
 }	t_shell;
 

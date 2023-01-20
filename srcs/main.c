@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/21 01:26:14 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/21 08:04:55 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static void	init_shell(void)
 	init_env();
 	g_shell.status = 0;
 	g_shell.sig_no = 0;
-	g_shell.child_interrupted = 0;
 	g_shell.heredoc_interrupted = 0;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:24:22 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/21 01:24:07 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/21 08:12:02 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 int		exection(t_cmd *cmd);
 
 /* set_redirect.c */
-void	set_redirect(t_redirect *redirect);
+int		set_redirect(t_redirect *redirect);
 
 /* set_heredoc.c */
 void	set_heredocument(t_cmd *cmd);
@@ -68,7 +68,9 @@ char	*get_cmdfile(char *cmd, char *path);
 
 /* exec_builtin.c */
 int		exec_builtin(t_cmd *cmd);
-int		check_builtin(t_cmd *cmd);
+bool	check_builtin(t_cmd *cmd);
+void	close_fd(t_redirect *redirect, int backup, int backupin);
+void	exec_builtin_parent(t_cmd *cmd);
 
 /* check_cmdfile.c */
 int		check_cmdfile(char	*filename, char	*param);
@@ -88,7 +90,6 @@ size_t	pipe_cnt(t_cmd *cmd);
 void	connect_io_pipe(size_t i, size_t pipe_cnt, int pp[OPEN_MAX / 2][2]);
 
 /* wait_utils.c */
-void	set_waitpid(pid_t pid);
 void	create_waitpid(t_cmd *cmd);
 
 /* fd_utils.c */
