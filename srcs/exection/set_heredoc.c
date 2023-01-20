@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   set_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 04:48:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/20 04:48:46 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 01:21:20 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "util.h"
 
-static int	set_hiredoc_fd(t_redirect *redirect)
+int	set_hiredoc_fd(t_redirect *redirect)
 {
 	t_list	*document;
 	size_t	len;

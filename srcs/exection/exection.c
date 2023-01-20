@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exection.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/20 02:24:03 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 01:25:04 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	basic_command(t_cmd *exec)
 
 	path = getenv("PATH");
 	if (!path)
-		error_exit(126, exec->cmd[0], "No such file or directory");
+		error_exit(127, exec->cmd[0], "No such file or directory");
 	if (exec->type == DOT)
 		error_exit(COMMAND_NOT_FOUND, exec->cmd[0], "command not found");
 	cmdfile = get_cmdfile(exec->cmd[0], path);

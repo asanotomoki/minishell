@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 00:55:39 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/20 01:13:01 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 01:20:40 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ t_list	*creat_document(size_t *len_ptr, char *delimiter)
 	{
 		line = readline("> ");
 		if (discontinue(line, delimiter))
+		{
+			free(line);
 			break ;
+		}
 		line = joint_carriage_return(line);
 		new = ft_lstnew(heredoc_expand(line));
 		if (new == NULL)
