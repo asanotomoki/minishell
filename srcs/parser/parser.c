@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:18 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 16:11:21 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 17:00:17 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_cmd	*parser(t_token_lst *lst)
 	t_token_lst	*tmplst;
 
 	tmplst = lst;
+	if (!lst)
+		return (NULL);
 	if (lst->type == PIPE)
 		return (pipe_error(&tmplst));
 	cmd = cmd_new();
