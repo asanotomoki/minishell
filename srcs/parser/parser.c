@@ -6,12 +6,13 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:38:18 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/20 03:11:12 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 13:03:04 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "lexer.h"
+#include "util.h"
 
 static t_token_lst	*set_cmdval(t_token_lst *lst, t_cmd *cmd)
 {

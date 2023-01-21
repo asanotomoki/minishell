@@ -6,13 +6,14 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:25:30 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/20 04:26:33 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 13:44:16 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 #include "minishell.h"
+#include "util.h"
 
 static void	exit_put_error(char *str1, char *str2)
 {
@@ -25,21 +26,20 @@ static void	exit_put_error(char *str1, char *str2)
 
 static void	put_exit(char *err1, char *err2, int status)
 {
-	char	**env;
-
-	env = get_env();
 	ft_putendl_fd("exit", 2);
 	if (err1 && err2)
 		exit_put_error(err1, err2);
-	free_args(&env);
+	ft_lstclear(&g_shell.env, free);
 	exit(status);
 }
 
-int	builtin_exit(size_t argc, char **argv)
+int	builtin_exit(char **argv)
 {
 	long	res;
 	char	*endptr;
+	size_t	argc;
 
+	argc = cnt_argc(argv);
 	if (2 < argc)
 	{
 		ft_putendl_fd("exit", 2);
@@ -54,9 +54,9 @@ int	builtin_exit(size_t argc, char **argv)
 		if (endptr && endptr[0])
 			put_exit(argv[1], "numeric argument required", 255);
 		else if (256 < res)
-			put_exit(NULL, NULL, (int)res % 256);
+			put_exit(NULL, NULL, res % 256);
 		else
-			put_exit(NULL, NULL, (int)res);
+			put_exit(NULL, NULL, res);
 	}
 	return (0);
 }

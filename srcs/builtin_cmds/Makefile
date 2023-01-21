@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
+#    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2023/01/19 02:05:03 by hiroaki          ###   ########.fr        #
+#    Updated: 2023/01/21 14:08:48 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:=	builtin_cmds.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
-CFLAGS  +=  #-fsanitize=address -fno-omit-frame-pointer -g
+#CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g
 
 SRCDIR	:=	./
 AR		:=	ar

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:44:05 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/20 00:54:40 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 13:04:23 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,50 +25,65 @@ char	*env_put_error(char *function, char *val)
 	return (NULL);
 }
 
-size_t	search_param(char **argv, char *param)
+char	**get_env_argv(void)
 {
-	size_t	param_len;
 	size_t	i;
+	t_list	*lst;
+	char	**res;
 
-	param_len = ft_strlen(param);
+	lst = get_env();
+	res = (char **)malloc(sizeof(char **) * ft_lstsize(lst));
+	if (!res)
+		return (NULL);
 	i = 0;
-	while (*argv)
+	while (lst)
 	{
-		if (ft_strncmp(*argv, param, param_len) == 0)
-			break ;
-		argv++;
+		res[i] = (char *)lst->content;
+		lst = lst->next;
 		i++;
 	}
-	return (i);
+	return (res);
 }
 
-char	**get_env(void)
+t_list	*get_env(void)
 {
-	extern char	**environ;
-	char		**val;
+	return (g_shell.env);
+}
 
-	val = (char **)environ;
-	return (val);
+t_list	*get_env_val(char *param)
+{
+	t_list	*envp;
+	char	*s_param;
+
+	envp = get_env();
+	s_param = ft_strjoin(param, "=");
+	while (envp)
+	{
+		if (ft_strncmp(envp->content, s_param, ft_strlen(s_param)) == 0)
+			break ;
+		envp = envp->next;
+	}
+	free_strval(&s_param);
+	return (envp);
 }
 
 int	init_env(void)
 {
-	size_t	i;
-	char	**val;
+	size_t		i;
+	extern char	**environ;
+	char		**val;
+	t_list		*lst;
 
-	val = get_env();
+	val = (char **)environ;
 	if (!val)
 		return (1);
+	lst = NULL;
 	i = 0;
 	while (val[i])
 	{
-		val[i] = ft_strdup(val[i]);
-		if (!val[i])
-		{
-			free_args(&val);
-			return (1);
-		}
+		ft_lstadd_back(&lst, ft_lstnew(ft_strdup(val[i])));
 		i++;
 	}
+	g_shell.env = lst;
 	return (0);
 }

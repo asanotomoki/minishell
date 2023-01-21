@@ -1,42 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils.c                                       :+:      :+:    :+:   */
+/*   args_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 12:15:57 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 14:02:45 by tasano           ###   ########.fr       */
+/*   Created: 2023/01/21 09:04:53 by tasano            #+#    #+#             */
+/*   Updated: 2023/01/21 12:58:08 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include "libft.h"
 
-void	free_strval(char **str)
+size_t	cnt_argc(char **argv)
 {
-	if (!str || !*str)
-		return ;
-	free(*str);
-	*str = NULL;
+	size_t	size;
+
+	size = 0;
+	if (!argv)
+		return (0);
+	while (argv[size])
+		size++;
+	return (size);
 }
 
-void	free_args(char ***input)
+char	**append_args(char **args, size_t argc, char *new)
 {
-	char	**argv;
 	size_t	i;
+	char	**res;
 
-	if (!input || !*input)
-		return ;
-	argv = *input;
-	i = 0;
-	while (argv[i])
+	res = (char **)malloc(sizeof(char *) * (argc + 1 + 1));
+	if (!res)
+		return (NULL);
+	res[argc] = ft_strdup(new);
+	res[argc + 1] = NULL;
+	if (argc != 0)
 	{
-		free_strval(&argv[i]);
-		i++;
+		i = 0;
+		while (i < argc)
+		{
+			res[i] = args[i];
+			i++;
+		}
 	}
-	free(argv);
-	argv = NULL;
+	free(args);
+	return (res);
 }

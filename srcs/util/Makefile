@@ -6,7 +6,7 @@ SRCDIR	:= ./
 AR		:= ar
 ARFLAFS	:= -rcs
 RM		:= rm -rf
-SOURCES	:= error_utils.c free_utils.c status_utils.c env_utils.c signal_util.c readline_utils.c
+SOURCES	:= error_utils.c free_utils.c status_utils.c env_utils.c env_utils2.c signal_util.c readline_utils.c args_utils.c
 OBJDIR	:= ./obj
 OBJECTS	:= $(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:= $(OBJECTS:.o:=.d)

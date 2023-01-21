@@ -6,12 +6,14 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 08:05:25 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 13:01:49 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTIL_H
 # define UTIL_H
+
+# include "libft.h"
 
 /* error_utils.c */
 int		err_msg(char *param, char *msg, int status);
@@ -30,9 +32,11 @@ int		set_get_status(int status);
 
 /* env_utils.c */
 char	*env_put_error(char *function, char *val);
-size_t	search_param(char **argv, char *param);
 int		init_env(void);
-char	**get_env(void);
+t_list	*get_env(void);
+t_list	*get_env_val(char *param);
+char	**get_env_argv(void);
+char	*get_env_char(char *param);
 
 /* signal_utils.c */
 void	sigint_handler(int sig_no);
@@ -45,5 +49,9 @@ int		rl_routine(void);
 void	set_rl_routine(void);
 int		rl_heredoc_event(void);
 void	set_rl_heredoc_event(void);
+
+/* args_utils */
+size_t	cnt_argc(char **argv);
+char	**append_args(char **args, size_t argc, char *new);
 
 #endif

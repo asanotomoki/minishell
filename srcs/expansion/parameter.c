@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 01:10:30 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 13:02:09 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*set_parameter(char *str, size_t i)
 			flag = 1;
 		}
 		else
-			val = getenv(parameter + 1);
+			val = get_env_char(parameter + 1);
 		str = join_parameter(str, val, i, ft_strlen(parameter));
 		free_strval(&parameter);
 		if (flag)

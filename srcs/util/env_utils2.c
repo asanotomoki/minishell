@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/09 17:25:12 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 11:00:52 by tasano           ###   ########.fr       */
+/*   Created: 2023/01/15 12:44:05 by tasano            #+#    #+#             */
+/*   Updated: 2023/01/21 13:10:34 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "builtin_cmds.h"
-#include "util.h"
 #include "libft.h"
+#include "util.h"
+#include "minishell.h"
 
-int	builtin_env(void)
+char	*get_env_char(char *param)
 {
-	t_list	*environ;
+	t_list	*envp;
+	char	*s_param;
+	size_t	len;
 
-	environ = get_env();
-	while (environ)
+	envp = get_env();
+	s_param = ft_strjoin(param, "=");
+	len = ft_strlen(s_param);
+	while (envp)
 	{
-		printf("%s\n", (char *)environ->content);
-		environ = environ->next;
+		if (ft_strncmp(envp->content, s_param, len) == 0)
+			break ;
+		envp = envp->next;
 	}
-	return (0);
+	free_strval(&s_param);
+	if (!envp)
+		return (NULL);
+	return ((char *)envp->content + len);
 }

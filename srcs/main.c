@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/21 08:04:55 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 14:07:24 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 #include "exec.h"
+#include "util.h"
 #include "lexer.h"
 #include "parser.h"
 #include "minishell.h"
@@ -47,6 +48,7 @@ static int	shell_system(char *line)
 void	detect_eof(void)
 {
 	ft_putendl_fd("exit", STDOUT_FILENO);
+	ft_lstclear(&g_shell.env, free);
 	exit(EXIT_SUCCESS);
 }
 

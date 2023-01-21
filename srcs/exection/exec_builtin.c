@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:24 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 08:11:42 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 13:43:20 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	exec_builtin(t_cmd *cmd)
 	if (cmd->type == MINI_ENV)
 		return (builtin_env());
 	if (cmd->type == MINI_EXIT)
-		return (builtin_exit(cmd->argc, cmd->cmd));
+		return (builtin_exit(cmd->cmd));
 	return (0);
 }
 

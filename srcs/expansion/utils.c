@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 18:19:04 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 03:45:11 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 13:41:12 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ char	**swap_cmd_null(char **cmd, size_t i)
 
 char	*set_return_val(char *str)
 {
+	if (str && str[0])
+		str = remove_quote(str);
 	if (!str)
 		return (NULL);
 	else if (!str[0])
@@ -36,13 +38,7 @@ char	*set_return_val(char *str)
 		free_strval(&str);
 		return (NULL);
 	}
-	else
-	{
-		str = remove_quote(str);
-		if (!str || !str[0])
-			set_return_val(str);
-		return (str);
-	}
+	return (str);
 }
 
 int	set_mode(char c, int mode)

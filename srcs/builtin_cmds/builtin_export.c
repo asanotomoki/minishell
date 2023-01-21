@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 03:35:35 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 12:55:14 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,50 @@
 #include <stdio.h>
 #include "builtin_cmds.h"
 #include "util.h"
+#include "minishell.h"
 
-static int	set_env_join(char **environ, char *s, char *param)
+static int	set_env_join(t_list *head, char *s, char *param)
 {
 	char	*value;
 	char	*key;
 	char	*tmp;
-	size_t	index;
+	t_list	*lst;
 
 	key = get_key(param);
-	value = s + ft_strlen(param);
-	index = search_param(environ, key);
-	if (!environ[index])
+	value = s + ft_strlen(param) + 1;
+	lst = get_env_val(key);
+	if (!lst)
 	{
-		environ[index] = ft_strdup(s);
-		environ[index + 1] = NULL;
+		tmp = ft_strjoin(key, "=");
+		s = ft_strjoin(tmp, value);
+		free_strval(&tmp);
+		ft_lstadd_back(&head, ft_lstnew(s));
 	}
 	else
 	{
-		tmp = ft_strjoin(environ[index], value);
-		free(environ[index]);
-		environ[index] = tmp;
+		tmp = ft_strjoin(lst->content, value);
+		free(lst->content);
+		lst->content = tmp;
 	}
 	free_strval(&param);
 	free_strval(&key);
 	return (0);
 }
 
-static int	set_env_val(char **environ, char *s, char *param)
+static int	set_env_val(t_list *head, char *s, char *param)
 {
-	size_t	index;
+	t_list	*lst;
 
-	index = search_param(environ, param);
-	if (!environ[index])
+	lst = get_env_val(param);
+	if (!lst)
 	{
-		environ[index] = ft_strdup(s);
-		environ[index + 1] = NULL;
+		lst = ft_lstnew(ft_strdup(s));
+		ft_lstadd_back(&head, lst);
 	}
-	if (environ[index])
+	else
 	{
-		free_strval(&environ[index]);
-		environ[index] = ft_strdup(s);
+		free(lst->content);
+		lst->content = ft_strdup(s);
 	}
 	free_strval(&param);
 	return (0);
@@ -78,13 +81,13 @@ int	set_env(char *s)
 
 static int	put_env_declare(void)
 {
-	char	**environ;
+	t_list	*environ;
 
 	environ = get_env();
-	while (*environ)
+	while (environ)
 	{
-		printf("declare -x %s\n", *environ);
-		environ++;
+		printf("declare -x %s\n", (char *)environ->content);
+		environ = environ->next;
 	}
 	return (0);
 }

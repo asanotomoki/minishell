@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cmds.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/17 17:44:15 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/21 13:43:09 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef enum e_cmd_type
 }	t_cmd_type;
 
 int		builtin_echo(char **argv);
-int		builtin_exit(size_t argc, char **argv);
+int		builtin_exit(char **argv);
 int		builtin_env(void);
 int		builtin_export(char **argv);
 int		builtin_pwd(void);

@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 08:11:03 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 13:05:34 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	basic_command(t_cmd *exec)
 	char	*cmdfile;
 	char	*path;
 
-	path = getenv("PATH");
+	path = get_env_char("PATH");
 	if (!path)
 		error_exit(127, exec->cmd[0], "No such file or directory");
 	if (exec->type == DOT)
@@ -30,7 +30,7 @@ static void	basic_command(t_cmd *exec)
 	check_cmdfile(cmdfile, exec->cmd[0]);
 	free(exec->cmd[0]);
 	exec->cmd[0] = cmdfile;
-	if (execve(exec->cmd[0], exec->cmd, get_env()) == -1)
+	if (execve(exec->cmd[0], exec->cmd, get_env_argv()) == -1)
 		perror_exit(EXIT_FAILURE, "execve");
 }
 

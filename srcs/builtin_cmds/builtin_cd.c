@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:24:39 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/20 04:52:12 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 13:05:52 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	cd_home(void)
 {
 	char	*homedir;
 
-	homedir = getenv("HOME");
+	homedir = get_env_char("HOME");
 	if (!homedir)
 		return (cd_error_msg(NULL, "HOME not set"));
 	execve_chdir(homedir);

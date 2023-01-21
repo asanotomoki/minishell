@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 10:02:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/20 04:26:17 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 09:07:05 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,6 @@
 #include "util.h"
 #include "minishell.h"
 #include <stdlib.h>
-
-char	**append_args(char **args, size_t argc, char *new)
-{
-	size_t	i;
-	char	**res;
-
-	res = (char **)malloc(sizeof(char *) * (argc + 1 + 1));
-	if (!res)
-		return (NULL);
-	res[argc] = ft_strdup(new);
-	res[argc + 1] = NULL;
-	if (argc != 0)
-	{
-		i = 0;
-		while (i < argc)
-		{
-			res[i] = args[i];
-			i++;
-		}
-	}
-	free(args);
-	return (res);
-}
 
 int	put_parse_error(char *param)
 {
