@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 13:05:34 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 14:18:43 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	basic_command(t_cmd *exec)
 	free(exec->cmd[0]);
 	exec->cmd[0] = cmdfile;
 	if (execve(exec->cmd[0], exec->cmd, get_env_argv()) == -1)
-		perror_exit(EXIT_FAILURE, "execve");
+		perror_exit(EXIT_FAILURE, exec->cmd[0]);
 }
 
 static void	execve_command(t_cmd *exec)
