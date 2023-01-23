@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exection.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 13:05:34 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/23 16:45:24 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "exec.h"
 #include "util.h"
 #include "minishell.h"
+#include <signal.h>
 
 static void	basic_command(t_cmd *exec)
 {
@@ -51,6 +52,27 @@ static void	execve_main(t_cmd *exec)
 	else
 		exit(EXIT_SUCCESS);
 }
+//
+//static void	sigquit_handler(int sig_no)
+//{
+//	if (sig_no == SIGQUIT)
+//	{
+//		dprintf(2, "SIGQUIT\n");
+//		exit(131);
+//	}
+//}
+//
+//void	catch_sigquit(void)
+//{
+//	struct sigaction	act;
+//
+//	ft_memset(&act, 0, sizeof(act));
+//	act.sa_handler = sigquit_handler;
+//	sigemptyset(&act.sa_mask);
+//	act.sa_flags = 0;
+//	if (sigaction(SIGINT, &act, NULL) != 0)
+//		perror_exit(EXIT_FAILURE, "sigaction");
+//}
 
 static int	execve_system(t_cmd *exec, size_t cnt)
 {
