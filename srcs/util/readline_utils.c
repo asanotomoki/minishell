@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 23:51:13 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/23 17:44:50 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/23 18:05:48 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	rl_routine(void)
 	}
 	else
 	{
-		rl_replace_line("", 1);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		ft_putchar_fd('\n', 1);
 		if (g_shell.status == 0)
