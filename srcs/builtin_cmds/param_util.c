@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:33:08 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 12:11:41 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/24 13:44:33 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 int	check_param(char *param)
 {
+	if (!ft_isalfa(*param))
+		return (1);
 	while (*param)
 	{
 		if (!ft_isalnum(*param) && *param != '_')
