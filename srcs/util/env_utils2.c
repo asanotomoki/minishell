@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:44:05 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/24 13:29:49 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/24 14:05:19 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ char	*get_env_char(char *param)
 
 	size = ft_strlen(param) + 1;
 	envp = get_env_val(param);
+	if (!envp)
+		return (NULL);
 	return ((char *)envp->content + size);
 }

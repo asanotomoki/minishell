@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:33:08 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/24 13:44:33 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/24 14:03:30 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 
 int	check_param(char *param)
 {
-	if (!ft_isalfa(*param))
+	if (!ft_isalpha(*param))
 		return (1);
+	param++;
 	while (*param)
 	{
 		if (!ft_isalnum(*param) && *param != '_')
@@ -33,6 +34,8 @@ char	*get_param(char *val)
 	char	*param;
 
 	i = 0;
+	if (!ft_isalpha(*val))
+		return (env_put_error("export", val));
 	while (val[i] && val[i] != '=')
 	{
 		if (!ft_isalnum(val[i]) && val[i] != '_' && \

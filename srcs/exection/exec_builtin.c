@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:13:24 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 13:43:20 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/24 13:51:55 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "parser.h"
 #include "builtin_cmds.h"
 #include "exec.h"
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	exec_builtin(t_cmd *cmd)
 {
