@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/23 18:56:52 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/24 13:22:32 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	shell_system(char *line)
 
 	lexer_lst = NULL;
 	status = lexer(line, &lexer_lst);
-	if (status != 0)
+	if (!lexer_lst || status != 0)
 		return (set_get_status(status));
 	cmd_lst = parser(lexer_lst);
 	if (cmd_lst == NULL)

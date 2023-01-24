@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 18:19:04 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 13:41:12 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/21 18:09:22 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ char	*set_return_val(char *str)
 		str = remove_quote(str);
 	if (!str)
 		return (NULL);
-	else if (!str[0])
-	{
-		free_strval(&str);
-		return (NULL);
-	}
 	return (str);
 }
 
