@@ -32,7 +32,7 @@ static void	basic_command(t_cmd *exec)
 	free(exec->cmd[0]);
 	exec->cmd[0] = cmdfile;
 	if (execve(exec->cmd[0], exec->cmd, get_env_argv()) == -1)
-		perror_exit(EXIT_FAILURE, "execve");
+		perror_exit(EXIT_FAILURE, exec->cmd[0]);
 }
 
 static void	execve_command(t_cmd *exec)
