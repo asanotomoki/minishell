@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:24:39 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 13:05:52 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/24 00:18:23 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmds.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include<string.h>
-#include<unistd.h>
+#include <string.h>
+#include <unistd.h>
 #include "libft.h"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -52,20 +52,20 @@ static int	execve_chdir(char *path)
 {
 	int		status;
 	char	*pwd;
-	char	*tmp;
+	char	*oldpwd;
 
 	if (is_dir(path))
 		return (1);
-	status = chdir(path);
-	tmp = ft_strdup(getcwd(NULL, 0));
-	if (!tmp)
-		return (1);
-	pwd = ft_strjoin("PWD=", tmp);
-	free_strval(&tmp);
-	if (!pwd)
-		return (1);
-	set_env(pwd);
-	free_strval(&pwd);
+	status = 0;
+	oldpwd = set_oldpwd(&status);
+	pwd = set_pwd(path, &status);
+	if (status == 0)
+	{
+		set_env(pwd);
+		set_env(oldpwd);
+	}
+	free(pwd);
+	free(oldpwd);
 	return (status);
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
+#    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2023/01/21 14:08:48 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/24 00:13:23 by hiroaki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SOURCES	:=	builtin_cd.c \
 			builtin_unset.c \
 			builtin_export.c \
 			param_util.c \
+			cd_utils.c \
 			builtin_env.c \
 			builtin_exit.c
 OBJDIR			:=	./obj

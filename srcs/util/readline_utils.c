@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 23:51:13 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/21 08:03:23 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/23 18:05:48 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,30 @@
 #include <readline/readline.h>
 #include "util.h"
 #include "minishell.h"
+#include <errno.h>
 
 int	rl_routine(void)
 {
 	if (g_shell.sig_no == 0)
 		return (0);
-	if (g_shell.status == 0)
-		g_shell.status = 1;
-	rl_done = 1;
+	if (g_shell.sig_no == SIGQUIT)
+	{
+		if (g_shell.child_interrupted)
+		{
+			while (waitpid(-1, NULL, WNOHANG) > 0)
+				;
+			g_shell.status = 128 + SIGQUIT;
+			g_shell.child_interrupted = 0;
+		}
+	}
+	else
+	{
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		ft_putchar_fd('\n', 1);
+		if (g_shell.status == 0)
+			g_shell.status = 1;
+	}
 	rl_redisplay();
 	g_shell.sig_no = 0;
 	return (0);
@@ -39,9 +55,13 @@ int	rl_heredoc_event(void)
 {
 	if (g_shell.sig_no == 0)
 		return (0);
-	g_shell.status = 1;
-	g_shell.heredoc_interrupted = 1;
-	rl_done = 1;
+	if (g_shell.sig_no != SIGQUIT)
+	{
+		g_shell.status = 1;
+		g_shell.heredoc_interrupted = 1;
+		rl_done = 1;
+	}
+	rl_redisplay();
 	g_shell.sig_no = 0;
 	return (0);
 }
