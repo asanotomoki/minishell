@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 21:06:06 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 18:27:09 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/24 13:23:08 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "exec.h"
 #include "util.h"
 #include "minishell.h"
+#include <signal.h>
 
 static void	basic_command(t_cmd *exec)
 {

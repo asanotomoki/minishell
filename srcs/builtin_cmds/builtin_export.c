@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 12:55:14 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/23 23:16:17 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ int	set_env(char *s)
 	if (!param)
 		return (1);
 	if (!ft_strchr(s, '='))
+	{
+		free_strval(&param);
 		return (0);
+	}
 	else if (ft_strchr(param, '+'))
 		return (set_env_join(get_env(), s, param));
 	else

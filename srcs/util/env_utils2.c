@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:44:05 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 13:10:34 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/23 19:10:22 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,9 @@
 char	*get_env_char(char *param)
 {
 	t_list	*envp;
-	char	*s_param;
-	size_t	len;
+	t_size	size;
 
-	envp = get_env();
-	s_param = ft_strjoin(param, "=");
-	len = ft_strlen(s_param);
-	while (envp)
-	{
-		if (ft_strncmp(envp->content, s_param, len) == 0)
-			break ;
-		envp = envp->next;
-	}
-	free_strval(&s_param);
-	if (!envp)
-		return (NULL);
+	size = ft_strlen(param) + 1;
+	envp = get_env_val(param);
 	return ((char *)envp->content + len);
 }

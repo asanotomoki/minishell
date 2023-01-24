@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cmds.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 13:43:09 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/24 00:13:31 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,8 @@ char	*export_put_error(char *val);
 char	*get_param(char *val);
 char	*get_key(char *param);
 int		check_param(char *param);
+
+char	*set_pwd(char *path, int *status);
+char	*set_oldpwd(int *status);
 
 #endif

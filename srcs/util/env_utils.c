@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:44:05 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 15:02:26 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/24 13:19:31 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**get_env_argv(void)
 	char	**res;
 
 	lst = get_env();
-	res = (char **)malloc(sizeof(char **) * ft_lstsize(lst));
+	res = (char **)malloc(sizeof(char **) * ft_lstsize(lst) + 1);
 	if (!res)
 		return (NULL);
 	i = 0;
@@ -42,6 +42,7 @@ char	**get_env_argv(void)
 		lst = lst->next;
 		i++;
 	}
+	res[i] = NULL;
 	return (res);
 }
 
