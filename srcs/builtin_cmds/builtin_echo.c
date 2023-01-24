@@ -6,12 +6,27 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:42:16 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 16:55:21 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/24 14:20:57 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmds.h"
 #include "libft.h"
+#include <stdbool.h>
+
+static bool	n_option(char *str)
+{
+	if (*str != '-')
+		return (false);
+	str++;
+	while (*str)
+	{
+		if (*str != 'n')
+			return (false);
+		str++;
+	}
+	return (true);
+}
 
 int	builtin_echo(char **argv)
 {
@@ -20,7 +35,7 @@ int	builtin_echo(char **argv)
 
 	option = 0;
 	i = 1;
-	while (argv[i] && ft_strncmp(argv[i], "-n", 2) == 0)
+	while (argv[i] && n_option(argv[i]))
 	{
 		option = 1;
 		i++;
