@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/24 14:01:06 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/24 14:30:50 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,21 @@ int	set_env(char *s)
 static int	put_env_declare(void)
 {
 	t_list	*environ;
+	char	*val;
 
 	environ = get_env();
 	while (environ)
 	{
-		printf("declare -x %s\n", (char *)environ->content);
+		val = (char *)environ->content;
+		printf("declare -x ");
+		while (*val != '=')
+		{
+			printf("%c", *val);
+			val++;
+		}
+		printf("=");
+		val++;
+		printf("\"%s\"\n", val);
 		environ = environ->next;
 	}
 	return (0);
