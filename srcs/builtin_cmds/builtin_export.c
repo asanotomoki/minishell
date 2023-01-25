@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/24 14:30:50 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/25 22:16:42 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,18 @@ int	builtin_export(char **argv)
 
 	argv++;
 	res = 0;
+	while (*argv && !**argv)
+		argv++;
 	if (!*argv)
 		return (put_env_declare());
 	while (*argv)
 	{
-		status = set_env(*argv);
-		if (status != 0)
-			res = status;
+		if (**argv)
+		{
+			status = set_env(*argv);
+			if (status != 0)
+				res = status;
+		}
 		argv++;
 	}
 	return (res);

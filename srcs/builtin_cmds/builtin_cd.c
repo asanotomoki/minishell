@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:24:39 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/24 00:18:23 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/25 21:57:49 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,16 @@ static int	execve_chdir(char *path)
 	status = 0;
 	oldpwd = set_oldpwd(&status);
 	pwd = set_pwd(path, &status);
-	if (status == 0)
+	if (pwd)
 	{
 		set_env(pwd);
-		set_env(oldpwd);
+		free(pwd);
 	}
-	free(pwd);
-	free(oldpwd);
+	if (oldpwd)
+	{
+		set_env(oldpwd);
+		free(oldpwd);
+	}
 	return (status);
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
+#    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2023/01/25 17:16:29 by hiroaki          ###   ########.fr        #
+#    Updated: 2023/01/25 21:50:27 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OBJDIR		:=	./obj
 SRC_DIR		:=	./srcs
 CC			:=	cc
 CFLAGS		:=	-Wall -Werror -Wextra
-CFLAGS  +=  #-fsanitize=address -fno-omit-frame-pointer -g
+CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g
 
 HEADERS			:=  ./includes
 LIBFT_DIR		:=	./libft
