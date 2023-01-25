@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 23:51:13 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/24 16:26:02 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/25 21:00:04 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	rl_routine(void)
 		{
 			while (waitpid(-1, NULL, WNOHANG) > 0)
 				;
-			g_shell.status = 128 + SIGQUIT;
+			g_shell.status = 128 | SIGQUIT;
 			g_shell.child_interrupted = 0;
 		}
 	}

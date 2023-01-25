@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:52:46 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/23 17:30:18 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/25 21:06:01 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	create_waitpid(t_cmd *cmd)
 	}
 	if (WIFSIGNALED(status))
 	{
-		status = 128 + WTERMSIG(status);
+		status = 128 | WTERMSIG(status);
 		printf("\n");
 		g_shell.sig_no = 0;
 	}
