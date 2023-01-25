@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 13:54:29 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/25 22:53:36 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*expand(char *str)
 
 	i = 0;
 	mode = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		mode = set_mode(str[i], mode);
 		if ((mode == 0 || mode == 2) && str[i] == '$')
