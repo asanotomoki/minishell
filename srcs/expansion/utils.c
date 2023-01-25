@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 18:19:04 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 18:09:22 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/25 23:37:22 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "libft.h"
+#include "util.h"
 
 char	**swap_cmd_null(char **cmd, size_t i)
 {
@@ -48,4 +49,19 @@ int	set_mode(char c, int mode)
 	if ((mode == 1 && c == '\'') || (mode == 2 && c == '\"'))
 		return (0);
 	return (mode);
+}
+
+char	*get_val(char *parameter)
+{
+	char	*val;
+
+	if (ft_strncmp(parameter, "$?", 2) == 0)
+		val = ft_itoa(get_status());
+	else
+	{
+		val = get_env_char(parameter + 1);
+		if (val)
+			return (ft_strdup(val));
+	}
+	return (val);
 }

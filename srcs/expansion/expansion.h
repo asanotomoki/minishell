@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:22:15 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/16 21:42:05 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/25 23:36:15 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	**swap_cmd_null(char **cmd, size_t i);
 char	*set_return_val(char *str);
 void	free_strval(char **str);
 int		set_mode(char c, int mode);
+char	*get_val(char *parameter);
 
 //parameter
 char	*set_parameter(char *str, size_t i);
