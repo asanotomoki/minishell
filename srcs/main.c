@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/24 13:22:32 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/27 00:15:39 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	shell_system(char *line)
 	int			status;
 
 	lexer_lst = NULL;
+	//lexerは失敗時以外statusを受け取らない！
 	status = lexer(line, &lexer_lst);
 	if (!lexer_lst || status != 0)
 		return (set_get_status(status));
