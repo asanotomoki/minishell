@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:41:21 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/20 04:37:41 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/27 00:01:07 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static char	*absolute_path(char *cmd, char *path)
 	char	**cmd_paths;
 
 	if (!path)
-		return (NULL);
+		error_exit(127, cmd, "No such file or directory");
 	cmd_paths = get_paths(path);
 	if (!cmd_paths)
 		perror_exit(EXIT_FAILURE, "malloc");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parameter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 13:02:09 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/25 23:35:47 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,19 @@ char	*set_parameter(char *str, size_t i)
 {
 	char	*parameter;
 	char	*val;
-	int		flag;
 
 	parameter = get_parameter(str + i);
-	flag = 0;
 	if (parameter)
 	{
-		if (ft_strncmp(parameter, "$?", 2) == 0)
-		{
-			val = ft_itoa(get_status());
-			flag = 1;
-		}
-		else
-			val = get_env_char(parameter + 1);
+		val = get_val(parameter);
 		str = join_parameter(str, val, i, ft_strlen(parameter));
 		free_strval(&parameter);
-		if (flag)
+		if (str && !*str)
+		{
+			free_strval(&str);
+			return (NULL);
+		}
+		if (val)
 			free_strval(&val);
 	}
 	else

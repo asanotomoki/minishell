@@ -6,7 +6,7 @@
 /*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 17:26:11 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/25 22:16:42 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/27 00:15:17 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	set_env(char *s)
 	param = get_param(s);
 	if (!param)
 		return (1);
+	//shell変数？？
 	if (!ft_strchr(s, '='))
 	{
 		free_strval(&param);
@@ -88,6 +89,7 @@ static int	put_env_declare(void)
 	char	*val;
 
 	environ = get_env();
+	//sort
 	while (environ)
 	{
 		val = (char *)environ->content;
