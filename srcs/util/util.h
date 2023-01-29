@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/30 02:58:23 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/23 02:51:26 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,10 @@ int		set_get_status(int status);
 /* env_utils.c */
 char	*env_put_error(char *function, char *val);
 int		init_env(void);
-t_list	*get_env_val(char *param);
-
-/* env_utils2.c */
 t_list	*get_env(void);
-char	*get_env_char(char *param);
+t_list	*get_env_val(char *param);
 char	**get_env_argv(void);
+char	*get_env_char(char *param);
 
 /* signal_utils.c */
 void	sigint_handler(int sig_no);

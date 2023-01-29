@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 04:48:53 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/30 00:05:18 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/21 01:21:20 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 
 int	set_hiredoc_fd(t_redirect *redirect)
 {
-	size_t	len;
-	bool	is_quoted;
 	t_list	*document;
+	size_t	len;
 
 	len = 0;
-	is_quoted = redirect->heredoc_quoted;
-	document = creat_document(&len, redirect->filename, is_quoted);
+	document = creat_document(&len, redirect->filename);
 	if (len == 0 || g_shell.heredoc_interrupted)
 		redirect->heredoc_fd = open("/dev/null", O_RDONLY);
 	else if (len > HEREDOC_PIPESIZE)

@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 23:51:13 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/30 03:33:04 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/25 21:00:04 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int	rl_routine(void)
 {
 	if (g_shell.sig_no == 0)
 		return (0);
-	if (g_shell.sig_no == ENOENT)
-		;
-	else if (g_shell.sig_no == SIGQUIT)
+	if (g_shell.sig_no == SIGQUIT)
 	{
 		if (g_shell.child_interrupted)
 		{
@@ -34,7 +32,9 @@ int	rl_routine(void)
 	}
 	else
 	{
-		rl_done = 1;
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		ft_putchar_fd('\n', 1);
 		if (g_shell.status == 0)
 			g_shell.status = 1;
 	}

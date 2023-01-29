@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 00:55:39 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/30 00:05:48 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/21 01:20:40 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	write_heredoc(int fd, t_list *document)
 	return (0);
 }
 
-t_list	*creat_document(size_t *len_ptr, char *delimiter, bool is_quoted)
+t_list	*creat_document(size_t *len_ptr, char *delimiter)
 {
 	char	*line;
 	t_list	*new;
@@ -48,10 +48,7 @@ t_list	*creat_document(size_t *len_ptr, char *delimiter, bool is_quoted)
 			break ;
 		}
 		line = joint_carriage_return(line);
-		if (is_quoted)
-			new = ft_lstnew(line);
-		else
-			new = ft_lstnew(heredoc_expand(line));
+		new = ft_lstnew(heredoc_expand(line));
 		if (new == NULL)
 			return (NULL);
 		ft_lstadd_back(&document, new);
