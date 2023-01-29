@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 12:44:05 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/30 02:58:02 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/30 04:00:21 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,32 @@ char	*env_put_error(char *function, char *val)
 	return (NULL);
 }
 
+char	**get_env_argv(void)
+{
+	size_t	i;
+	t_list	*lst;
+	char	**res;
+
+	lst = get_env();
+	res = (char **)malloc(sizeof(char **) * ft_lstsize(lst) + 1);
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (lst)
+	{
+		res[i] = (char *)lst->content;
+		lst = lst->next;
+		i++;
+	}
+	res[i] = NULL;
+	return (res);
+}
+
+t_list	*get_env(void)
+{
+	return (g_shell.env);
+}
+
 t_list	*get_env_val(char *param)
 {
 	t_list	*envp;
@@ -43,63 +69,23 @@ t_list	*get_env_val(char *param)
 	return (envp);
 }
 
-char	*set_shlvl(char *shlvl)
-{
-	long	n;
-	char	*str_val;
-	char	*ret;
-
-	n = ft_strtol(&shlvl[6], NULL, 10);
-	if (n < 0 || n == LONG_MAX)
-		return (ft_strdup("SHLVL=1"));
-	n++;
-	if (n >= 1000)
-	{
-		printf(\
-			"minish: warning: shell level (%ld) too high, resetting to 1\n", n);
-		return (ft_strdup("SHLVL=1"));
-	}
-	str_val = ft_itoa(n);
-	ret = ft_strjoin("SHLVL=", str_val);
-	free(str_val);
-	return (ret);
-}
-
-t_list	*make_env_lst(char **val, t_list *lst)
-{
-	size_t		i;
-	bool		has_shlvl;
-	t_list		*new;
-
-	i = 0;
-	has_shlvl = false;
-	while (val[i])
-	{
-		if (ft_strncmp(val[i], "SHLVL=", 6) == 0)
-		{
-			has_shlvl = true;
-			new = ft_lstnew(set_shlvl(val[i]));
-		}
-		else
-			new = ft_lstnew(ft_strdup(val[i]));
-		ft_lstadd_back(&lst, new);
-		i++;
-	}
-	if (!has_shlvl)
-		ft_lstadd_back(&lst, ft_lstnew(ft_strdup("SHLVL=1")));
-	return (lst);
-}
-
 int	init_env(void)
 {
-	char		**val;
+	size_t		i;
 	extern char	**environ;
+	char		**val;
 	t_list		*lst;
 
-	if (environ == NULL)
-		return (1);
 	val = (char **)environ;
+	if (!val)
+		return (1);
 	lst = NULL;
-	g_shell.env = make_env_lst(val, lst);
+	i = 0;
+	while (val[i])
+	{
+		ft_lstadd_back(&lst, ft_lstnew(ft_strdup(val[i])));
+		i++;
+	}
+	g_shell.env = lst;
 	return (0);
 }

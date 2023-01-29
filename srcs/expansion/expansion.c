@@ -6,7 +6,7 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/30 00:01:55 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/30 03:59:38 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,6 @@ int	redirect_expansion(t_redirect *redirect)
 			err_msg(filename, "ambiguous redirect", 1);
 			free_strval(&filename);
 			return (1);
-		}
-		if (redirect->type == HEREDOCU)
-		{
-			if (is_delimiter_quoted(filename, redirect->filename))
-				redirect->heredoc_quoted = true;
 		}
 		free_strval(&filename);
 		redirect = redirect->next;
