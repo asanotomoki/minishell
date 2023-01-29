@@ -3,70 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: test <test@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/11/22 10:59:56 by tasano            ###   ########.fr       */
+/*   Updated: 2023/01/29 22:52:17 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "builtin_cmds.h"
+#include <signal.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <readline/history.h>
+#include <readline/readline.h>
+#include "exec.h"
+#include "util.h"
+#include "lexer.h"
+#include "parser.h"
+#include "minishell.h"
+#include "expansion.h"
+#include "builtin_cmds.h"
+#include "libft.h"
 
-static void shell_exit(char *line)
+static int	shell_system(char *line)
 {
-	printf("exit\n");
-	free(line);
-	exit(0);
-}
+	t_token_lst	*lexer_lst;
+	t_cmd		*cmd_lst;
+	int			status;
 
-int parser(char *line, char **envp)
-{
-	int	status;
-
-	status = basic_cmd(line, envp);
+	lexer_lst = NULL;
+	//lexerは失敗時以外statusを受け取らない！
+	status = lexer(line, &lexer_lst);
+	if (!lexer_lst || status != 0)
+		return (set_get_status(status));
+	cmd_lst = parser(lexer_lst);
+	if (cmd_lst == NULL)
+		return (get_status());
+	status = expansion(cmd_lst);
+	if (status != 0)
+		return (set_get_status(status));
+	status = exection(cmd_lst);
+	cmd_lstfree(&cmd_lst);
 	return (status);
 }
 
-
-int shell_system(char *line, char **envp)
+void	detect_eof(void)
 {
-	int	status;
-
-	status = parser(line, envp);
-	return (status);
+	ft_putendl_fd("exit", STDOUT_FILENO);
+	ft_lstclear(&g_shell.env, free);
+	exit(EXIT_SUCCESS);
 }
 
-int main(int argc, char **argv, char **envp)
+static void	interactive_shell(void)
 {
-	char *line;
-	int status;
+	char	*line;
 
-	if (argc < 1)
-		return (1);
-	status = 0;
-	(void *)argv;
 	while (1)
 	{
-		line = readline("minishell$ ");
-		if (!line)
-		{
-			status = 1;
-			break;
-		}
-		if (!ft_strncmp("exit", line, 5))
-		{
-			shell_exit(line);
+		line = readline(PROMPT);
+		if (line == NULL)
 			break ;
-		}
 		if (*line)
 		{
 			add_history(line);
-			//shell_system(line, envp);
+			shell_system(line);
 		}
 		free(line);
 	}
-	printf("test");
-	return (status);
+	return (detect_eof());
+}
+
+static void	init_shell(void)
+{
+	init_env();
+	g_shell.status = 0;
+	g_shell.sig_no = 0;
+	g_shell.heredoc_interrupted = 0;
+}
+
+int	main(void)
+{
+	init_shell();
+	catch_signal();
+	set_rl_routine();
+	interactive_shell();
+	return (g_shell.status);
 }

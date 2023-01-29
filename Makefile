@@ -6,7 +6,7 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/04 15:38:14 by asanotomoki       #+#    #+#              #
-#    Updated: 2022/12/17 16:15:49 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/25 23:05:21 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,34 +15,44 @@ OBJDIR		:=	./obj
 SRC_DIR		:=	./srcs
 CC			:=	cc
 CFLAGS		:=	-Wall -Werror -Wextra
-CFLAGS		+=	-g -fsanitize=address 
+#CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g
+
 HEADERS			:=  ./includes
 LIBFT_DIR		:=	./libft
 LIBFT			:=	$(LIBFT_DIR)/libft.a
 HEADERS			+=	$(LIBFT_DIR)/includes
-BUILTIN_DIR		:=	$(SRC_DIR)/builtin_cmds
-BUILTIN			:=	$(BUILTIN_DIR)/builtin_cmds.a
-HEADERS			+=	$(BUILTIN_DIR)
-LEXER_DIR		:=	$(SRC_DIR)/lexer
-LEXER			:=	$(LEXER_DIR)/lexer.a
-HEADERS			+=	$(LEXER_DIR)
-PARSER_DIR		:=	$(SRC_DIR)/parser
-PARSER			:=	$(PARSER_DIR)/parser.a
-HEADERS			+=	$(PARSER_DIR)
-PIPE_DIR		:=	$(SRC_DIR)/pipe
-PIPE			:=	$(PIPE_DIR)/pipe.a
-HEADERS			+=	$(PIPE_DIR)
-REDIRECT_DIR	:=	$(SRC_DIR)/redirect
-REDIRECT		:=	$(REDIRECT_DIR)/redirect.a
-HEADERS			+=	$(REDIRECT_DIR)
+
 UTIL_DIR		:=	$(SRC_DIR)/util
 UTIL			:=	$(UTIL_DIR)/util.a
 HEADERS			+=	$(UTIL_DIR)
 
-INCLUDES	:=	$(addprefix -I , $(HEADERS))
+BUILTIN_DIR		:=	$(SRC_DIR)/builtin_cmds
+BUILTIN			:=	$(BUILTIN_DIR)/builtin_cmds.a
+HEADERS			+=	$(BUILTIN_DIR)
 
-SRC_FILE :=	main.c \
-			basic_cmd.c get_cmdfile.c 
+LEXER_DIR		:=	$(SRC_DIR)/lexer
+LEXER			:=	$(LEXER_DIR)/lexer.a
+HEADERS			+=	$(LEXER_DIR)
+
+PARSER_DIR		:=	$(SRC_DIR)/parser
+PARSER			:=	$(PARSER_DIR)/parser.a
+HEADERS			+=	$(PARSER_DIR)
+
+EXPANSION_DIR	:=	$(SRC_DIR)/expansion
+EXPANSION		:=	$(EXPANSION_DIR)/expansion.a
+HEADERS			+=	$(EXPANSION_DIR)
+
+EXEC_DIR		:=	$(SRC_DIR)/exection
+EXEC			:=	$(EXEC_DIR)/exection.a
+HEADERS			+=	$(EXEC_DIR)
+
+READLINE_DIR	:=	$(shell brew --prefix readline)
+READLINE		:=	$(READLINE_DIR)/lib/libreadline.a
+HEADERS			+=	$(READLINE_DIR)/include
+
+INCLUDES		:=	$(addprefix -I , $(HEADERS))
+
+SRC_FILE :=	main.c
 OBJECTS	:= $(addprefix $(OBJDIR)/, $(notdir $(SRC_FILE:.c=.o)))
 RM := rm -f
 
@@ -58,15 +68,14 @@ FCLEAN_MSG	:=	"$(RED) Delete $(NAME)$(DEFAULT)"
 .PHONY: all fclean clean re
 
 $(NAME): $(LIBFT) \
-		  $(BUILTIN)\
+		  $(UTIL) \
+		  $(BUILTIN) \
 		  $(LEXER) \
 		  $(PARSER) \
-		  $(PIPE) \
-		  $(REDIRECT) \
-		  $(UTIL) \
+		  $(EXPANSION) \
+		  $(EXEC) \
 		  $(OBJECTS)
-		  
-	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(BUILTIN) $(LEXER) $(PARSER) $(PIPE) $(REDIRECT) $(UTIL) $(OBJECTS) -lreadline
+	@$(CC) $(CFLAGS) -o $(NAME) $(LIBFT) $(UTIL) $(BUILTIN) $(LEXER) $(PARSER) $(EXPANSION) $(EXEC) $(OBJECTS) -l readline -L$(READLINE_DIR)/lib
 	@echo $(NAME_MSG)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c
@@ -76,23 +85,23 @@ $(OBJDIR)/%.o: $(SRC_DIR)/%.c
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
 
-$(BUILTIN): 
+$(UTIL):
+	@make -C $(UTIL_DIR)
+
+$(BUILTIN):
 	@make -C $(BUILTIN_DIR)
 
-$(LEXER): 
+$(LEXER):
 	@make -C $(LEXER_DIR)
 
-$(PARSER): 
+$(PARSER):
 	@make -C $(PARSER_DIR)
 
-$(PIPE): 
-	@make -C $(PIPE_DIR)
+$(EXPANSION):
+	@make -C $(EXPANSION_DIR)
 
-$(REDIRECT): 
-	@make -C $(REDIRECT_DIR)
-
-$(UTIL): 
-	@make -C $(UTIL_DIR)
+$(EXEC):
+	@make -C $(EXEC_DIR)
 
 all: $(NAME)
 
@@ -102,18 +111,17 @@ clean:
 	@make clean -C $(BUILTIN_DIR)
 	@make clean -C $(LEXER_DIR)
 	@make clean -C $(PARSER_DIR)
-	@make clean -C $(PIPE_DIR)
-	@make clean -C $(REDIRECT_DIR)
-	@make clean -C $(UTIL_DIR)
+	@make clean -C $(EXEC_DIR)
+	@make clean -C $(EXPANSION_DIR)
 	@echo $(CLEAN_MSG)
 
-fclean: 
+fclean:
 	@make fclean -C $(LIBFT_DIR)
 	@make fclean -C $(BUILTIN_DIR)
 	@make fclean -C $(LEXER_DIR)
 	@make fclean -C $(PARSER_DIR)
-	@make fclean -C $(PIPE_DIR)
-	@make fclean -C $(REDIRECT_DIR)
+	@make fclean -C $(EXEC_DIR)
+	@make fclean -C $(EXPANSION_DIR)
 	@make fclean -C $(UTIL_DIR)
 	@rm -rf $(OBJDIR)
 	@echo $(CLEAN_MSG)

@@ -1,15 +1,20 @@
 NAME	:=	lexer.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
+#CFLAGS	+=	 -fsanitize=address -fno-omit-frame-pointer -g 
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-SOURCES	:=	lexer.c
+SOURCES	:=	lexer.c lst_util.c lexer_util.c
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
-INCLUDE	:=	-I ../../libft/includes
+LIB_DIR := 	../../libft
+LIBFT	:=	$(LIB_DIR)/libft.a
+INCLUDE	:=	-I $(LIB_DIR)/includes
+INCLUDE	+=	-I ../../includes
+INCLUDE	+=	-I ../util
 #Message
 RED		:= \033[1;31m
 GREEN	:= \033[1;32m
@@ -47,5 +52,5 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) -o test $(NAME) test.c 
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(LIBFT) $(NAME) test.c 
 	./test

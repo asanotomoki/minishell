@@ -3,23 +3,40 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
+#    By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 20:41:09 by tasano            #+#    #+#              #
-#    Updated: 2022/12/13 16:46:36 by tasano           ###   ########.fr        #
+#    Updated: 2023/01/24 00:13:23 by hiroaki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:=	builtin_cmds.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
+#CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g
+
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-INCLUDE	:=	-I ../../libft/includes
-SOURCES	:=	builtin_cd.c builtin_echo.c builtin_pwd.c builtin_export.c builtin_unset.c builtin_env.c builtin_exit.c
-OBJDIR	:=	./obj
+SOURCES	:=	builtin_cd.c \
+			builtin_echo.c \
+			builtin_pwd.c \
+			builtin_unset.c \
+			builtin_export.c \
+			param_util.c \
+			cd_utils.c \
+			builtin_env.c \
+			builtin_exit.c
+OBJDIR			:=	./obj
+LIBFT_DIR		:=	../../libft
+LIBFT			:=	$(LIBFT_DIR)/libft.a
+INCLUDE			:=	-I $(LIBFT_DIR)/includes
+INCLUDE			+=	-I ../../includes
+INCLUDE			+=	-I ../util
+INCLUDE			+=	-I ../parser
+INCLUDE			+=	-I ../lexer
+
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
 #Message
@@ -32,7 +49,7 @@ NAME_MSG	:= "$(GREEN) Compile $(NAME)$(DEFAULT)"
 CLEAN_MSG	:= "$(YELLOW) Delete ./srcs/builtin_cmds/obj$(DEFAULT)"
 FCLEAN_MSG	:= "$(RED) Delete $(NAME)$(DEFAULT)"
 
-$(NAME): $(OBJECTS) 
+$(NAME): $(OBJECTS)
 	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
 	@echo $(NAME_MSG)
 
@@ -59,5 +76,7 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) -o test $(NAME) test.c 
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(LIBFT) ../../libft/libft.a test.c
 	./test
+$(LIBFT):
+	@make -C $(LIBFT_DIR)

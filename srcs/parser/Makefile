@@ -1,15 +1,24 @@
 NAME	:=	parser.a
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
+#CFLAGS  +=  -fsanitize=address -fno-omit-frame-pointer -g
 SRCDIR	:=	./
 AR		:=	ar
 ARFLAFS	:=	-rcs
 RM		:=	rm -rf
-SOURCES	:=	parser.c
+SOURCES	:=	parser.c cmd_lstutil.c redirect_lstutil.c parser_utils.c
 OBJDIR	:=	./obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(notdir $(SOURCES:.c=.o)))
 DEPENDS	:=	$(OBJECTS:.o:=.d)
 INCLUDE	:=	-I ../../libft/includes
+INCLUDE	+=	-I ../../includes
+LEXER_DIR := ../lexer
+LEXER	:= $(LEXER_DIR)/lexer.a
+INCLUDE += -I $(LEXER_DIR)
+UTIL_DIR := ../util
+UTIL	:= $(UTIL_DIR)/util.a
+INCLUDE	+=	-I ../util
+INCLUDE	+=	-I ../builtin_cmds
 #Message
 RED		:=	\033[1;31m
 GREEN	:=	\033[1;32m
@@ -20,7 +29,7 @@ NAME_MSG := " $(GREEN)Compile $(NAME)$(DEFAULT)"
 CLEAN_MSG := " $(YELLOW)Delete ./srcs/parser/obj$(DEFAULT)"
 FCLEAN_MSG := " $(RED)Delete $(NAME)$(DEFAULT)"
 
-$(NAME): $(OBJECTS) 
+$(NAME): $(OBJECTS)
 	@$(AR) $(ARFLAFS) $(NAME) $(OBJECTS)
 	@echo $(NAME_MSG)
 
@@ -47,5 +56,11 @@ re: fclean all
 
 .PHONY: test
 test: all
-	$(CC) $(CFLAGS) -o test $(NAME) test.c 
+	$(CC) $(CFLAGS) $(INCLUDE) -o test $(NAME) $(UTIL) $(LEXER) ../../libft/libft.a test.c
 	./test
+
+$(LEXER):
+	@make -C $(LEXER_DIR)
+
+$(UTIL):
+	@make -C $(UTIL_DIR)

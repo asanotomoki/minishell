@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtol.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asanotomoki <asanotomoki@student.42.fr>    +#+  +:+       +#+        */
+/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 04:17:38 by asanotomoki       #+#    #+#             */
-/*   Updated: 2022/11/18 15:18:54 by asanotomoki      ###   ########.fr       */
+/*   Updated: 2023/01/21 08:41:19 by tasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,28 @@ long	set_endptr(long res, char ***endptr, const char *str)
 
 long	ft_strtol(const char *str, char **endptr, int base)
 {
-	long	res;
-	int		sign;
-	int		set_c;
+	unsigned long long	res;
+	int					sign;
+	int					set_c;
 
 	if (base < 0 || 36 < base)
 		return (set_endptr(0, &endptr, str));
 	while (ft_isspace(*str))
 		str++;
 	base = set_base(&str, endptr, base);
-	sign = -1;
+	sign = 1;
 	if ((*str == '+' || *str == '-') && ft_isbase(str[1], base))
-		sign = -(44 - *str++);
+		sign = 44 - *str++;
 	res = 0;
 	while (*str)
 	{
 		set_c = charmap(*str, base);
 		if (set_c == -1)
 			break ;
-		res = (res * base) - set_c;
+		res = (res * base) + set_c;
+		if (res > LLONG_MAX + (sign == -1))
+			break ;
 		str++;
 	}
-	return (set_endptr(res * sign, &endptr, str));
+	return (set_endptr((long)res * sign, &endptr, str));
 }
