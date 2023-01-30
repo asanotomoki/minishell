@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 16:01:21 by asanotomoki       #+#    #+#             */
-/*   Updated: 2023/01/27 00:15:39 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/29 22:52:17 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,19 @@ static void	interactive_shell(void)
 {
 	char	*line;
 
-	line = readline(PROMPT);
-	if (line == NULL)
-		return (detect_eof());
-	if (*line)
+	while (1)
 	{
-		add_history(line);
-		shell_system(line);
+		line = readline(PROMPT);
+		if (line == NULL)
+			break ;
+		if (*line)
+		{
+			add_history(line);
+			shell_system(line);
+		}
+		free(line);
 	}
-	free(line);
-	return (interactive_shell());
+	return (detect_eof());
 }
 
 static void	init_shell(void)

@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:21:48 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/25 22:53:36 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/30 00:01:55 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
+#include <stdbool.h>
 #include "expansion.h"
 #include "libft.h"
 #include "util.h"
@@ -58,15 +60,23 @@ int	redirect_expansion(t_redirect *redirect)
 {
 	char	*filename;
 
+	errno = 0;
 	while (redirect)
 	{
 		filename = ft_strdup(redirect->filename);
+		if (filename == NULL)
+			error_exit(ENOMEM, "malloc", "failed to allocate memory");
 		redirect->filename = expand(redirect->filename);
-		if (!redirect->filename)
+		if (redirect->filename == NULL)
 		{
 			err_msg(filename, "ambiguous redirect", 1);
 			free_strval(&filename);
 			return (1);
+		}
+		if (redirect->type == HEREDOCU)
+		{
+			if (is_delimiter_quoted(filename, redirect->filename))
+				redirect->heredoc_quoted = true;
 		}
 		free_strval(&filename);
 		redirect = redirect->next;

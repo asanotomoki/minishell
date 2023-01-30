@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 23:54:22 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/21 13:01:45 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/29 23:56:10 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <unistd.h>
+# include <stdbool.h>
 # include "lexer.h"
 # include "../builtin_cmds/builtin_cmds.h"
 
@@ -24,6 +25,7 @@ typedef struct s_redirect
 	t_token_type		type;
 	int					fd;
 	int					heredoc_fd;
+	bool				heredoc_quoted;
 	struct s_redirect	*next;
 }	t_redirect;
 

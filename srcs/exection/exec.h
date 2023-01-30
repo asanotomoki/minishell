@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasano <tasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:24:22 by hiroaki           #+#    #+#             */
-/*   Updated: 2023/01/21 08:12:02 by tasano           ###   ########.fr       */
+/*   Updated: 2023/01/30 00:06:19 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		check_cmdfile(char	*filename, char	*param);
 /* heredoc_utils.c */
 int		write_heredoc(int fd, t_list *document);
 int		use_tempfile(t_list *document);
-t_list	*creat_document(size_t *len_ptr, char *delimiter);
+t_list	*creat_document(size_t *len_ptr, char *delimiter, bool is_quoted);
 bool	discontinue(char *line, char *delimiter);
 char	*joint_carriage_return(char *line);
 

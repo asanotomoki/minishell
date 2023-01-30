@@ -6,10 +6,11 @@
 /*   By: hiroaki <hiroaki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 18:19:04 by tasano            #+#    #+#             */
-/*   Updated: 2023/01/25 23:37:22 by hiroaki          ###   ########.fr       */
+/*   Updated: 2023/01/29 23:53:28 by hiroaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdbool.h>
 #include "expansion.h"
 #include "libft.h"
 #include "util.h"
@@ -64,4 +65,11 @@ char	*get_val(char *parameter)
 			return (ft_strdup(val));
 	}
 	return (val);
+}
+
+bool	is_delimiter_quoted(char *fname, char *expanded_fname)
+{
+	if (ft_strlen(fname) != ft_strlen(expanded_fname))
+		return (true);
+	return (false);
 }
